@@ -2,6 +2,11 @@ package br.com.controlador.jdbc.modelo;
 
 import java.util.Calendar;
 
+import com.sun.prism.Image;
+
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
+
 public class Empenho {
 
 	private int idEmpenho;
@@ -54,5 +59,6 @@ public class Empenho {
 	public void setEmpenhoDigitalizado(byte[] empenhoDigitalizado) {
 		EmpenhoDigitalizado = empenhoDigitalizado;
 	}
+	
 	
 }

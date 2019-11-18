@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.apache.tomcat.util.http.fileupload.FileItemFactory;
@@ -74,8 +75,11 @@ public class adicionaEmpenhoServlet extends HttpServlet {
 		
 		EmpenhoDao dao = new EmpenhoDao();
 		//dao.adiciona(empenho);
-		dao.empenhoComFile2(file, empenho);
-
-		response.sendRedirect("pages/index.jsp");
+		int idResultado = dao.empenhoComFile2(file, empenho);
+		HttpSession sessao = request.getSession(true);
+		sessao.setAttribute("LastResult", idResultado);
+		
+		response.sendRedirect("pages/adcSucessoEmpenho.jsp");
+		//request.getRequestDispatcher("pages/adcSucessoEmpenho.jsp").forward(request,response);
     }
 }

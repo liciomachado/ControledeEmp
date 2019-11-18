@@ -36,9 +36,13 @@ public class testeInsercaoEmpenho {
 		
 		File f = new File("C:/Users/Mauricio/Desktop/800501.pdf");
 		
-		dao.empenhoComFile(f, empenho);
-		//dao.adiciona(empenho);
-		dao.getLista();
+		//dao.empenhoComFile(f, empenho);
+		int rs = dao.adiciona(empenho);
+		System.out.println(rs);
+		//dao.getLista();
+		
+		Empenho emp = dao.buscaPorID(11);
+		System.out.println(emp.getDestino());
 	}
 	
 	
