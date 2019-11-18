@@ -22,23 +22,16 @@
 		<tbody>
 			<c:forEach var="emp" items="${dao.lista}">
 				<tr>
-					<th scope="row">J ZAGO</th>
-					<td>100</td>
-					<td>2019NE800213</td>
-					<td>650,00</td>
-					<td>ALMOX</td>
+					<td>${emp.idEmpenho}</td>
+					<td>${emp.dataEmpenho.time}</td>
+					<td>${emp.numeroEmpenho}</td>
+					<td>${emp.valorTotal}</td>
+					<td>${emp.destino}</td>
 					<td><a
 						href="https://drive.google.com/open?id=1FnGg-EbQi3LJ9svmpp6vlugFTosfLWI1">Visualizar</td>
 					<td><a
 						href="http://www.nfe.fazenda.gov.br/portal/consultaCompleta.aspx?tipoConteudo=XbSeqxE8pl8=">Visualizar
 							NF</td>
-				</tr>
-				<tr>
-					<td>${emp.idEmpenho}</td>
-					<td>${emp.dataEmpenho.time}</td>
-					<td>${emp.numeroEmpenho}</td>
-					<td>${emp.destino}</td>
-					<td>${emp.valorTotal}</td>
 				</tr>
 			</c:forEach>
 	</table>

@@ -14,7 +14,7 @@
 
 			<div class="row cadastro">
 				<div class="col-md-12">
-					<form class="form-group needs-validation justify-content-center"
+					<form enctype="multipart/form-data" class="form-group needs-validation justify-content-center"
 						method="post" action="../adicionaEmpenho" novalidate>
 						<div class="form-row">
 							<h2 class="bd-title">Informações para Inserção no Banco de
@@ -60,9 +60,8 @@
 									name="noticia" placeholder="Mensagem a ser enviada" required></textarea>
 							</div>
 							<div class="custom-file col-md-12">
-								<input type="file" accept="pdf/*" class="custom-file-input"
-									id="validatedCustomFile" name="imagem" required> <label
-									class="custom-file-label" for="validatedCustomFile">Selecione
+								<input type="file" accept="pdf/*" id="validatedCustomFile" name="imagem" required> <label
+									for="validatedCustomFile">Selecione
 									o empenho</label>
 							</div>
 						</div>

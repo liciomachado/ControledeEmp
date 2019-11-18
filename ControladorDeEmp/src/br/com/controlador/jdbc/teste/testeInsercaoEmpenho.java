@@ -1,5 +1,6 @@
 package br.com.controlador.jdbc.teste;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,7 +34,10 @@ public class testeInsercaoEmpenho {
 		
 		EmpenhoDao dao = new EmpenhoDao();
 		
-		dao.adiciona(empenho);
+		File f = new File("C:/Users/Mauricio/Desktop/800501.pdf");
+		
+		dao.empenhoComFile(f, empenho);
+		//dao.adiciona(empenho);
 		dao.getLista();
 	}
 	

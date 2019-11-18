@@ -1,6 +1,8 @@
 package br.com.controlador.servlet;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -9,27 +11,43 @@ import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
+import org.apache.tomcat.util.http.fileupload.FileItemFactory;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import br.com.controlador.jdbc.dao.EmpenhoDao;
 import br.com.controlador.jdbc.modelo.Empenho;
 import br.com.controlador.jdbc.modelo.Empresa;
 
-
 @WebServlet("/adicionaEmpenho")
+@MultipartConfig(maxFileSize = 16177215)
 public class adicionaEmpenhoServlet extends HttpServlet {
-    protected void service(HttpServletRequest request,
+	
+    protected void doPost(HttpServletRequest request,
                         HttpServletResponse response)
                         throws IOException, ServletException {
     	
     	String numEmpenho = request.getParameter("numEmpenho");
     	String destino = request.getParameter("destinoEmpenho");
     	double valorTotal = Double.parseDouble(request.getParameter("valor"));
- 
+    	
+    	Part filePart = request.getPart("imagem");
+    	
+    	InputStream file = null;
+    	
+    	if(filePart != null) {
+        	file = filePart.getInputStream();
+    	}
+    	
     	Empresa empresa = new Empresa();
     	empresa.setNome(request.getParameter("nomeEmpresa"));
     	empresa.setIdEmpresa(1);
@@ -38,7 +56,6 @@ public class adicionaEmpenhoServlet extends HttpServlet {
     	empenho.setNumeroEmpenho(numEmpenho);
     	empenho.setEmpresa(empresa);
     	empenho.setDestino(destino);
-
     	
     	Calendar data = null;
 		Date d = new Date();
@@ -53,12 +70,12 @@ public class adicionaEmpenhoServlet extends HttpServlet {
         data = Calendar.getInstance();
 		data.setTime(date);
 		empenho.setDataEmpenho(data);
+		empenho.setValorTotal(valorTotal);
 		
-		empenho.setValorTotal(800);
 		EmpenhoDao dao = new EmpenhoDao();
-		dao.adiciona(empenho);
+		//dao.adiciona(empenho);
+		dao.empenhoComFile2(file, empenho);
 
-        // imprime o nome do contato que foi adicionado
 		response.sendRedirect("pages/index.jsp");
     }
 }

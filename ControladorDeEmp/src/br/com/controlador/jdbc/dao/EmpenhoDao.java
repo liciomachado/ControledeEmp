@@ -1,5 +1,9 @@
 package br.com.controlador.jdbc.dao;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -30,7 +34,7 @@ public class EmpenhoDao {
                 " values (?,?,?,?,?,?)";
 
         try {
-            // prepared statement para inserção
+            // prepared statement para inserï¿½ï¿½o
             PreparedStatement stmt = connection.prepareStatement(sql);
 
             // seta os valores
@@ -39,7 +43,7 @@ public class EmpenhoDao {
             stmt.setInt(3,empenho.getEmpresa().getIdEmpresa());
             stmt.setString(4, empenho.getDestino());
             stmt.setDouble(5, empenho.getValorTotal());
-            stmt.setString(6, empenho.getEmpenhoDigitalizado());
+            stmt.setBytes(6, empenho.getEmpenhoDigitalizado());
 
             // executa
             stmt.execute();
@@ -64,14 +68,14 @@ public class EmpenhoDao {
             	//empenho.setEmpresa(rs.getString(""));
             	empenho.setDestino(rs.getString("destino"));
             	empenho.setValorTotal(rs.getDouble("valorTotal"));
-            	empenho.setEmpenhoDigitalizado(rs.getString("empenhoDigitalizado"));
+            	empenho.setEmpenhoDigitalizado(rs.getBytes("empenhoDigitalizado"));
 
-                // montando a data através do Calendar
+                // montando a data atravï¿½s do Calendar
                 Calendar data = Calendar.getInstance();
                 data.setTime(rs.getDate("dataEmpenho"));
                 empenho.setDataEmpenho(data);
 
-                // adicionando o objeto à lista
+                // adicionando o objeto ï¿½ lista
                 empenhos.add(empenho);
             }
             rs.close();
@@ -92,7 +96,7 @@ public class EmpenhoDao {
             stmt.setInt(3,empenho.getEmpresa().getIdEmpresa());
             stmt.setString(4, empenho.getDestino());
             stmt.setDouble(5, empenho.getValorTotal());
-            stmt.setString(6, empenho.getEmpenhoDigitalizado());
+            stmt.setBytes(6, empenho.getEmpenhoDigitalizado());
             stmt.setLong(7, empenho.getIdEmpenho());
             
             stmt.execute();
@@ -112,4 +116,64 @@ public class EmpenhoDao {
             throw new RuntimeException(e);
         }
     }
+    public boolean empenhoComFile( File f,Empenho empenho ){
+        try {
+            PreparedStatement stmt = connection.prepareStatement("insert into empenho " +
+                    "(dataEmpenho,numeroEmpenho,idEmpresa,destino,valorTotal,empenhoDigitalizado)" +
+                    " values (?,?,?,?,?,?)");
+     
+            //converte o objeto file em array de bytes
+            InputStream is = new FileInputStream( f );
+            byte[] bytes = new byte[(int)f.length() ];
+            int offset = 0;
+            int numRead = 0;
+            while (offset < bytes.length
+                   && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
+                offset += numRead;
+            }
+            stmt.setDate(1, new Date(empenho.getDataEmpenho().getTimeInMillis()));
+            stmt.setString(2,empenho.getNumeroEmpenho());
+            stmt.setInt(3,empenho.getEmpresa().getIdEmpresa());
+            stmt.setString(4, empenho.getDestino());
+            stmt.setDouble(5, empenho.getValorTotal());
+            stmt.setBytes(6, bytes);
+            
+            //stmt.setString( 1, f.getName() );
+            stmt.execute();
+            stmt.close();
+            return true;
+     
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+
+    }
+    public boolean empenhoComFile2( InputStream f,Empenho empenho ){
+        try {
+            PreparedStatement stmt = connection.prepareStatement("insert into empenho " +
+                    "(dataEmpenho,numeroEmpenho,idEmpresa,destino,valorTotal,empenhoDigitalizado)" +
+                    " values (?,?,?,?,?,?)");
+     
+            stmt.setDate(1, new Date(empenho.getDataEmpenho().getTimeInMillis()));
+            stmt.setString(2,empenho.getNumeroEmpenho());
+            stmt.setInt(3,empenho.getEmpresa().getIdEmpresa());
+            stmt.setString(4, empenho.getDestino());
+            stmt.setDouble(5, empenho.getValorTotal());
+            stmt.setBlob(6, f);
+            
+            //stmt.setString( 1, f.getName() );
+            stmt.execute();
+            stmt.close();
+            return true;
+     
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } 
+        return false;
+
+    }
+    
 }

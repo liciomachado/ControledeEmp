@@ -10,7 +10,7 @@ public class Empenho {
 	private Empresa empresa;
 	private String destino;
 	private double valorTotal;
-	private String EmpenhoDigitalizado; // MUDAR CONFORME APRENDER
+	private byte[] EmpenhoDigitalizado; // MUDAR CONFORME APRENDER
 	
 	public int getIdEmpenho() {
 		return idEmpenho;
@@ -48,10 +48,11 @@ public class Empenho {
 	public void setValorTotal(double valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-	public String getEmpenhoDigitalizado() {
+	public byte[] getEmpenhoDigitalizado() {
 		return EmpenhoDigitalizado;
 	}
-	public void setEmpenhoDigitalizado(String empenhoDigitalizado) {
+	public void setEmpenhoDigitalizado(byte[] empenhoDigitalizado) {
 		EmpenhoDigitalizado = empenhoDigitalizado;
 	}
+	
 }
