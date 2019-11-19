@@ -82,5 +82,12 @@ public class NotaFiscal {
 	public void setDataRecebido(Calendar dataRecebido) {
 		this.dataRecebido = dataRecebido;
 	}
+	@Override
+	public String toString() {
+		return "NotaFiscal [idNotaFiscal=" + idNotaFiscal + ", NumNota=" + NumNota + ", ChaveAcesso=" + ChaveAcesso
+				+ ", ValorTotal=" + ValorTotal + ", ImagemNota=" + ImagemNota + ", empresa=" + empresa + ", idEmpresa="
+				+ idEmpresa + ", empenho=" + empenho + ", idEmpenho=" + idEmpenho + ", dataEmissao=" + dataEmissao
+				+ ", dataRecebido=" + dataRecebido + "]";
+	}
 	
 }

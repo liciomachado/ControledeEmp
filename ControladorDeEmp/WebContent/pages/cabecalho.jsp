@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="../css/bootstrap4/css/bootstrap.min.css">
 <link rel="stylesheet" href="../css/bootstrap4/css/estilos.css">
 <link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/select2/dist/css/select2.min.css">
 <title>Gerenciador de Empenhos</title>
 <link rel="shortcut icon" href="../img/iconOM.png" />
 </head>
@@ -54,7 +55,7 @@
 					<div class="dropdown-menu">
 						<a class="dropdown-item" href="gerenciamentoSite.php">Configurações do site</a> 
 						<a class="dropdown-item" href="adicionaEmpenho.jsp">Envio de Empenhos</a> 
-						<a class="dropdown-item" href="recebimentoNF.php">Recebimento de NF</a> 
+						<a class="dropdown-item" href="adicionaNF.jsp">Recebimento de NF</a> 
 						<a class="dropdown-item" href="protocolo.php">Envio para pagamento</a>
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="../logicaDeslogar">Sair </a>
