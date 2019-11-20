@@ -48,11 +48,11 @@
         $("select[name='inputEmp']").change(function(){
           var itemSelecionado = $('#inputEmp').val();
           console.log($('#inputEmp').val());
-          $.getJSON('function.php', {
+          $.getJSON('../functionJSON', {
         	 inputEmp: itemSelecionado
           },function(json) {
-            $("#setEmpresa").val(json.endereco);
-            $("#setValor").val(json.numero);
+            $("#setEmpresa").val(json.empresa);
+            $("#setValor").val(json.valor);
           });
         });
       });
