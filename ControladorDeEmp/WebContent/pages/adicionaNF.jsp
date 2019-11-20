@@ -28,28 +28,28 @@
 					</div>
 					<div class="form-group col-md-3">
 						<label for="inputPreco">Valor total R$</label> <input type="number"
-							class="form-control " id="inputPreco" name="inputPreco" required
+							class="form-control " id="inputPreco" name="inputPreco" required placeholder="00.00"
 							value="">
 					</div>
 
 					<div class="form-group col-md-3">
 						<label for="inputEmp">Empenho</label> 
 						<select class="js-example-basic-single form-control col-md-11" id="inputEmp" name="inputEmp">
-							<c:forEach var="emp" items="${dao.lista}">
+							<option value="">Selecione um Empenho</option>
+							<c:forEach var="emp" items="${dao.listaEmpenhosPendentes}">
 								<option value="${emp.idEmpenho}">${emp.numeroEmpenho}</option>
 							</c:forEach>
 						</select>
 					</div>
 					
-
 					<div class="form-group col-md-6">
-						<label for="inputPreco">Empresa</label> <input type="text"
-							class="form-control " readonly name="dataEntrada" required
+						<label for="setEmpresa">Empresa</label> <input type="text"
+							class="form-control " id="setEmpresa" readonly name="setEmpresa" required
 							value="">
 					</div>
 					<div class="form-group col-md-3">
-						<label for="inputPreco">Valor total do Empenho</label> <input
-							type="text" class="form-control " readonly name="dataEntrada"
+						<label for="setValor">Valor total do Empenho</label> <input
+							type="text" class="form-control" id="setValor" readonly name="setValor"
 							required value="R$">
 					</div>
 					<div class="form-group col-md-12">

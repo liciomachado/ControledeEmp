@@ -40,7 +40,7 @@ public class testeNotaFiscalDao {
 		
 		NotaFiscalDao dao = new NotaFiscalDao();
 		
-		//dao.adiciona(nota);
-		dao.getLista();
+		dao.adiciona(nota);
+		//dao.getLista();
 	}
 }

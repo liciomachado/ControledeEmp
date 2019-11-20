@@ -129,6 +129,38 @@ public class EmpenhoDao {
 			throw new RuntimeException(e);
 		}
 	}
+	public List<Empenho> getListaEmpenhosPendentes() {
+		try {
+			List<Empenho> empenhos = new ArrayList<Empenho>();
+			PreparedStatement stmt = this.connection.
+					prepareStatement("select * from empenho where idempenho not in(select idempenho from notafiscal)");
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				// criando o objeto Contato
+				Empenho empenho = new Empenho();
+				empenho.setIdEmpenho(rs.getInt("idempenho"));
+				empenho.setNumeroEmpenho(rs.getString("numeroEmpenho"));
+				//empenho.setEmpresa(rs.getString(""));
+				empenho.setDestino(rs.getString("destino"));
+				empenho.setValorTotal(rs.getDouble("valorTotal"));
+				empenho.setEmpenhoDigitalizado(rs.getBytes("empenhoDigitalizado"));
+
+				// montando a data atrav�s do Calendar
+				Calendar data = Calendar.getInstance();
+				data.setTime(rs.getDate("dataEmpenho"));
+				empenho.setDataEmpenho(data);
+
+				// adicionando o objeto � lista
+				empenhos.add(empenho);
+			}
+			rs.close();
+			stmt.close();
+			return empenhos;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	public void altera(Empenho empenho) {
 		String sql = "update empenho set dataEmpenho=?, numeroEmpenho=?, idEmpresa=?," +
 				"destino=?, valorTotal=?,empenhoDigitalizado=? where idempenho=?";

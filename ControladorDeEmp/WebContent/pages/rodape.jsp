@@ -43,5 +43,18 @@
     $(document).ready(function() {
         $('.js-example-basic-single').select2();
     });
+    
+    $(document).ready(function(){
+        $("select[name='inputEmp']").change(function(){
+          var itemSelecionado = $('#inputEmp').val();
+          console.log($('#inputEmp').val());
+          $.getJSON('function.php', {
+        	 inputEmp: itemSelecionado
+          },function(json) {
+            $("#setEmpresa").val(json.endereco);
+            $("#setValor").val(json.numero);
+          });
+        });
+      });
 </script>
 </html>

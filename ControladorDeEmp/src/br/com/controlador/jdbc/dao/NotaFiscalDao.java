@@ -26,11 +26,11 @@ public class NotaFiscalDao {
 
 	public void adiciona(NotaFiscal nf) {
 		String sql = "insert into notafiscal " +
-				"(numNota,chaveAcesso,valorTotal,idEmpenho,idEmpresa,dataEmissao,dataRecebido)" +
-				" values (?,?,?,?,?,?,?)";
+				"(numNota,chaveAcesso,valorTotal,idEmpenho,dataEmissao,dataRecebido)" +
+				" values (?,?,?,?,?,?)";
 
 		try {
-			// prepared statement para inserção
+			// prepared statement para inserï¿½ï¿½o
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
 			// seta os valores
@@ -38,9 +38,8 @@ public class NotaFiscalDao {
 			stmt.setString(2,nf.getChaveAcesso());
 			stmt.setDouble(3,nf.getValorTotal());
 			stmt.setInt(4,nf.getEmpenho().getIdEmpenho());
-			stmt.setInt(5,nf.getEmpresa().getIdEmpresa());
-			stmt.setDate(6, new Date(nf.getDataEmissao().getTimeInMillis()));
-			stmt.setDate(7, new Date(nf.getDataRecebido().getTimeInMillis()));
+			stmt.setDate(5, new Date(nf.getDataEmissao().getTimeInMillis()));
+			stmt.setDate(6, new Date(nf.getDataRecebido().getTimeInMillis()));
 
 			// executa
 			stmt.execute();
@@ -73,7 +72,7 @@ public class NotaFiscalDao {
                 data.setTime(rs.getDate("dataRecebido"));
 				nf.setDataRecebido(data);
 
-				// adicionando o objeto à lista
+				// adicionando o objeto ï¿½ lista
 				nfs.add(nf);
 			}
 			rs.close();
@@ -96,7 +95,7 @@ public class NotaFiscalDao {
 				+ "idEmpresa=?,dataEmissao=?,dataRecebido=? where idnotaFiscal=?";
 
 		try {
-			// prepared statement para inserção
+			// prepared statement para inserï¿½ï¿½o
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
 			// seta os valores
