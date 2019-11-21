@@ -24,13 +24,9 @@ public class functionJSON extends HttpServlet {
 		
 		EmpenhoDao dao = new EmpenhoDao();
 		Empenho empenho = new Empenho();
-		empenho = dao.buscaPorID(id);
+		empenho = dao.buscaParaNF(id);
 		double valor = empenho.getValorTotal();
-		String empresa = empenho.getDestino();
-		response.getWriter().println(empresa + " " + valor);
+		String empresa = empenho.getEmpresa().getNome();
+		response.getWriter().println(empresa + "/" + valor);
     }
-	
-	
-	
-
 }

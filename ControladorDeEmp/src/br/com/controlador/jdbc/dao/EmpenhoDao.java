@@ -96,6 +96,29 @@ public class EmpenhoDao {
 			throw new RuntimeException(e);
 		}
 	}
+	public Empenho buscaParaNF(int id) {
+		Empenho empenho = new Empenho();
+		try{
+			PreparedStatement stmt = this.connection.prepareStatement("SELECT a.idempenho,a.valorTotal,b.nome from empenho as a inner join empresa as b on a.idEmpresa = b.idempresa where idempenho = ?");
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+
+			if(rs.next()) {
+				// criando o objeto Contato
+				empenho.setIdEmpenho(rs.getInt("idempenho"));
+				Empresa empresa = new Empresa();
+				empresa.setNome(rs.getString("nome"));
+				empenho.setEmpresa(empresa);
+				empenho.setValorTotal(rs.getDouble("valorTotal"));
+
+				rs.close();
+				stmt.close();
+			}
+			return empenho;
+		}catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 	public List<Empenho> getLista() {
 		try {

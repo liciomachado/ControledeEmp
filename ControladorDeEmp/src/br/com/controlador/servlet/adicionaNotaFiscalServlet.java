@@ -29,6 +29,7 @@ public class adicionaNotaFiscalServlet extends HttpServlet {
 		String dataString = request.getParameter("inputDataEmissao");
 		double valorNF = Double.parseDouble(request.getParameter("inputPreco"));
 		int idEmpenho = Integer.parseInt(request.getParameter("inputEmp"));
+		int numNota = Integer.parseInt(request.getParameter("inputNota"));
 		
 		//-----------------PEGANDO DATA DE AGORA
 		Date d = new Date();
@@ -64,7 +65,7 @@ public class adicionaNotaFiscalServlet extends HttpServlet {
 		nota.setValorTotal(valorNF);
 		nota.setDataEmissao(dataEmissao);
 		nota.setDataRecebido(data);
-		nota.setNumNota(100);
+		nota.setNumNota(numNota);
 		
 		NotaFiscalDao dao = new NotaFiscalDao();
 		dao.adiciona(nota);

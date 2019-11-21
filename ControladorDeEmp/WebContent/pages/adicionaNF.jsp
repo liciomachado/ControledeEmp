@@ -17,21 +17,24 @@
 			<form class="form-group needs-validation justify-content-center"
 				method="post" action="../adicionaNotaFiscal" novalidate>
 				<div class="form-row">
-					<div class="form-group col-md-6">
+					<div class="form-group col-md-5">
 						<label for="inputChaveAcesso">Chave de acesso</label> <input type="text"
 							class="form-control" id="inputChaveAcesso" name="inputChaveAcesso" required value="">
+					</div>
+					<div class="form-group col-md-2">
+						<label for="inputNota">Nº Nota</label> <input type="text"
+							class="form-control" id="inputNota" name="inputNota" required value="">
 					</div>
 					<div class="form-group col-md-3">
 						<label for="inputDataEmissao">Data de Emissão:</label> <input
 							type="date" class="form-control" id="inputDataEmissao" name="inputDataEmissao"
 							required value="">
 					</div>
-					<div class="form-group col-md-3">
+					<div class="form-group col-md-2">
 						<label for="inputPreco">Valor total R$</label> <input type="number"
 							class="form-control " id="inputPreco" name="inputPreco" required placeholder="00.00"
 							value="">
 					</div>
-
 					<div class="form-group col-md-3">
 						<label for="inputEmp">Empenho</label> 
 						<select class="js-example-basic-single form-control col-md-11" id="inputEmp" name="inputEmp">

@@ -11,6 +11,7 @@ import java.util.List;
 
 import br.com.controlador.jdbc.ConnectionFactory;
 import br.com.controlador.jdbc.modelo.Empenho;
+import br.com.controlador.jdbc.modelo.Empresa;
 import br.com.controlador.jdbc.modelo.NotaFiscal;
 
 public class NotaFiscalDao {
@@ -68,6 +69,49 @@ public class NotaFiscalDao {
 				
 				Calendar data = Calendar.getInstance();
                 data.setTime(rs.getDate("dataEmissao"));
+                nf.setDataEmissao(data);
+                data.setTime(rs.getDate("dataRecebido"));
+				nf.setDataRecebido(data);
+
+				// adicionando o objeto � lista
+				nfs.add(nf);
+			}
+			rs.close();
+			stmt.close();
+			return nfs;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public List<NotaFiscal> getNotaRecebidos() {
+		try {
+			List<NotaFiscal> nfs = new ArrayList<NotaFiscal>();
+			PreparedStatement stmt = this.connection.
+					prepareStatement("select a.idnotaFiscal,b.dataEmpenho,a.dataRecebido,empr.nome,a.numNota,a.valorTotal,\r\n" + 
+							"b.numeroEmpenho,b.destino,a.chaveAcesso\r\n" + 
+							"from notafiscal as a inner join empenho as b on a.idEmpenho = b.idempenho \r\n" + 
+							"inner join  empresa as empr on empr.idempresa = b.idEmpresa");
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				// criando o objeto Contato
+				NotaFiscal nf = new NotaFiscal();
+				nf.setIdNotaFiscal(rs.getInt("idnotaFiscal"));
+				nf.setNumNota(rs.getInt("numNota"));
+				nf.setChaveAcesso(rs.getString("chaveAcesso"));
+				nf.setValorTotal(rs.getDouble("valorTotal"));
+				
+				Empenho empenho = new Empenho();
+				empenho.setNumeroEmpenho(rs.getString("numeroEmpenho"));
+				empenho.setDestino(rs.getString("destino"));
+				nf.setEmpenho(empenho);
+				
+				Empresa empresa = new Empresa();
+				empresa.setNome(rs.getString("nome"));
+				nf.setEmpresa(empresa);
+				
+				Calendar data = Calendar.getInstance();
+                data.setTime(rs.getDate("dataEmpenho"));
                 nf.setDataEmissao(data);
                 data.setTime(rs.getDate("dataRecebido"));
 				nf.setDataRecebido(data);
