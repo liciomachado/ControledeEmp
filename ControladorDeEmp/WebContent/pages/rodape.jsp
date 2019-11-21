@@ -19,6 +19,7 @@
 <script src="../css/select2/dist/js/select2.min.js"></script>
 
 <script language="JavaScript" type="text/javascript">
+
 	(function() {
 		// Executa quando o mouse estiver sobre
 		jQuery("#whatever-gallery > div ").hover(function() {

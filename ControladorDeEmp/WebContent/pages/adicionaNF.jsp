@@ -55,8 +55,7 @@
 					<div class="form-group col-md-12">
 						<label for="inputObs">Obs :</label>
 						<textarea class="form-control" id="inputObs" rows="2"
-							name="inputObs" placeholder="Descreva aqui observações relacionadas a entrega do material" value="" required>
-                        </textarea>
+							name="inputObs" placeholder="Descreva aqui observações relacionadas a entrega do material" value="" required></textarea>
 					</div>
 
 				</div>
@@ -68,5 +67,4 @@
 		</div>
 	</div>
 </div>
-
 <c:import url="rodape.jsp" />
