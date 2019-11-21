@@ -40,7 +40,6 @@
 								<option value="${emp.idEmpenho}">${emp.numeroEmpenho}</option>
 							</c:forEach>
 						</select>
-						<button type="button" id="buscaEmp"> Buscar</button>
 					</div>
 					
 					<div class="form-group col-md-6">
