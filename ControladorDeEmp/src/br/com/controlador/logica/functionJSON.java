@@ -17,41 +17,20 @@ import br.com.controlador.jdbc.modelo.Empenho;
 @WebServlet("/functionJSON")
 public class functionJSON extends HttpServlet {
 	
-	JSONObject resp = new JSONObject();
-	
-	public functionJSON(int id) throws JSONException {
-		EmpenhoDao dao = new EmpenhoDao();
-		Empenho empenho = new Empenho();
-		empenho = dao.buscaPorID(id);
-		
-		resp.put("empresa", empenho.getNumeroEmpenho());
-		resp.put("valor", empenho.getValorTotal());
-		
-	}
-	public JSONObject retornaCliente(int id) throws JSONException {
-		EmpenhoDao dao = new EmpenhoDao();
-		Empenho empenho = new Empenho();
-		empenho = dao.buscaPorID(id);
-		
-		resp.put("empresa", empenho.getNumeroEmpenho());
-		resp.put("valor", empenho.getValorTotal());
-		
-		return resp;
-	}
 	@Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-		JSONObject resp = new JSONObject();
-
+		int id = Integer.parseInt(request.getParameter("id"));
+		
 		EmpenhoDao dao = new EmpenhoDao();
 		Empenho empenho = new Empenho();
 		empenho = dao.buscaPorID(id);
-		
-		resp.put("empresa", empenho.getNumeroEmpenho());
-		resp.put("valor", empenho.getValorTotal());
-		
-        response.setContentType("application/json");
-        response.getWriter().write(resp.toString());
+		double valor = empenho.getValorTotal();
+		String empresa = empenho.getDestino();
+		response.getWriter().println(empresa + " " + valor);
     }
+	
+	
+	
 
 }

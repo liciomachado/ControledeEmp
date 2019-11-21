@@ -40,6 +40,7 @@
 								<option value="${emp.idEmpenho}">${emp.numeroEmpenho}</option>
 							</c:forEach>
 						</select>
+						<button type="button" id="buscaEmp"> Buscar</button>
 					</div>
 					
 					<div class="form-group col-md-6">
@@ -55,7 +56,7 @@
 					<div class="form-group col-md-12">
 						<label for="inputObs">Obs :</label>
 						<textarea class="form-control" id="inputObs" rows="2"
-							name="inputObs" placeholder="Descreva aqui observações relacionadas a entrega do material" required>
+							name="inputObs" placeholder="Descreva aqui observações relacionadas a entrega do material" value="" required>
                         </textarea>
 					</div>
 

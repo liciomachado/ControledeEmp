@@ -46,7 +46,7 @@ public class EmpenhoDao {
 
 			// seta os valores
 			stmt.setDate(1, new Date(empenho.getDataEmpenho().getTimeInMillis()));
-			stmt.setString(2,empenho.getNumeroEmpenho());
+			stmt.setString(2,empenho.getNumeroEmpenho().toUpperCase());
 			stmt.setInt(3,empenho.getEmpresa().getIdEmpresa());
 			stmt.setString(4, empenho.getDestino());
 			stmt.setDouble(5, empenho.getValorTotal());
