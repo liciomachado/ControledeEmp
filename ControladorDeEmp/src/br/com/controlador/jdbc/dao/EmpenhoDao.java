@@ -156,7 +156,7 @@ public class EmpenhoDao {
 		try {
 			List<Empenho> empenhos = new ArrayList<Empenho>();
 			PreparedStatement stmt = this.connection.
-					prepareStatement("select * from empenho where idempenho not in(select idempenho from notafiscal)");
+					prepareStatement("SELECT * FROM controledeempenhos.empenho as a inner join empresa as b on a.idEmpresa = b.idempresa  where idempenho not in(select idempenho from notafiscal)");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -168,6 +168,10 @@ public class EmpenhoDao {
 				empenho.setDestino(rs.getString("destino"));
 				empenho.setValorTotal(rs.getDouble("valorTotal"));
 				empenho.setEmpenhoDigitalizado(rs.getBytes("empenhoDigitalizado"));
+				
+				Empresa empresa = new Empresa();
+				empresa.setNome(rs.getString("nome"));
+				empenho.setEmpresa(empresa);
 
 				// montando a data atrav�s do Calendar
 				Calendar data = Calendar.getInstance();

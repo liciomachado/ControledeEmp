@@ -24,15 +24,14 @@
 	<tbody>
 		<c:forEach var="nota" items="${dao.notaRecebidos}">
 			<tr>
-				<td><a href="https://drive.google.com/open?id=1FnGg-EbQi3LJ9svmpp6vlugFTosfLWI1">${nota.empenho.numeroEmpenho}</td>
+				<td><a href="https://drive.google.com/open?id=1FnGg-EbQi3LJ9svmpp6vlugFTosfLWI1"  target="_blank">${nota.empenho.numeroEmpenho}</td>
 				<td>${nota.empresa.nome}</td>
 				<td>${nota.numNota}</td>
 				<td><fmt:formatDate value="${nota.dataEmissao.time}" /></td>	
 				<td><fmt:formatDate value="${nota.dataRecebido.time}" /></td>	
 				<td>${nota.valorTotal}</td>
 				<td>${nota.empenho.destino}</td>
-				<td><a
-					href="http://www.nfe.fazenda.gov.br/portal/consultaRecaptcha.aspx?tipoConteudo=XbSeqxE8pl8%3D&tipoConsulta=completa&nfe=${nota.chaveAcesso}">Visualizar NF</td>
+				<td><a href="http://www.nfe.fazenda.gov.br/portal/consultaRecaptcha.aspx?tipoConteudo=XbSeqxE8pl8%3D&tipoConsulta=completa&nfe=${nota.chaveAcesso}"  target="_blank">Visualizar NF</td>
 			</tr>
 		</c:forEach>
 </table>
