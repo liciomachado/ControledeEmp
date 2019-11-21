@@ -5,7 +5,7 @@
 
 <c:import url="cabecalho.jsp" />
 
-<jsp:useBean id="dao" class="br.com.controlador.jdbc.dao.EmpenhoDao" />
+<jsp:useBean id="dao" class="br.com.controlador.jdbc.dao.EmpresaDao" />
 
 <div class="container">
 	<div class="row formulario">
@@ -22,19 +22,24 @@
 								dados</h2>
 							<br>
 							<div class="form-group col-md-5">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" value=""id="inputCadastro"> 
+									<label class="form-check-label" for="inputCadastro"> Empresa não cadastrada </label>
+								</div>
+							 <select class="js-example-basic-single form-control col-md-11" id="inputEmp" name="inputEmp">
+								<option value="">Selecione a Empresa</option>
+								<c:forEach var="empresa" items="${dao.lista}">
+									<option value="${empresa.idEmpresa}">${empresa.nome}</option>
+								</c:forEach>
+							</select>
+							</div>
+							<div class="form-group col-md-5">
 								<label for="numeroEmpenho">Numero Empenho </label> <input
 									type="text" class="form-control" id="numeroEmpenho"
 									placeholder="xxxxNExxxxxx" name="numEmpenho" required=""
 									value="">
 							</div>
-							<div class="form-group col-md-5">
-								<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""id="defaultCheck1"> 
-									<label class="form-check-label" for="defaultCheck1"> Empresa não cadastrada </label>
-							</div>
-							 <input type="text" class="form-control" id="nomeEmpresa" placeholder=""
-									name="nomeEmpresa" required="" value="">
-							</div>
+							
 
 							<div class="form-group col-md-2">
 								<label for="valor">Valor R$</label> <input type="text"
@@ -50,7 +55,30 @@
 							<button type="submit" class="btn btn-success mb-5" id="botao"
 								name="">Cadastrar somente o empenho</button>
 						</div>
-						<div class="form-row"></div>
+						<div id="mostraCadastro" style="display:none;" >
+							<form>
+								<div class="form-row">
+									<div class="form-group col-md-4">
+										<label for="nomeEmpresa">Nome Empresa </label> <input
+											type="text" class="form-control" id="nomeEmpresa"
+											placeholder="" name="nomeEmpresa" required="" value="">
+									</div>
+									<div class="form-group col-md-4">
+										<label for="numTelefone">Telefone </label> <input
+											type="text" class="form-control" id="numTelefone"
+											placeholder="" name="numTelefone" required="" value="">
+									</div>
+									<div class="form-group col-md-4">
+										<label for="nomeEmail">Email </label> <input
+											type="text" class="form-control" id="nomeEmail"
+											placeholder="" name="nomeEmail" required="" value="">
+									</div>
+									<div class="col-lg-12" style="text-align: right;">
+								      <button type="submit" class="btn btn-primary mb-2">Salvar</button>
+								    </div>
+								</div>
+							</form>
+						</div>
 						<div class="form-row">
 							<h2 class="bd-title">Informações para Envia a empresa</h2>
 

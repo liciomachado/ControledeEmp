@@ -18,8 +18,9 @@
 					<th scope="col">Nº Empenho</th>
 					<th scope="col">Empresa</th>
 					<th scope="col">Valor</th>
+					<th scope="col">Destino</th>
 					<th scope="col">Situação</th>
-					<th scope="col">Enviado para empresa dia</th>
+					<th scope="col">Enviado dia</th>
 					<th scope="col">Obs:</th>
 				</tr>
 			</thead>
@@ -31,6 +32,7 @@
 							target="_blank">${emp.numeroEmpenho}</td>
 						<td>${emp.empresa.nome}</td>
 						<td>${emp.valorTotal}</td>
+						<td>${emp.destino}</td>
 						<td>Pendente Entrega</td>
 						<td><fmt:formatDate value="${emp.dataEmpenho.time}" /></td>
 						<td><button type="button" class="btn btn-primary"

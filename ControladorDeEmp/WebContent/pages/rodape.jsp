@@ -63,5 +63,15 @@
 			});
 		});
 	});
+	$(document).ready(function(e) { 
+		$("#inputCadastro").click(function(e) { 
+			if($(this).is(':checked')) { 
+				$("#mostraCadastro").slideToggle(170);
+			} else {
+				$("#mostraCadastro").slideToggle(170);
+				console.log("CheckBox desmarcado não faz nada."); 
+			}
+		}); 
+	});
 </script>
 </html>
