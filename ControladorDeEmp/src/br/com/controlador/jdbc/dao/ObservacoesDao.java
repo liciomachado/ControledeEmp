@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import org.apache.shiro.crypto.hash.SimpleHash;
-
 import br.com.controlador.jdbc.ConnectionFactory;
 import br.com.controlador.jdbc.modelo.Observacoes;
 
@@ -52,6 +50,36 @@ public class ObservacoesDao {
 			List<Observacoes> obs = new ArrayList<Observacoes>();
 			PreparedStatement stmt = this.connection.
 					prepareStatement("select * from observacoes");
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				// criando o objeto Contato
+				Observacoes observacao = new Observacoes();
+				observacao.setIdObs(rs.getInt("idobservacoes"));
+				observacao.setIdEmpenho(rs.getInt("idempenho"));
+				observacao.setObservacao(rs.getString("observacao"));
+				
+				Calendar data = Calendar.getInstance();
+				data.setTime(rs.getDate("dataObs"));
+				observacao.setDataObs(data);
+
+				// adicionando o objeto � lista
+				obs.add(observacao);
+			}
+			rs.close();
+			stmt.close();
+			return obs;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public List<Observacoes> getListaPeloId() {
+		try {
+			List<Observacoes> obs = new ArrayList<Observacoes>();
+			PreparedStatement stmt = this.connection.
+					prepareStatement("select * from observacoes where idempenho =33");
+			
+			//stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {

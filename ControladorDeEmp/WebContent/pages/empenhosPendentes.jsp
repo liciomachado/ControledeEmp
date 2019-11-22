@@ -1,3 +1,6 @@
+<%@page import="br.com.controlador.jdbc.modelo.Observacoes"%>
+<%@page import="java.util.List"%>
+<%@page import="br.com.controlador.jdbc.dao.ObservacoesDao"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -7,6 +10,8 @@
 <c:import url="cabecalho.jsp" />
 
 <jsp:useBean id="dao" class="br.com.controlador.jdbc.dao.EmpenhoDao" />
+<jsp:useBean id="dao2" class="br.com.controlador.jdbc.dao.ObservacoesDao" />
+
 
 <div class="container">
 	<div class="row">
@@ -35,6 +40,7 @@
 						<td>${emp.destino}</td>
 						<td>Pendente Entrega</td>
 						<td><fmt:formatDate value="${emp.dataEmpenho.time}" /></td>
+						<c:set var="test" value="${emp.idEmpenho}"/>
 						<td><button type="button" class="btn btn-primary"
 								data-toggle="modal" data-target="#ExemploModalCentralizado">
 								Ver</button></td>
@@ -52,9 +58,22 @@
 										</button>
 									</div>
 									<div class="modal-body">
-										15/08/2019 - Contato com a empresa(material a caminho)<br>
-										20/08/2019 - Recebimento do material(computador recebido com
-										defeito)
+									
+										<%--<%
+											Integer test = Integer.parseInt(pageContext.getAttribute("test").toString());
+												System.out.println(test);
+
+												ObservacoesDao obsDao = new ObservacoesDao();
+
+												List<Observacoes> obsList = obsDao.getListaPeloId(test);
+												for (Observacoes p : obsList) {
+										%>
+									                <p><%= p.getObservacao()%></p>
+												<%}
+										%>--%>
+									<c:forEach var="obs" items="${dao2.listaPeloId}">
+										<fmt:formatDate value="${obs.dataObs.time}" /> - ${obs.observacao} </br>
+									</c:forEach>
 										<form>
 											<div class="form-group">
 												<label for="message-text" class="col-form-label">Comentario:</label>

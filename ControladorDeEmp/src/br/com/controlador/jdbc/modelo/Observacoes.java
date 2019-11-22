@@ -8,6 +8,7 @@ public class Observacoes {
 	private int idEmpenho;
 	private String observacao;
 	private Calendar dataObs;
+	
 	public int getIdObs() {
 		return idObs;
 	}
