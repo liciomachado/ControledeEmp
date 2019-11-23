@@ -40,14 +40,10 @@
 						<td>${emp.destino}</td>
 						<td>Pendente Entrega</td>
 						<td><fmt:formatDate value="${emp.dataEmpenho.time}" /></td>
-						<c:forEach var="obs" items="${test}">
-							<td><fmt:formatDate value="${obs.dataObs.time}" /> - ${obs.observacao} </br></td>
-						</c:forEach>
 						<c:set var="test" value="${emp.idEmpenho}"/>
 						<td><button type="button" class="btn btn-primary"
 								data-toggle="modal" data-target="#ExemploModalCentralizado">
 								Ver</button></td>
-								
 						
 						<div class="modal fade" id="ExemploModalCentralizado"
 							tabindex="-1" role="dialog"

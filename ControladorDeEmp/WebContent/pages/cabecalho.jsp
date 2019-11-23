@@ -40,9 +40,9 @@
 				</a></li>
 
 			</ul>
-			<form class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm-2" type="search"
-					placeholder="Pesquisar empenho" aria-label="Search">
+			<form action="detalheEmpenho.jsp" method="get" class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2" type="search" name="numEmpenho" placeholder="Pesquisar empenho" aria-label="Search">
+				<input hidden class="form-control mr-sm-2" type="submit" placeholder="Pesquisar empenho" aria-label="Search">
 			</form>
 
 			<ul class="nav nav-pills">

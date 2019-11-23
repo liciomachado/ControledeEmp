@@ -32,4 +32,9 @@ public class Empresa {
 	public void setContato(String contato) {
 		Contato = contato;
 	}
+	@Override
+	public String toString() {
+		return "Empresa [idEmpresa=" + idEmpresa + ", Nome=" + Nome + ", Email=" + Email + ", Contato=" + Contato + "]";
+	}
+
 }

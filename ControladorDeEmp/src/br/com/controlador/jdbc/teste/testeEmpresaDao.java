@@ -15,7 +15,7 @@ public class testeEmpresaDao {
 		
 		EmpresaDao dao = new EmpresaDao();
 		
-		dao.altera(empresa);
-		dao.getLista();
+		//dao.altera(empresa);
+		//dao.getLista();
 	}
 }

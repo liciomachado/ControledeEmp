@@ -22,6 +22,7 @@ import com.sun.media.sound.EmergencySoundbank;
 import br.com.controlador.jdbc.ConnectionFactory;
 import br.com.controlador.jdbc.modelo.Empenho;
 import br.com.controlador.jdbc.modelo.Empresa;
+import br.com.controlador.jdbc.modelo.NotaFiscal;
 
 public class EmpenhoDao {
 
@@ -64,7 +65,60 @@ public class EmpenhoDao {
 			throw new RuntimeException(e);
 		}
 	}
+	public Empenho buscaEmpenhoCompleto(String numeroEmpenho) {
+		Empenho empenho = new Empenho();
+		try{
+			PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM empenho as a "
+					+ "inner join notafiscal as b on a.idempenho = b.idEmpenho "
+					+ "inner join empresa as c on a.idEmpresa = c.idempresa "
+					+ "where numeroEmpenho = ? ;");
+			
+			stmt.setString(1, numeroEmpenho);
+			ResultSet rs = stmt.executeQuery();
 
+			if(rs.next()) {
+				// criando o objeto Contato
+				empenho.setIdEmpenho(rs.getInt("idempenho"));
+				empenho.setNumeroEmpenho(rs.getString("numeroEmpenho"));
+				empenho.setDestino(rs.getString("destino"));
+				empenho.setValorTotal(rs.getDouble("valorTotal"));
+				empenho.setEmpenhoDigitalizado(rs.getBytes("empenhoDigitalizado"));
+				// montando a data atraves
+				Calendar data = Calendar.getInstance();
+				data.setTime(rs.getDate("dataEmpenho"));
+				empenho.setDataEmpenho(data);
+				
+				Empresa empresa = new Empresa();
+				empresa.setIdEmpresa(rs.getInt("idempresa"));
+				empresa.setNome(rs.getString("nome"));
+				empresa.setContato(rs.getString("contato"));
+				empresa.setEmail(rs.getString("email"));
+				
+				NotaFiscal nf = new NotaFiscal();
+				nf.setIdNotaFiscal(rs.getInt("idnotaFiscal"));
+				nf.setChaveAcesso(rs.getString("chaveAcesso"));
+				nf.setNumNota(rs.getInt("numNota"));
+				nf.setValorTotal(rs.getDouble("valorTotal"));
+				// montando a data atraves
+				Calendar dataNF = Calendar.getInstance();
+				data.setTime(rs.getDate("dataEmissao"));
+				empenho.setDataEmpenho(dataNF);
+				
+				Calendar dataNfRecebida = Calendar.getInstance();
+				data.setTime(rs.getDate("dataRecebido"));
+				empenho.setDataEmpenho(dataNfRecebida);
+
+				empenho.setEmpresa(empresa);
+				empenho.setNotaFiscal(nf);
+
+				rs.close();
+				stmt.close();
+			}
+			return empenho;
+		}catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 	public Empenho buscaPorID(int id) {
 		Empenho empenho = new Empenho();
 		try{
