@@ -73,5 +73,23 @@
 			}
 		}); 
 	});
+	$("#animate").click(function() {
+
+	    $("#contentDetalheEmpenho").animate(
+
+	            {"width": "100%"},
+
+	            1000);
+	});
+	jQuery(function($) {
+		$("#contentDetalheEmpenhoNaoEntregue").animate(
+
+	            {"width": "100%"},
+
+	            1000);
+		}
+	);
+
+
 </script>
 </html>

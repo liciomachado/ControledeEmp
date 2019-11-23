@@ -9,3 +9,14 @@
 .textoJustificado {
     text-align: center;
 }
+
+#contentDetalheEmpenhoNaoEntregue {
+
+    background-image: linear-gradient(to right, #6abf57 55%, white 65%);
+    border-radius: 5px;;
+    width:0%;
+    height:30px;
+
+    padding:3px;
+
+  }

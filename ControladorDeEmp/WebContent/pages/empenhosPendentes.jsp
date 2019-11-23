@@ -40,11 +40,15 @@
 						<td>${emp.destino}</td>
 						<td>Pendente Entrega</td>
 						<td><fmt:formatDate value="${emp.dataEmpenho.time}" /></td>
+						<c:forEach var="obs" items="${test}">
+							<td><fmt:formatDate value="${obs.dataObs.time}" /> - ${obs.observacao} </br></td>
+						</c:forEach>
 						<c:set var="test" value="${emp.idEmpenho}"/>
 						<td><button type="button" class="btn btn-primary"
 								data-toggle="modal" data-target="#ExemploModalCentralizado">
 								Ver</button></td>
-
+								
+						
 						<div class="modal fade" id="ExemploModalCentralizado"
 							tabindex="-1" role="dialog"
 							aria-labelledby="TituloModalCentralizado" aria-hidden="true">
@@ -69,16 +73,15 @@
 												pageContext.setAttribute("test", obsList);
 
 										%>
-									 <c:forEach var="obs" items="${test}">
-										<fmt:formatDate value="${obs.dataObs.time}" /> - ${obs.observacao} </br>
-									</c:forEach>
-										<form>
+									 
+										<form action="../salvaObservacao" method="post">
+											<input hidden type="text" value="${emp.idEmpenho}" name="pegaIdEmpenho">
 											<div class="form-group">
-												<label for="message-text" class="col-form-label">Comentario:</label>
-												<textarea class="form-control" id="message-text"></textarea>
+												<label for="pegaObs" class="col-form-label">Comentario:</label>
+												<textarea class="form-control" id="pegaObs" name="pegaObs"></textarea>
 											</div>
 											<div class="text-right">
-												<button type="button" class="btn btn-primary">Salvar</button>
+												<button type="submit" class="btn btn-primary">Salvar</button>
 											</div>
 										</form>
 									</div>
@@ -92,7 +95,6 @@
 								</div>
 							</div>
 						</div>
-
 
 						<div class="modal fade" id="msgAutomatica" tabindex="-1"
 							role="dialog" aria-labelledby="exampleModalLabel"
