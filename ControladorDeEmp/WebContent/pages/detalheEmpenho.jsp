@@ -43,33 +43,33 @@
 			<div class="form-row">
 			<div class="form-group col-md-12">
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value=""id="inputCadastro"> 
+									<input class="form-check-input" type="checkbox" value="" id="HabilitaEmpenho"> 
 									<label class="form-check-label" for="inputCadastro"> Habilitar Edição  </label>
 								</div>
 							</div>
 				<div class="form-group col-md-3">
-						<label for="idEmpenho">Identificador </label> <input
+						<label for="idEmpenho">Identificador </label> <input readonly
 							type="text" class="form-control" id="idEmpenho"
-							placeholder="" name="idEmpenho" required="" value="">
+							placeholder="" name="idEmpenho" required="" value="<%= emp.getIdEmpenho() %>">
 				</div>
 				<div class="form-group col-md-3">
-					<label for="numeroEmpenho">Numero Empenho </label> <input
+					<label for="numeroEmpenho">Numero Empenho </label> <input readonly
 						type="text" class="form-control" id="numeroEmpenho"
-						placeholder="xxxxNExxxxxx" name="numEmpenho" required="" value="">
+						placeholder="xxxxNExxxxxx" name="numEmpenho" required="" value="<%= emp.getNumeroEmpenho()%>">
 				</div>
 
 				<div class="form-group col-md-3">
-					<label for="valor">Valor R$</label> <input type="number"
+					<label for="valor">Valor R$</label> <input type="number" readonly
 						class="form-control" id="valor" placeholder="" name="valor"
-						required="" value="">
+						required="" value="<%= emp.getValorTotal() %>">
 				</div>
 				<div class="form-group col-md-3">
-					<label for="destinoEmpenho">Destino / Verba </label> <input
+					<label for="destinoEmpenho">Destino / Verba </label> <input readonly
 						type="text" class="form-control" id="destinoEmpenho"
-						placeholder="" name="destinoEmpenho" required="" value="">
+						placeholder="" name="destinoEmpenho" required="" value="<%= emp.getDestino() %>">
 				</div>
 				<div class="custom-file col-md-12">
-					<input type="file" accept="pdf/*" id="validatedCustomFile"
+					<input type="file" readonly accept="pdf/*" id="validatedCustomFile"
 						name="imagem" required> <label for="validatedCustomFile">Selecione
 						o empenho</label>
 				</div>
@@ -90,19 +90,19 @@
 								</div>
 							</div>
 				<div class="form-group col-md-4">
-					<label for="nomeEmpresa">Nome Empresa </label> <input type="text"
+					<label for="nomeEmpresa">Nome Empresa </label> <input type="text" readonly
 						class="form-control" id="nomeEmpresa" placeholder=""
-						name="nomeEmpresa" required="" value="">
+						name="nomeEmpresa" required="" value="<%= emp.getEmpresa().getNome() %>">
 				</div>
 				<div class="form-group col-md-4">
-					<label for="numTelefone">Telefone </label> <input type="text"
+					<label for="numTelefone">Telefone </label> <input type="text" readonly
 						class="form-control" id="numTelefone" placeholder=""
-						name="numTelefone" required="" value="">
+						name="numTelefone" required="" value="<%= emp.getEmpresa().getContato() %>">
 				</div>
 				<div class="form-group col-md-4">
-					<label for="nomeEmail">Email </label> <input type="text"
+					<label for="nomeEmail">Email </label> <input type="text" readonly
 						class="form-control" id="nomeEmail" placeholder=""
-						name="nomeEmail" required="" value="">
+						name="nomeEmail" required="" value="<%= emp.getEmpresa().getEmail() %>">
 				</div>
 
 				<div class="col-lg-12" style="text-align: right;">
@@ -116,27 +116,27 @@
 		<div class="form-row">
 		<div class="form-group col-md-12">
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value=""id="inputCadastro"> 
+									<input class="form-check-input" type="checkbox" value=""id="inputCadastro" readonly> 
 									<label class="form-check-label" for="inputCadastro"> Habilitar Edição </label>
 								</div>
 							</div>
-		<div class="form-group col-md-5">
-						<label for="inputChaveAcesso">Chave de acesso</label> <input type="text"
-							class="form-control" id="inputChaveAcesso" name="inputChaveAcesso" required value="">
+					<div class="form-group col-md-5">
+						<label for="inputChaveAcesso">Chave de acesso</label> <input type="text" readonly
+							class="form-control" id="inputChaveAcesso" name="inputChaveAcesso" required value="<%= emp.getNotaFiscal().getChaveAcesso() %>">
 					</div>
 					<div class="form-group col-md-2">
-						<label for="inputNota">Nº Nota</label> <input type="text"
-							class="form-control" id="inputNota" name="inputNota" required value="">
+						<label for="inputNota">Nº Nota</label> <input type="text" readonly
+							class="form-control" id="inputNota" name="inputNota" required value="<%= emp.getNotaFiscal().getNumNota() %>">
 					</div>
 					<div class="form-group col-md-3">
-						<label for="inputDataEmissao">Data de Emissão:</label> <input
+						<label for="inputDataEmissao">Data de Emissão:</label> <input readonly
 							type="date" class="form-control" id="inputDataEmissao" name="inputDataEmissao"
-							required value="">
+							required value="<fmt:formatDate value="${emp.notaFiscal.dataEmissao.time}" pattern="dd-MM-yyyy"/>">
 					</div>
 					<div class="form-group col-md-2">
-						<label for="inputPreco">Valor total R$</label> <input type="number"
+						<label for="inputPreco">Valor total R$</label> <input type="number" readonly
 							class="form-control " id="inputPreco" name="inputPreco" required placeholder="00.00"
-							value="">
+							value="<%= emp.getNotaFiscal().getValorTotal() %>">
 					</div>
 					<div class="col-lg-12" style="text-align: right;">
 					<button type="submit" class="btn btn-primary mb-2">Alterar Nota Fiscal</button>
@@ -144,10 +144,5 @@
 			</div>
 	</fieldset>
 </div>
-</br>
-</br>
-</br>
-</br>
-</br>
 </br>
 <c:import url="rodape.jsp" />

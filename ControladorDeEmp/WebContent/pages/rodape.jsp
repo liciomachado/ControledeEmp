@@ -89,7 +89,17 @@
 	            1000);
 		}
 	);
-
+	$('#HabilitaEmpenho').click(function(){
+		if ( $(this).val() == '' ){
+			$('#numeroEmpenho').prop('readonly', false);
+			$('#valor').prop('readonly', false);
+			$('#destinoEmpenho').prop('readonly', false);
+		}else {
+			$('#numeroEmpenho').prop('readonly', true);
+			$('#valor').prop('readonly', true);
+			$('#destinoEmpenho').prop('readonly', true);
+		}
+	});
 
 </script>
 </html>
