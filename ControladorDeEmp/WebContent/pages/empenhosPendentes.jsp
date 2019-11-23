@@ -58,20 +58,18 @@
 										</button>
 									</div>
 									<div class="modal-body">
-									
-										<%--<%
+										<%
 											Integer test = Integer.parseInt(pageContext.getAttribute("test").toString());
 												System.out.println(test);
-
+												
+												
 												ObservacoesDao obsDao = new ObservacoesDao();
-
 												List<Observacoes> obsList = obsDao.getListaPeloId(test);
-												for (Observacoes p : obsList) {
+												System.out.println(obsList);
+												pageContext.setAttribute("test", obsList);
+
 										%>
-									                <p><%= p.getObservacao()%></p>
-												<%}
-										%>--%>
-									<c:forEach var="obs" items="${dao2.listaPeloId}">
+									 <c:forEach var="obs" items="${test}">
 										<fmt:formatDate value="${obs.dataObs.time}" /> - ${obs.observacao} </br>
 									</c:forEach>
 										<form>

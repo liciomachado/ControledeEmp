@@ -73,13 +73,13 @@ public class ObservacoesDao {
 			throw new RuntimeException(e);
 		}
 	}
-	public List<Observacoes> getListaPeloId() {
+	public List<Observacoes> getListaPeloId(int id) {
 		try {
 			List<Observacoes> obs = new ArrayList<Observacoes>();
 			PreparedStatement stmt = this.connection.
-					prepareStatement("select * from observacoes where idempenho =33");
+					prepareStatement("select * from observacoes where idempenho =  ?");
 			
-			//stmt.setInt(1, id);
+			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
