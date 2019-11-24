@@ -73,6 +73,16 @@
 			}
 		}); 
 	});
+	$(document).ready(function(e) { 
+		$("#adicionaObs").click(function(e) { 
+			if($(this).is(':checked')) { 
+				$("#txtObs").slideToggle(170);
+			} else {
+				$("#txtObs").slideToggle(170);
+				console.log("CheckBox desmarcado não faz nada."); 
+			}
+		}); 
+	});
 	$("#animate").click(function() {
 
 	    $("#contentDetalheEmpenho").animate(

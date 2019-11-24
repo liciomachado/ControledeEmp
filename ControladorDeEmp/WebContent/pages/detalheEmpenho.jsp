@@ -14,6 +14,7 @@
 	EmpenhoDao dao = new EmpenhoDao();
 	emp = dao.buscaEmpenhoCompleto(numEmpenho);
 	pageContext.setAttribute("empenho", emp);
+	System.out.println(emp);
 
 	Observacoes obs = new Observacoes();
 	ObservacoesDao obsDao = new ObservacoesDao();
@@ -44,7 +45,7 @@
 		<legend class="w-auto">Empenho </legend>
 		<form enctype="multipart/form-data"
 			class="form-group needs-validation justify-content-center"
-			method="post" action="../adicionaEmpenho" novalidate>
+			method="post" action="#" novalidate>
 			<div class="form-row">
 			<div class="form-group col-md-12">
 					<div class="form-check">
@@ -87,7 +88,7 @@
 	<fieldset class="border p-2">
 
 		<legend class="w-auto">Empresa </legend>
-		<form action="../adicionaEmpresa" method="post">
+		<form action="#" method="post">
 			<div class="form-row">
 			<div class="form-group col-md-12">
 								<div class="form-check">
@@ -151,11 +152,23 @@
 		
 	</fieldset>
 	
-	<fieldset class="border p-2">
+	<fieldset class="border p-2" id="observacoes">
 		<legend class="w-auto">Observações </legend>
 		<c:forEach var="obs" items="${obs}">
-		<p><fmt:formatDate value="${obs.dataObs.time}" /> - ${obs.observacao}</p>
+		<fmt:formatDate value="${obs.dataObs.time}" /> - ${obs.observacao}</br>
 		</c:forEach>
+		<div class="form-group" id="txtObs" style="display:none;">
+		<form action="../salvaObservacao" method="post">
+			<input hidden type="text" value="<%= emp.getIdEmpenho() %>" name="pegaIdEmpenho">
+			<textarea name="pegaObs" class="form-control" id="exampleFormControlTextarea1" rows="2" for="salvaOBs"></textarea>
+			<input class="btn btn-primary mb-2" type="submit" id="salvaOBs" value="Salvar">
+		</form>
+		</div>
+		<div style="text-align: right;">
+		<button id="adicionaObs" type="button" class="btn btn-default" aria-label="Left Align">
+			<img alt="add" width="25" height="25" src="../img/add.png">
+		</button>
+		</div>
 	</fieldset>
 	
 </div>

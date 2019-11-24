@@ -15,7 +15,7 @@ public class NotaFiscal {
 	private String idEmpenho;
 	private Calendar dataEmissao;
 	private Calendar dataRecebido;
-		
+	
 	public Empresa getEmpresa() {
 		return empresa;
 	}

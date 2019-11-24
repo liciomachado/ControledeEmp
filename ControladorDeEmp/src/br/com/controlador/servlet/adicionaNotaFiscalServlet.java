@@ -71,5 +71,7 @@ public class adicionaNotaFiscalServlet extends HttpServlet {
 		dao.adiciona(nota);
 		
 		response.sendRedirect("pages/index.jsp");
+		//response.sendRedirect("pages/detalheEmpenho.jsp?numEmpenho="+emp.getNumeroEmpenho()+"#observacoes");
+
 	}
 }

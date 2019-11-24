@@ -68,10 +68,18 @@ public class EmpenhoDao {
 	public Empenho buscaEmpenhoCompleto(String numeroEmpenho) {
 		Empenho empenho = new Empenho();
 		try{
-			PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM empenho as a "
-					+ "inner join notafiscal as b on a.idempenho = b.idEmpenho "
-					+ "inner join empresa as c on a.idEmpresa = c.idempresa "
-					+ "where numeroEmpenho = ? ;");
+			PreparedStatement stmt;
+			try {
+				stmt = this.connection.prepareStatement("SELECT * FROM empenho as a "
+						+ "inner join notafiscal as b on a.idempenho = b.idEmpenho "
+						+ "inner join empresa as c on a.idEmpresa = c.idempresa "
+						+ "where numeroEmpenho = ? ;");
+			} catch (Exception e) {
+				System.out.println("Caiu na excecao sem nota");
+				stmt = this.connection.prepareStatement("SELECT * FROM empenho as a "
+						+ "inner join empresa as c on a.idEmpresa = c.idempresa "
+						+ "where numeroEmpenho = ? ;");
+			}
 			
 			stmt.setString(1, numeroEmpenho);
 			ResultSet rs = stmt.executeQuery();
@@ -95,22 +103,26 @@ public class EmpenhoDao {
 				empresa.setEmail(rs.getString("email"));
 				
 				NotaFiscal nf = new NotaFiscal();
-				nf.setIdNotaFiscal(rs.getInt("idnotaFiscal"));
-				nf.setChaveAcesso(rs.getString("chaveAcesso"));
-				nf.setNumNota(rs.getInt("numNota"));
-				nf.setValorTotal(rs.getDouble("valorTotal"));
-				// montando a data atraves
-				Calendar dataNF = Calendar.getInstance();
-				data.setTime(rs.getDate("dataEmissao"));
-				empenho.setDataEmpenho(dataNF);
+				try {
+					nf.setIdNotaFiscal(rs.getInt("idnotaFiscal"));
+					nf.setChaveAcesso(rs.getString("chaveAcesso"));
+					nf.setNumNota(rs.getInt("numNota"));
+					nf.setValorTotal(rs.getDouble("valorTotal"));
+					empenho.setNotaFiscal(nf);
+					// montando a data atraves
+					Calendar dataNF = Calendar.getInstance();
+					data.setTime(rs.getDate("dataEmissao"));
+					nf.setDataEmissao(dataNF);
+					
+					Calendar dataNfRecebida = Calendar.getInstance();
+					data.setTime(rs.getDate("dataRecebido"));
+					nf.setDataRecebido(dataNfRecebida);
+				} catch (Exception e) {
+					System.out.println("Caiu na excecao, nao tem NF");
+				}
 				
-				Calendar dataNfRecebida = Calendar.getInstance();
-				data.setTime(rs.getDate("dataRecebido"));
-				empenho.setDataEmpenho(dataNfRecebida);
-
 				empenho.setEmpresa(empresa);
-				empenho.setNotaFiscal(nf);
-
+				
 				rs.close();
 				stmt.close();
 			}
