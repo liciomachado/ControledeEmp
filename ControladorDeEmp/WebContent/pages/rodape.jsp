@@ -90,7 +90,7 @@
 		}
 	);
 	$('#HabilitaEmpenho').click(function(){
-		if ( $(this).val() == '' ){
+		if($(this).is(':checked')) { 
 			$('#numeroEmpenho').prop('readonly', false);
 			$('#valor').prop('readonly', false);
 			$('#destinoEmpenho').prop('readonly', false);
@@ -98,6 +98,30 @@
 			$('#numeroEmpenho').prop('readonly', true);
 			$('#valor').prop('readonly', true);
 			$('#destinoEmpenho').prop('readonly', true);
+		}
+	});
+	$('#habilitaEmpresa').click(function(){
+		if($(this).is(':checked')) { 
+			$('#nomeEmpresa').prop('readonly', false);
+			$('#numTelefone').prop('readonly', false);
+			$('#nomeEmail').prop('readonly', false);
+		}else {
+			$('#nomeEmpresa').prop('readonly', true);
+			$('#numTelefone').prop('readonly', true);
+			$('#nomeEmail').prop('readonly', true);
+		}
+	});
+	$('#habilitaNF').click(function(){
+		if($(this).is(':checked')) { 
+			$('#inputChaveAcesso').prop('readonly', false);
+			$('#inputNota').prop('readonly', false);
+			$('#inputDataEmissao').prop('readonly', false);
+			$('#inputPreco').prop('readonly', false);
+		}else {
+			$('#inputChaveAcesso').prop('readonly', true);
+			$('#inputNota').prop('readonly', true);
+			$('#inputDataEmissao').prop('readonly', true);
+			$('#inputPreco').prop('readonly', true);
 		}
 	});
 

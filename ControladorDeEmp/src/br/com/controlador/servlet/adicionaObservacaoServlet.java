@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.controlador.jdbc.dao.EmpenhoDao;
 import br.com.controlador.jdbc.dao.NotaFiscalDao;
 import br.com.controlador.jdbc.dao.ObservacoesDao;
 import br.com.controlador.jdbc.modelo.Empenho;
@@ -51,9 +52,11 @@ public class adicionaObservacaoServlet extends HttpServlet {
 		ObservacoesDao dao = new ObservacoesDao();
 		dao.adiciona(observacao);
 		
-		response.sendRedirect("pages/adcSucessoEmpenho.jsp");
+		EmpenhoDao empDao = new EmpenhoDao();
+		Empenho emp = new Empenho();
+		emp = empDao.buscaPorID(id);
 		
-		
+		response.sendRedirect("pages/detalheEmpenho.jsp?numEmpenho="+emp.getNumeroEmpenho());
 	}
 }
 	

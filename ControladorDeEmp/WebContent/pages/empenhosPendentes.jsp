@@ -41,87 +41,12 @@
 						<td>Pendente Entrega</td>
 						<td><fmt:formatDate value="${emp.dataEmpenho.time}" /></td>
 						<c:set var="test" value="${emp.idEmpenho}"/>
-						<td><button type="button" class="btn btn-primary"
+						<form action="detalheEmpenho.jsp" method="get">
+						<input hidden type="text" value="${emp.numeroEmpenho}" name="numEmpenho">
+						<td><button type="submit" class="btn btn-primary"
 								data-toggle="modal" data-target="#ExemploModalCentralizado">
-								Ver</button></td>
-						
-						<div class="modal fade" id="ExemploModalCentralizado"
-							tabindex="-1" role="dialog"
-							aria-labelledby="TituloModalCentralizado" aria-hidden="true">
-							<div class="modal-dialog modal-dialog-centered" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="TituloModalCentralizado">Observações</h5>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-label="Fechar">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">
-										<%
-											Integer test = Integer.parseInt(pageContext.getAttribute("test").toString());
-												System.out.println(test);
-												
-												
-												ObservacoesDao obsDao = new ObservacoesDao();
-												List<Observacoes> obsList = obsDao.getListaPeloId(test);
-												System.out.println(obsList);
-												pageContext.setAttribute("test", obsList);
-
-										%>
-									 
-										<form action="../salvaObservacao" method="post">
-											<input hidden type="text" value="${emp.idEmpenho}" name="pegaIdEmpenho">
-											<div class="form-group">
-												<label for="pegaObs" class="col-form-label">Comentario:</label>
-												<textarea class="form-control" id="pegaObs" name="pegaObs"></textarea>
-											</div>
-											<div class="text-right">
-												<button type="submit" class="btn btn-primary">Salvar</button>
-											</div>
-										</form>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-warning"
-											data-toggle="modal" data-target="#msgAutomatica"
-											data-dismiss="modal">Enviar Mensagem automática</button>
-										<button type="button" class="btn btn-outline-dark">+
-											Obs</button>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="modal fade" id="msgAutomatica" tabindex="-1"
-							role="dialog" aria-labelledby="exampleModalLabel"
-							aria-hidden="true">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Mensagem
-											automática</h5>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-label="Fechar">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">
-										<form>
-											<div class="form-group">
-												<label for="recipient-name" class="col-form-label">Confirmar
-													envio de mensagem automática para a empresa
-													######################## referente ao empenho ####NE######</label>
-											</div>
-										</form>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-danger"
-											data-dismiss="modal">Cancelar</button>
-										<button type="button" class="btn btn-primary">Enviar</button>
-									</div>
-								</div>
-							</div>
-						</div>
+								Ver</button></td></a></form> 
+					
 					</tr>
 				</c:forEach>
 			</tbody>

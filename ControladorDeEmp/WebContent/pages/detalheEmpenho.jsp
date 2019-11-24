@@ -15,7 +15,12 @@
 	emp = dao.buscaEmpenhoCompleto(numEmpenho);
 	pageContext.setAttribute("empenho", emp);
 
+	Observacoes obs = new Observacoes();
+	ObservacoesDao obsDao = new ObservacoesDao();
+	List<Observacoes> obsList = obsDao.getListaPeloId(emp.getIdEmpenho());
+	pageContext.setAttribute("obs", obsList);
 %>
+<jsp:useBean id="dao2" class="br.com.controlador.jdbc.dao.ObservacoesDao" />
 
 <c:import url="cabecalho.jsp" />
 
@@ -42,11 +47,11 @@
 			method="post" action="../adicionaEmpenho" novalidate>
 			<div class="form-row">
 			<div class="form-group col-md-12">
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value="" id="HabilitaEmpenho"> 
-									<label class="form-check-label" for="inputCadastro"> Habilitar Edição  </label>
-								</div>
-							</div>
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" value="" id="HabilitaEmpenho"> 
+						<label class="form-check-label" for="inputCadastro"> Habilitar Edição  </label>
+					</div>
+				</div>
 				<div class="form-group col-md-3">
 						<label for="idEmpenho">Identificador </label> <input readonly
 							type="text" class="form-control" id="idEmpenho"
@@ -80,13 +85,14 @@
 		</form>	
 	</fieldset>
 	<fieldset class="border p-2">
+
 		<legend class="w-auto">Empresa </legend>
 		<form action="../adicionaEmpresa" method="post">
 			<div class="form-row">
 			<div class="form-group col-md-12">
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value=""id="inputCadastro"> 
-									<label class="form-check-label" for="inputCadastro"> Habilitar Edição  </label>
+									<input class="form-check-input" type="checkbox" value=""id="habilitaEmpresa"> 
+									<label class="form-check-label" for="habilitaEmpresa"> Habilitar Edição  </label>
 								</div>
 							</div>
 				<div class="form-group col-md-4">
@@ -116,8 +122,8 @@
 		<div class="form-row">
 		<div class="form-group col-md-12">
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value=""id="inputCadastro" readonly> 
-									<label class="form-check-label" for="inputCadastro"> Habilitar Edição </label>
+									<input class="form-check-input" type="checkbox" value=""id="habilitaNF" readonly> 
+									<label class="form-check-label" for="habilitaNF"> Habilitar Edição </label>
 								</div>
 							</div>
 					<div class="form-group col-md-5">
@@ -142,7 +148,16 @@
 					<button type="submit" class="btn btn-primary mb-2">Alterar Nota Fiscal</button>
 				</div>
 			</div>
+		
 	</fieldset>
+	
+	<fieldset class="border p-2">
+		<legend class="w-auto">Observações </legend>
+		<c:forEach var="obs" items="${obs}">
+		<p><fmt:formatDate value="${obs.dataObs.time}" /> - ${obs.observacao}</p>
+		</c:forEach>
+	</fieldset>
+	
 </div>
 </br>
 <c:import url="rodape.jsp" />
