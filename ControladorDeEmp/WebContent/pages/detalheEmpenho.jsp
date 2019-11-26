@@ -1,3 +1,5 @@
+<%@page import="br.com.controlador.jdbc.dao.NotaFiscalDao"%>
+<%@page import="br.com.controlador.jdbc.modelo.NotaFiscal"%>
 <%@page import="br.com.controlador.jdbc.dao.EmpenhoDao"%>
 <%@page import="br.com.controlador.jdbc.modelo.Empenho"%>
 <%@page import="br.com.controlador.jdbc.modelo.Observacoes"%>
@@ -14,7 +16,11 @@
 	EmpenhoDao dao = new EmpenhoDao();
 	emp = dao.buscaEmpenhoCompleto(numEmpenho);
 	pageContext.setAttribute("empenho", emp);
-	System.out.println(emp);
+	
+	NotaFiscal nf = new NotaFiscal();
+	NotaFiscalDao nfDao = new NotaFiscalDao();
+	List<NotaFiscal> nfList = nfDao.getListaPorId(emp.getIdEmpenho());
+	pageContext.setAttribute("nfList", nfList);
 
 	Observacoes obs = new Observacoes();
 	ObservacoesDao obsDao = new ObservacoesDao();
@@ -26,6 +32,7 @@
 <c:import url="cabecalho.jsp" />
 
 <div style="margin-left: 20%; margin-right: 20%;">
+	<% if(emp.getEtapa() == 3) { %>
 	<div class="display-4" style="text-align: center;"><%= numEmpenho %></div>
 	<div id="contentDetalheEmpenhoNaoEntregue">
 		<img src="../img/document.png" width="25" height="25"
@@ -39,6 +46,22 @@
 		<img src="../img/money.png" width="30" height="27"
 			style="float: right;" class="d-inline-block align-top" alt="">
 	</div>
+	<% } %>
+	<% if(emp.getEtapa() == 4) { %>
+	<div class="display-4" style="text-align: center;"><%= numEmpenho %></div>
+	<div id="contentDetalheEmpenhoEntregue">
+		<img src="../img/document.png" width="25" height="25"
+			style="float: left;" class="d-inline-block align-top" alt=""> <img
+			src="../img/envelope.png" width="30" height="30"
+			style="margin-left: 20%" class="d-inline-block align-top" alt="">
+		<img src="../img/shipped.png" width="30" height="30"
+			style="margin-left: 20%;" class="d-inline-block align-top" alt="">
+		<img src="../img/check1.png" width="30" height="27"
+			style="margin-left: 20%;" class="d-inline-block align-top" alt="">
+		<img src="../img/money.png" width="30" height="27"
+			style="float: right;" class="d-inline-block align-top" alt="">
+	</div>
+	<% } %>
 </div>
 <div class="container">
 	<fieldset class="border p-2">
@@ -127,27 +150,29 @@
 									<label class="form-check-label" for="habilitaNF"> Habilitar Edição </label>
 								</div>
 							</div>
+					<c:forEach var="nf" items="${nfList}">
 					<div class="form-group col-md-5">
 						<label for="inputChaveAcesso">Chave de acesso</label> <input type="text" readonly
-							class="form-control" id="inputChaveAcesso" name="inputChaveAcesso" required value="<%= emp.getNotaFiscal().getChaveAcesso() %>">
+							class="form-control" id="inputChaveAcesso" name="inputChaveAcesso" required value="${nf.chaveAcesso}">
 					</div>
 					<div class="form-group col-md-2">
 						<label for="inputNota">Nº Nota</label> <input type="text" readonly
-							class="form-control" id="inputNota" name="inputNota" required value="<%= emp.getNotaFiscal().getNumNota() %>">
+							class="form-control" id="inputNota" name="inputNota" required value="${nf.numNota }">
 					</div>
 					<div class="form-group col-md-3">
 						<label for="inputDataEmissao">Data de Emissão:</label> <input readonly
 							type="date" class="form-control" id="inputDataEmissao" name="inputDataEmissao"
-							required value="<fmt:formatDate value="${emp.notaFiscal.dataEmissao.time}" pattern="dd-MM-yyyy"/>">
+							required value="<fmt:formatDate value="${nf.dataEmissao.time}" pattern="yyyy-MM-dd"/>">
 					</div>
 					<div class="form-group col-md-2">
 						<label for="inputPreco">Valor total R$</label> <input type="number" readonly
 							class="form-control " id="inputPreco" name="inputPreco" required placeholder="00.00"
-							value="<%= emp.getNotaFiscal().getValorTotal() %>">
+							value="${nf.valorTotal}">
 					</div>
 					<div class="col-lg-12" style="text-align: right;">
 					<button type="submit" class="btn btn-primary mb-2">Alterar Nota Fiscal</button>
 				</div>
+				</c:forEach>
 			</div>
 		
 	</fieldset>
@@ -155,7 +180,7 @@
 	<fieldset class="border p-2" id="observacoes">
 		<legend class="w-auto">Observações </legend>
 		<c:forEach var="obs" items="${obs}">
-		<fmt:formatDate value="${obs.dataObs.time}" /> - ${obs.observacao}</br>
+		Por: ${obs.usuario.nome} -> <fmt:formatDate value="${obs.dataObs.time}" /> - ${obs.observacao} - </br>
 		</c:forEach>
 		<div class="form-group" id="txtObs" style="display:none;">
 		<form action="../salvaObservacao" method="post">

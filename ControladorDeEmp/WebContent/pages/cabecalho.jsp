@@ -56,7 +56,7 @@
 						<a class="dropdown-item" href="gerenciamentoSite.php">Configurações do site</a> 
 						<a class="dropdown-item" href="adicionaEmpenho.jsp">Envio de Empenhos</a> 
 						<a class="dropdown-item" href="adicionaNF.jsp">Recebimento de NF</a> 
-						<a class="dropdown-item" href="protocolo.php">Envio para pagamento</a>
+						<a class="dropdown-item" href="protocolo.jsp">Envio para pagamento</a>
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="../logicaDeslogar">Sair </a>
 					</div>

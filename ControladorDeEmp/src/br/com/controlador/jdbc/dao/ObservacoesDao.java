@@ -9,8 +9,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import br.com.controlador.jdbc.ConnectionFactory;
 import br.com.controlador.jdbc.modelo.Observacoes;
+import br.com.controlador.jdbc.modelo.Usuario;
+import jdk.nashorn.internal.ir.RuntimeNode.Request;
 
 public class ObservacoesDao {
 	private Connection connection;
@@ -25,8 +29,8 @@ public class ObservacoesDao {
 
 	public void adiciona(Observacoes obs) {
 		String sql = "insert into observacoes " +
-				"(idEmpenho,observacao,dataObs)" +
-				" values (?,?,?)";
+				"(idEmpenho,observacao,dataObs,idusuario)" +
+				" values (?,?,?,?)";
 
 		try {
 			// prepared statement para inser��o
@@ -36,6 +40,7 @@ public class ObservacoesDao {
 			stmt.setInt(1,obs.getIdEmpenho());
 			stmt.setString(2,obs.getObservacao());
 			stmt.setDate(3, new Date(obs.getDataObs().getTimeInMillis()));
+			stmt.setInt(4, obs.getIdUsuario());
 
 			// executa
 			stmt.execute();
@@ -58,13 +63,14 @@ public class ObservacoesDao {
 				observacao.setIdObs(rs.getInt("idobservacoes"));
 				observacao.setIdEmpenho(rs.getInt("idempenho"));
 				observacao.setObservacao(rs.getString("observacao"));
-				
 				Calendar data = Calendar.getInstance();
 				data.setTime(rs.getDate("dataObs"));
 				observacao.setDataObs(data);
-
+				
+				
 				// adicionando o objeto � lista
 				obs.add(observacao);
+				
 			}
 			rs.close();
 			stmt.close();
@@ -77,7 +83,9 @@ public class ObservacoesDao {
 		try {
 			List<Observacoes> obs = new ArrayList<Observacoes>();
 			PreparedStatement stmt = this.connection.
-					prepareStatement("select * from observacoes where idempenho =  ?");
+					prepareStatement("SELECT a.idobservacoes,a.idempenho,a.dataObs,a.observacao,b.idusuario,"
+							+ "b.nome FROM controledeempenhos.observacoes as a inner join usuario as b on"
+							+ " a.idusuario = b.idusuario where idempenho=?;");
 			
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
@@ -92,6 +100,11 @@ public class ObservacoesDao {
 				Calendar data = Calendar.getInstance();
 				data.setTime(rs.getDate("dataObs"));
 				observacao.setDataObs(data);
+				
+				Usuario usuario = new Usuario();
+				usuario.setIdUsuario(rs.getInt("idusuario"));
+				usuario.setNome(rs.getString("nome"));
+				observacao.setUsuario(usuario);
 
 				// adicionando o objeto � lista
 				obs.add(observacao);

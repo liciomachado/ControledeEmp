@@ -8,7 +8,21 @@ public class Observacoes {
 	private int idEmpenho;
 	private String observacao;
 	private Calendar dataObs;
+	private int idUsuario;
+	private Usuario usuario;
 	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
 	public int getIdObs() {
 		return idObs;
 	}

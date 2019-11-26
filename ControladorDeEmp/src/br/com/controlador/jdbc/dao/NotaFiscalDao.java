@@ -28,23 +28,26 @@ public class NotaFiscalDao {
 	public void adiciona(NotaFiscal nf) {
 		String sql = "insert into notafiscal " +
 				"(numNota,chaveAcesso,valorTotal,idEmpenho,dataEmissao,dataRecebido)" +
-				" values (?,?,?,?,?,?)";
-
+				" values (?,?,?,?,?,?);";
+		
+		String sql2 = "update empenho set etapa = 4 where idempenho = ?;";
 		try {
 			// prepared statement para inser��o
 			PreparedStatement stmt = connection.prepareStatement(sql);
-
-			// seta os valores
 			stmt.setInt(1,nf.getNumNota());
 			stmt.setString(2,nf.getChaveAcesso());
 			stmt.setDouble(3,nf.getValorTotal());
 			stmt.setInt(4,nf.getEmpenho().getIdEmpenho());
 			stmt.setDate(5, new Date(nf.getDataEmissao().getTimeInMillis()));
 			stmt.setDate(6, new Date(nf.getDataRecebido().getTimeInMillis()));
-
-			// executa
 			stmt.execute();
 			stmt.close();
+			
+			PreparedStatement stmt2 = connection.prepareStatement(sql2);
+			stmt2.setInt(1,nf.getEmpenho().getIdEmpenho());
+			stmt2.execute();
+			stmt2.close();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -83,6 +86,40 @@ public class NotaFiscalDao {
 			throw new RuntimeException(e);
 		}
 	}
+	public List<NotaFiscal> getListaPorId(int id) {
+		try {
+			List<NotaFiscal> nfs = new ArrayList<NotaFiscal>();
+			PreparedStatement stmt = this.connection.
+					prepareStatement("select * from notafiscal where idempenho = ?");
+			
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				// criando o objeto Contato
+				NotaFiscal nf = new NotaFiscal();
+				nf.setIdNotaFiscal(rs.getInt("idnotaFiscal"));
+				nf.setNumNota(rs.getInt("numNota"));
+				nf.setChaveAcesso(rs.getString("chaveAcesso"));
+				nf.setValorTotal(rs.getDouble("valorTotal"));
+				
+				Calendar data = Calendar.getInstance();
+                data.setTime(rs.getDate("dataEmissao"));
+                nf.setDataEmissao(data);
+                data.setTime(rs.getDate("dataRecebido"));
+				nf.setDataRecebido(data);
+
+				// adicionando o objeto � lista
+				nfs.add(nf);
+			}
+			rs.close();
+			stmt.close();
+			return nfs;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public List<NotaFiscal> getNotaRecebidos() {
 		try {
 			List<NotaFiscal> nfs = new ArrayList<NotaFiscal>();
@@ -91,6 +128,49 @@ public class NotaFiscalDao {
 							"b.numeroEmpenho,b.destino,a.chaveAcesso\r\n" + 
 							"from notafiscal as a inner join empenho as b on a.idEmpenho = b.idempenho \r\n" + 
 							"inner join  empresa as empr on empr.idempresa = b.idEmpresa");
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				// criando o objeto Contato
+				NotaFiscal nf = new NotaFiscal();
+				nf.setIdNotaFiscal(rs.getInt("idnotaFiscal"));
+				nf.setNumNota(rs.getInt("numNota"));
+				nf.setChaveAcesso(rs.getString("chaveAcesso"));
+				nf.setValorTotal(rs.getDouble("valorTotal"));
+				
+				Empenho empenho = new Empenho();
+				empenho.setNumeroEmpenho(rs.getString("numeroEmpenho"));
+				empenho.setDestino(rs.getString("destino"));
+				nf.setEmpenho(empenho);
+				
+				Empresa empresa = new Empresa();
+				empresa.setNome(rs.getString("nome"));
+				nf.setEmpresa(empresa);
+				
+				Calendar data = Calendar.getInstance();
+                data.setTime(rs.getDate("dataEmpenho"));
+                nf.setDataEmissao(data);
+                data.setTime(rs.getDate("dataRecebido"));
+				nf.setDataRecebido(data);
+
+				// adicionando o objeto � lista
+				nfs.add(nf);
+			}
+			rs.close();
+			stmt.close();
+			return nfs;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public List<NotaFiscal> getNotasProtocolar() {
+		try {
+			List<NotaFiscal> nfs = new ArrayList<NotaFiscal>();
+			PreparedStatement stmt = this.connection.
+					prepareStatement("select a.idnotaFiscal,b.dataEmpenho,a.dataRecebido,empr.nome,a.numNota,a.valorTotal,\r\n" + 
+							"b.numeroEmpenho,b.destino,a.chaveAcesso\r\n" + 
+							"from notafiscal as a inner join empenho as b on a.idEmpenho = b.idempenho \r\n" + 
+							"inner join  empresa as empr on empr.idempresa = b.idEmpresa where b.etapa = 4;");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {

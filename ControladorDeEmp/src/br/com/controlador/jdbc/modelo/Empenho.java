@@ -18,7 +18,16 @@ public class Empenho {
 	private String destino;
 	private double valorTotal;
 	private byte[] EmpenhoDigitalizado; // MUDAR CONFORME APRENDER
+	private int etapa;
 	
+	
+	
+	public int getEtapa() {
+		return etapa;
+	}
+	public void setEtapa(int etapa) {
+		this.etapa = etapa;
+	}
 	public NotaFiscal getNotaFiscal() {
 		return notaFiscal;
 	}

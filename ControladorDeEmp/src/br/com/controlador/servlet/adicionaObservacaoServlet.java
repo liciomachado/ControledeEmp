@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.controlador.jdbc.dao.EmpenhoDao;
 import br.com.controlador.jdbc.dao.NotaFiscalDao;
@@ -48,6 +49,9 @@ public class adicionaObservacaoServlet extends HttpServlet {
 		observacao.setIdEmpenho(id);
 		observacao.setObservacao(obs);
 		observacao.setDataObs(data);
+		
+		HttpSession s = request.getSession();
+		observacao.setIdUsuario(Integer.parseInt(s.getAttribute("userId").toString()));
 		
 		ObservacoesDao dao = new ObservacoesDao();
 		dao.adiciona(observacao);

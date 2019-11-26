@@ -34,9 +34,11 @@ public class logicaLogin extends HttpServlet {
 		HttpSession sessao = request.getSession(true);
 		if (user2.getIdUsuario() != 0)  {
 			System.out.println("Usuario Conectado");
+			sessao.setAttribute("userId", user2.getIdUsuario());
 			sessao.setAttribute("usuario", user2.getNome());
 			sessao.setAttribute("senhaIncorreta", false);
-
+			
+			System.out.println(user2.getIdUsuario());
 			//request.getRequestDispatcher("index.jsp").forward(request, response);
 			response.sendRedirect("pages/index.jsp");
 

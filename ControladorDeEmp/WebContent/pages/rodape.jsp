@@ -93,12 +93,18 @@
 	});
 	jQuery(function($) {
 		$("#contentDetalheEmpenhoNaoEntregue").animate(
-
 	            {"width": "100%"},
-
 	            1000);
 		}
 	);
+	jQuery(function($) {
+		$("#contentDetalheEmpenhoEntregue").animate(
+	            {"width": "100%"},
+	            1000);
+		}
+	);
+	
+	
 	$('#HabilitaEmpenho').click(function(){
 		if($(this).is(':checked')) { 
 			$('#numeroEmpenho').prop('readonly', false);

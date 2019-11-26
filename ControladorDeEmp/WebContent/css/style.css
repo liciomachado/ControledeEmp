@@ -20,3 +20,13 @@
     padding:3px;
 
   }
+  #contentDetalheEmpenhoEntregue {
+
+    background-image: linear-gradient(to right, #6abf57 75%, white 85%);
+    border-radius: 5px;;
+    width:0%;
+    height:30px;
+
+    padding:3px;
+
+  }

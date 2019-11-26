@@ -38,8 +38,8 @@ public class EmpenhoDao {
 	public int adiciona(Empenho empenho) {
 		int lastId = 0;
 		String sql = "insert into empenho " +
-				"(dataEmpenho,numeroEmpenho,idEmpresa,destino,valorTotal,empenhoDigitalizado)" +
-				" values (?,?,?,?,?,?)";
+				"(dataEmpenho,numeroEmpenho,idEmpresa,destino,valorTotal,empenhoDigitalizado,etapa)" +
+				" values (?,?,?,?,?,?,?)";
 
 		try {
 			// prepared statement para inser��o
@@ -52,6 +52,8 @@ public class EmpenhoDao {
 			stmt.setString(4, empenho.getDestino());
 			stmt.setDouble(5, empenho.getValorTotal());
 			stmt.setBytes(6, empenho.getEmpenhoDigitalizado());
+			stmt.setInt(7, 3);
+
 
 			// executa
 			stmt.execute();
@@ -68,19 +70,10 @@ public class EmpenhoDao {
 	public Empenho buscaEmpenhoCompleto(String numeroEmpenho) {
 		Empenho empenho = new Empenho();
 		try{
-			PreparedStatement stmt;
-			try {
-				stmt = this.connection.prepareStatement("SELECT * FROM empenho as a "
-						+ "inner join notafiscal as b on a.idempenho = b.idEmpenho "
+			PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM empenho as a "
 						+ "inner join empresa as c on a.idEmpresa = c.idempresa "
 						+ "where numeroEmpenho = ? ;");
-			} catch (Exception e) {
-				System.out.println("Caiu na excecao sem nota");
-				stmt = this.connection.prepareStatement("SELECT * FROM empenho as a "
-						+ "inner join empresa as c on a.idEmpresa = c.idempresa "
-						+ "where numeroEmpenho = ? ;");
-			}
-			
+
 			stmt.setString(1, numeroEmpenho);
 			ResultSet rs = stmt.executeQuery();
 
@@ -91,6 +84,7 @@ public class EmpenhoDao {
 				empenho.setDestino(rs.getString("destino"));
 				empenho.setValorTotal(rs.getDouble("valorTotal"));
 				empenho.setEmpenhoDigitalizado(rs.getBytes("empenhoDigitalizado"));
+				empenho.setEtapa(rs.getInt("etapa"));
 				// montando a data atraves
 				Calendar data = Calendar.getInstance();
 				data.setTime(rs.getDate("dataEmpenho"));
@@ -102,8 +96,9 @@ public class EmpenhoDao {
 				empresa.setContato(rs.getString("contato"));
 				empresa.setEmail(rs.getString("email"));
 				
-				NotaFiscal nf = new NotaFiscal();
-				try {
+				/*NotaFiscal nf = new NotaFiscal();
+				if(rs.getInt("idnotaFiscal") != 0 || rs.getDate("dataEmissao") != null) {
+					
 					nf.setIdNotaFiscal(rs.getInt("idnotaFiscal"));
 					nf.setChaveAcesso(rs.getString("chaveAcesso"));
 					nf.setNumNota(rs.getInt("numNota"));
@@ -117,9 +112,7 @@ public class EmpenhoDao {
 					Calendar dataNfRecebida = Calendar.getInstance();
 					data.setTime(rs.getDate("dataRecebido"));
 					nf.setDataRecebido(dataNfRecebida);
-				} catch (Exception e) {
-					System.out.println("Caiu na excecao, nao tem NF");
-				}
+				}*/
 				
 				empenho.setEmpresa(empresa);
 				
