@@ -42,7 +42,7 @@
                 			<tr>
 	                            <th scope="row"><a href="https://drive.google.com/open?id=1FnGg-EbQi3LJ9svmpp6vlugFTosfLWI1"  target="_blank">${nota.empenho.numeroEmpenho}</th>
 	                            <td>${nota.empresa.nome}</td>
-	                            <td>${nota.valorTotal}</td>
+	                            <td>${nota.valorTotal}</td>   
 	                            <td>${nota.numNota}</td>
 	                            <td>${nota.empenho.destino}</td>
 	                            <td><fmt:formatDate value="${nota.dataRecebido.time}" /></td>
