@@ -1,3 +1,9 @@
+<%@page import="java.nio.file.Files"%>
+<%@page import="java.io.OutputStream"%>
+<%@page import="javax.swing.JFileChooser"%>
+<%@page import="java.io.FileOutputStream"%>
+<%@page import="java.io.File"%>
+<%@page import="java.io.IOException"%>
 <%@page import="java.util.Base64"%>
 <%@page import="javax.swing.ImageIcon"%>
 <%@page import="br.com.controlador.jdbc.dao.EmpenhoDao"%>
@@ -19,12 +25,12 @@
 			System.out.println(session.getAttribute("LastResult"));
 			Integer resultado = (Integer)   session.getAttribute("LastResult");
 			EmpenhoDao dao = new EmpenhoDao();
-			Empenho emp = dao.buscaPorID(resultado);
+			Empenho emp = dao.buscaPorIDSemNF(resultado);
 			
             String encode = Base64.getEncoder().encodeToString(emp.getEmpenhoDigitalizado());
             request.setAttribute("imgBase", encode);
-
-		%>
+            
+        %>
 
 			<p><%=emp.getIdEmpenho()%></p>
 			<p><%=emp.getNumeroEmpenho()%></p>

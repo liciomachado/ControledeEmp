@@ -34,19 +34,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                    	<% int cont = 0; %>
                 		<c:forEach var="nota" items="${dao.notasProtocolar}">
-                		
-                		    	<input hidden	 type="text" name="opcoes["+<%=cont%>+"]" value="${nota.idNotaFiscal}">
-                		    	<%cont++;%>
-                			<tr>
-	                            <th scope="row"><a href="https://drive.google.com/open?id=1FnGg-EbQi3LJ9svmpp6vlugFTosfLWI1"  target="_blank">${nota.empenho.numeroEmpenho}</th>
+                   			<tr>
+                   			
+	                            <th scope="row"><a href="../downloadPDF?numID=${nota.empenho.idEmpenho}" target="_blank">${nota.empenho.numeroEmpenho}</th>
 	                            <td>${nota.empresa.nome}</td>
 	                            <td>${nota.valorTotal}</td>   
 	                            <td>${nota.numNota}</td>
 	                            <td>${nota.empenho.destino}</td>
 	                            <td><fmt:formatDate value="${nota.dataRecebido.time}" /></td>
-	                            <td><input type="checkbox" checked></td>
+	                            <td><input type="checkbox" name="checkId[]" value="${nota.empenho.idEmpenho}" checked></td>
                             </tr>
                         </c:forEach>
                         
@@ -59,5 +56,10 @@
         </div>
     </div>
 </div>
-
+<br />
+<br />
+<br />
+<br /><br />
+<br />
+<br />
 <c:import url="rodape.jsp" />

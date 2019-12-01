@@ -38,8 +38,8 @@ public class EmpenhoDao {
 	public int adiciona(Empenho empenho) {
 		int lastId = 0;
 		String sql = "insert into empenho " +
-				"(dataEmpenho,numeroEmpenho,idEmpresa,destino,valorTotal,empenhoDigitalizado,etapa)" +
-				" values (?,?,?,?,?,?,?)";
+				"(dataEmpenho,numeroEmpenho,idEmpresa,destino,valorTotal,empenhoDigitalizado,etapa,idusuario)" +
+				" values (?,?,?,?,?,?,?,?)";
 
 		try {
 			// prepared statement para inser��o
@@ -53,6 +53,7 @@ public class EmpenhoDao {
 			stmt.setDouble(5, empenho.getValorTotal());
 			stmt.setBytes(6, empenho.getEmpenhoDigitalizado());
 			stmt.setInt(7, 3);
+			stmt.setInt(8, empenho.getUsuario().getIdUsuario());
 
 
 			// executa
@@ -127,7 +128,9 @@ public class EmpenhoDao {
 	public Empenho buscaPorID(int id) {
 		Empenho empenho = new Empenho();
 		try{
-			PreparedStatement stmt = this.connection.prepareStatement("select * from empenho where idempenho=?");
+			PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM controledeempenhos.empenho as a "
+					+ "inner join notafiscal as b on a.idempenho = b.idEmpenho inner join"
+					+ " empresa as c on c.idempresa = a.idEmpresa where a.idempenho=?");
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 
@@ -139,7 +142,15 @@ public class EmpenhoDao {
 				empenho.setDestino(rs.getString("destino"));
 				empenho.setValorTotal(rs.getDouble("valorTotal"));
 				empenho.setEmpenhoDigitalizado(rs.getBytes("empenhoDigitalizado"));
-
+				
+				NotaFiscal nf = new NotaFiscal();
+				nf.setNumNota(rs.getInt("numNota"));
+				empenho.setNotaFiscal(nf);
+				
+				Empresa empresa = new Empresa();
+				empresa.setNome(rs.getString("nome"));
+				empenho.setEmpresa(empresa);
+				
 				// montando a data atrav�s do Calendar
 				Calendar data = Calendar.getInstance();
 				data.setTime(rs.getDate("dataEmpenho"));
@@ -147,6 +158,36 @@ public class EmpenhoDao {
 				
 				
 
+				rs.close();
+				stmt.close();
+			}
+			return empenho;
+		}catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public Empenho buscaPorIDSemNF(int id) {
+		Empenho empenho = new Empenho();
+		try{
+			PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM empenho "
+					+ "where idempenho=?");
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+
+			if(rs.next()) {
+				// criando o objeto Contato
+				empenho.setIdEmpenho(rs.getInt("idempenho"));
+				empenho.setNumeroEmpenho(rs.getString("numeroEmpenho"));
+				//empenho.setEmpresa(rs.getString(""));
+				empenho.setDestino(rs.getString("destino"));
+				empenho.setValorTotal(rs.getDouble("valorTotal"));
+				empenho.setEmpenhoDigitalizado(rs.getBytes("empenhoDigitalizado"));
+				
+				// montando a data atrav�s do Calendar
+				Calendar data = Calendar.getInstance();
+				data.setTime(rs.getDate("dataEmpenho"));
+				empenho.setDataEmpenho(data);
+				
 				rs.close();
 				stmt.close();
 			}
@@ -267,6 +308,19 @@ public class EmpenhoDao {
 			throw new RuntimeException(e);
 		}
 	}
+	public void alteraStatus(int id) {
+		String sql = "update empenho set etapa=5 where idempenho=?";
+
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setLong(1, id);
+
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	public void remove(Empenho empenho) {
 		try {
 			PreparedStatement stmt = connection.prepareStatement("delete " +
@@ -317,8 +371,8 @@ public class EmpenhoDao {
 		int lastId = 0;
 		try {
 			PreparedStatement stmt = connection.prepareStatement("insert into empenho " +
-					"(dataEmpenho,numeroEmpenho,idEmpresa,destino,valorTotal,empenhoDigitalizado)" +
-					" values (?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+					"(dataEmpenho,numeroEmpenho,idEmpresa,destino,valorTotal,empenhoDigitalizado,etapa,idusuario)" +
+					" values (?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
 
 			stmt.setDate(1, new Date(empenho.getDataEmpenho().getTimeInMillis()));
 			stmt.setString(2,empenho.getNumeroEmpenho());
@@ -326,7 +380,8 @@ public class EmpenhoDao {
 			stmt.setString(4, empenho.getDestino());
 			stmt.setDouble(5, empenho.getValorTotal());
 			stmt.setBlob(6, f);
-			
+			stmt.setInt(7, 3);
+			stmt.setInt(8, empenho.getUsuario().getIdUsuario());
 			// executa
 			stmt.executeUpdate();
 			final ResultSet rs = stmt.getGeneratedKeys();

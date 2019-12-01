@@ -15,13 +15,18 @@ public class Empenho {
 	private String numeroEmpenho;
 	private Empresa empresa;
 	private NotaFiscal notaFiscal;
+	private Usuario usuario;
 	private String destino;
 	private double valorTotal;
 	private byte[] EmpenhoDigitalizado; // MUDAR CONFORME APRENDER
 	private int etapa;
 	
-	
-	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 	public int getEtapa() {
 		return etapa;
 	}

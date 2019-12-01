@@ -33,8 +33,7 @@
 				<c:forEach var="emp" items="${dao.listaEmpenhosPendentes}">
 					<tr>
 						<td><a
-							href="https://drive.google.com/open?id=1FnGg-EbQi3LJ9svmpp6vlugFTosfLWI1"
-							target="_blank">${emp.numeroEmpenho}</td>
+							href="../downloadPDF?numID=${emp.idEmpenho}">${emp.numeroEmpenho}</td>
 						<td>${emp.empresa.nome}</td>
 						<td>${emp.valorTotal}</td>
 						<td>${emp.destino}</td>

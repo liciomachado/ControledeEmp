@@ -8,6 +8,7 @@
 </body>
 
 <script src="../css/jquery-3.4.1.min.js"></script>
+<script src="../css/jquery.mask.min.js""></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -103,6 +104,12 @@
 	            1000);
 		}
 	);
+	jQuery(function($) {
+		$("#contentDetalheEmpenhoConcluido").animate(
+	            {"width": "100%"},
+	            1000);
+		}
+	);
 	
 	
 	$('#HabilitaEmpenho').click(function(){
@@ -140,6 +147,6 @@
 			$('#inputPreco').prop('readonly', true);
 		}
 	});
-
+	$("#numTelefone").mask("(00) 00000-0000");
 </script>
 </html>

@@ -24,7 +24,7 @@
 	<tbody>
 		<c:forEach var="nota" items="${dao.notaRecebidos}">
 			<tr>
-				<td><a href="https://drive.google.com/open?id=1FnGg-EbQi3LJ9svmpp6vlugFTosfLWI1"  target="_blank">${nota.empenho.numeroEmpenho}</td>
+				<td><a href="../downloadPDF?numID=${nota.empenho.idEmpenho}" target="_blank">${nota.empenho.numeroEmpenho}</td>
 				<td>${nota.empresa.nome}</td>
 				<td>${nota.numNota}</td>
 				<td><fmt:formatDate value="${nota.dataEmissao.time}" /></td>	

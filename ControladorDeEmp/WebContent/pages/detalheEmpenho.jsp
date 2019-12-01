@@ -32,7 +32,7 @@
 <c:import url="cabecalho.jsp" />
 
 <div style="margin-left: 20%; margin-right: 20%;">
-	<% if(emp.getEtapa() == 3) { %>
+	<% if(emp.getEtapa() <= 3) { %>
 	<div class="display-4" style="text-align: center;"><%= numEmpenho %></div>
 	<div id="contentDetalheEmpenhoNaoEntregue">
 		<img src="../img/document.png" width="25" height="25"
@@ -50,6 +50,21 @@
 	<% if(emp.getEtapa() == 4) { %>
 	<div class="display-4" style="text-align: center;"><%= numEmpenho %></div>
 	<div id="contentDetalheEmpenhoEntregue">
+		<img src="../img/document.png" width="25" height="25"
+			style="float: left;" class="d-inline-block align-top" alt=""> <img
+			src="../img/envelope.png" width="30" height="30"
+			style="margin-left: 20%" class="d-inline-block align-top" alt="">
+		<img src="../img/shipped.png" width="30" height="30"
+			style="margin-left: 20%;" class="d-inline-block align-top" alt="">
+		<img src="../img/check1.png" width="30" height="27"
+			style="margin-left: 20%;" class="d-inline-block align-top" alt="">
+		<img src="../img/money.png" width="30" height="27"
+			style="float: right;" class="d-inline-block align-top" alt="">
+	</div>
+	<% } %>
+	<% if(emp.getEtapa() == 5 ||emp.getEtapa() == 6) { %>
+	<div class="display-4" style="text-align: center;"><%= numEmpenho %></div>
+	<div id="contentDetalheEmpenhoConcluido">
 		<img src="../img/document.png" width="25" height="25"
 			style="float: left;" class="d-inline-block align-top" alt=""> <img
 			src="../img/envelope.png" width="30" height="30"
@@ -97,10 +112,12 @@
 						type="text" class="form-control" id="destinoEmpenho"
 						placeholder="" name="destinoEmpenho" required="" value="<%= emp.getDestino() %>">
 				</div>
-				<div class="custom-file col-md-12">
-					<input type="file" readonly accept="pdf/*" id="validatedCustomFile"
-						name="imagem" required> <label for="validatedCustomFile">Selecione
-						o empenho</label>
+				<div class="form-group col-md-6">
+				<a class="btn btn btn-outline-success" href="../downloadPDF?numID=<%= emp.getIdEmpenho()%>" role="button">Baixar Empenho</a>
+				</div>
+				<div class="custom-file col-md-6">
+					<input type="file" disabled accept="pdf/*" id="validatedCustomFile"
+						name="imagem" required> <label for="validatedCustomFile"></label>
 				</div>
 				<div class="col-lg-12" style="text-align: right;">
 					<button type="submit" class="btn btn-primary mb-2">Alterar Empenho</button>
@@ -180,7 +197,7 @@
 	<fieldset class="border p-2" id="observacoes">
 		<legend class="w-auto">Observações </legend>
 		<c:forEach var="obs" items="${obs}">
-		Por: ${obs.usuario.nome} -> <fmt:formatDate value="${obs.dataObs.time}" /> - ${obs.observacao} - </br>
+		${obs.usuario.nome} -> <fmt:formatDate value="${obs.dataObs.time}" /> - ${obs.observacao} </br>
 		</c:forEach>
 		<div class="form-group" id="txtObs" style="display:none;">
 		<form action="../salvaObservacao" method="post">

@@ -58,7 +58,7 @@ public class adicionaObservacaoServlet extends HttpServlet {
 		
 		EmpenhoDao empDao = new EmpenhoDao();
 		Empenho emp = new Empenho();
-		emp = empDao.buscaPorID(id);
+		emp = empDao.buscaPorIDSemNF(id);
 		
 		response.sendRedirect("pages/detalheEmpenho.jsp?numEmpenho="+emp.getNumeroEmpenho()+"#observacoes");
 	}

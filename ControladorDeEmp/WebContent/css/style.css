@@ -30,3 +30,13 @@
     padding:3px;
 
   }
+  #contentDetalheEmpenhoConcluido {
+
+    background-image: linear-gradient(to right, #6abf57 75%, white 170%);
+    border-radius: 5px;;
+    width:0%;
+    height:30px;
+
+    padding:3px;
+
+  }

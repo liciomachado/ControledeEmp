@@ -28,6 +28,8 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import br.com.controlador.jdbc.dao.EmpenhoDao;
 import br.com.controlador.jdbc.modelo.Empenho;
 import br.com.controlador.jdbc.modelo.Empresa;
+import br.com.controlador.jdbc.modelo.Observacoes;
+import br.com.controlador.jdbc.modelo.Usuario;
 
 @WebServlet("/adicionaEmpenho")
 @MultipartConfig(maxFileSize = 16177215)
@@ -58,6 +60,11 @@ public class adicionaEmpenhoServlet extends HttpServlet {
     	empenho.setEmpresa(empresa);
     	empenho.setDestino(destino);
     	
+    	Usuario usuario = new Usuario(); 
+		HttpSession s = request.getSession();
+		usuario.setIdUsuario(Integer.parseInt(s.getAttribute("userId").toString()));
+		empenho.setUsuario(usuario);
+		
     	Calendar data = null;
 		Date d = new Date();
 		String dStr = java.text.DateFormat.getDateInstance(DateFormat.MEDIUM).format(d);

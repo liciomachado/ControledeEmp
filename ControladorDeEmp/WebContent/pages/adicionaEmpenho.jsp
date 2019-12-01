@@ -14,7 +14,7 @@
 			<div class="cadastro">
 				<div id="mostraCadastro" style="display:none;" >
 							<form action="../adicionaEmpresa" method="post">
-								<div class="form-row">
+								<div class="form-row" style="text-transform: uppercase;">
 									<div class="form-group col-md-4">
 										<label for="nomeEmpresa">Nome Empresa </label> <input
 											type="text" class="form-control" id="nomeEmpresa"
@@ -22,7 +22,7 @@
 									</div>
 									<div class="form-group col-md-4">
 										<label for="numTelefone">Telefone </label> <input
-											type="text" class="form-control" id="numTelefone"
+											type="text" class="form-control" id="numTelefone" pattern="\([0-9]{2}\)[\s][0-9]{4}-[0-9]{4,5}"
 											placeholder="" name="numTelefone" required="" value="">
 									</div>
 									<div class="form-group col-md-4">
@@ -78,14 +78,15 @@
 									type="text" class="form-control" id="destinoEmpenho"
 									placeholder="" name="destinoEmpenho" required="" value="">
 							</div>
-							<div class="custom-file col-md-12">
+							<div class="custom-file col-md-9">
 								<input type="file" accept="pdf/*" id="validatedCustomFile"
 									name="imagem" required> <label
 									for="validatedCustomFile">Selecione o empenho</label>
 							</div>
-							<button type="submit" class="btn btn-success mb-5" style="text-align: right;" id="botao"
+							<div class="custom-file col-md-3" style="text-align: right;">
+							<button type="submit" class="btn btn-success mb-5" id="botao"
 								name="">Cadastrar somente o empenho</button>
-							
+							</div>
 						</div>
 						
 						<div class="form-row">
