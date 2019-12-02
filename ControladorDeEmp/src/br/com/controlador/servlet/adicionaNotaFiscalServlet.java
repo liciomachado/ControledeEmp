@@ -12,11 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.controlador.jdbc.dao.NotaFiscalDao;
 import br.com.controlador.jdbc.modelo.Empenho;
 import br.com.controlador.jdbc.modelo.Empresa;
 import br.com.controlador.jdbc.modelo.NotaFiscal;
+import br.com.controlador.jdbc.modelo.Usuario;
 
 @WebServlet("/adicionaNotaFiscal")
 public class adicionaNotaFiscalServlet extends HttpServlet {
@@ -66,6 +68,11 @@ public class adicionaNotaFiscalServlet extends HttpServlet {
 		nota.setDataEmissao(dataEmissao);
 		nota.setDataRecebido(data);
 		nota.setNumNota(numNota);
+		
+		Usuario usuario = new Usuario(); 
+		HttpSession s = request.getSession();
+		usuario.setIdUsuario(Integer.parseInt(s.getAttribute("userId").toString()));
+		nota.setUsuario(usuario);
 		
 		NotaFiscalDao dao = new NotaFiscalDao();
 		dao.adiciona(nota);

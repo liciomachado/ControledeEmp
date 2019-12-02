@@ -27,8 +27,8 @@ public class NotaFiscalDao {
 
 	public void adiciona(NotaFiscal nf) {
 		String sql = "insert into notafiscal " +
-				"(numNota,chaveAcesso,valorTotal,idEmpenho,dataEmissao,dataRecebido)" +
-				" values (?,?,?,?,?,?);";
+				"(numNota,chaveAcesso,valorTotal,idEmpenho,dataEmissao,dataRecebido,idusuario)" +
+				" values (?,?,?,?,?,?,?);";
 		
 		String sql2 = "update empenho set etapa = 4 where idempenho = ?;";
 		try {
@@ -40,6 +40,7 @@ public class NotaFiscalDao {
 			stmt.setInt(4,nf.getEmpenho().getIdEmpenho());
 			stmt.setDate(5, new Date(nf.getDataEmissao().getTimeInMillis()));
 			stmt.setDate(6, new Date(nf.getDataRecebido().getTimeInMillis()));
+			stmt.setInt(7, nf.getUsuario().getIdUsuario());
 			stmt.execute();
 			stmt.close();
 			

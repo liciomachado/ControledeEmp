@@ -15,7 +15,14 @@ public class NotaFiscal {
 	private String idEmpenho;
 	private Calendar dataEmissao;
 	private Calendar dataRecebido;
+	private Usuario usuario;
 	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 	public Empresa getEmpresa() {
 		return empresa;
 	}
