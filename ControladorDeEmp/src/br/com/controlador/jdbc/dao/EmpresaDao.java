@@ -29,7 +29,7 @@ public class EmpresaDao {
                 " values (?,?,?)";
 
         try {
-            // prepared statement para inserção
+            // prepared statement para inserï¿½ï¿½o
             PreparedStatement stmt = connection.prepareStatement(sql);
 
             // seta os valores
@@ -60,7 +60,7 @@ public class EmpresaDao {
             	empresa.setEmail(rs.getString("email"));
             	empresa.setContato(rs.getString("contato"));
             	
-                // adicionando o objeto à lista
+                // adicionando o objeto ï¿½ lista
             	empresas.add(empresa);
             }
             rs.close();
@@ -75,7 +75,7 @@ public class EmpresaDao {
                 " where idempresa=?";
 
         try {
-            // prepared statement para inserção
+            // prepared statement para inserï¿½ï¿½o
             PreparedStatement stmt = connection.prepareStatement(sql);
 
             // seta os valores
@@ -91,6 +91,27 @@ public class EmpresaDao {
             throw new RuntimeException(e);
         }
     }
+    public Empresa buscaPorId(int id) {
+    	Empresa empresa = new Empresa();
+    	try{
+			PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM empresa where idempresa = ?");
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+			
+				if(rs.next()) {
+					empresa.setIdEmpresa(rs.getInt("idempresa"));
+	            	empresa.setNome(rs.getString("nome"));
+	            	empresa.setEmail(rs.getString("email"));
+	            	empresa.setContato(rs.getString("contato"));
+				}
+				
+				return empresa;
+	    	}catch (Exception e) {
+				System.out.println("Algo de errado aconteceu na busca por id de empresa");
+			}
+		return empresa;
+    }
+    
     public void remove(Empresa empresa) {
         try {
             PreparedStatement stmt = connection.prepareStatement("delete " +

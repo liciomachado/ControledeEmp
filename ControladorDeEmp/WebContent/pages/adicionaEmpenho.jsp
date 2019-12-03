@@ -40,11 +40,8 @@
 					<form enctype="multipart/form-data"
 						class="form-group needs-validation justify-content-center"
 						method="post" action="../adicionaEmpenho" novalidate>
+						
 						<div class="form-row">
-							<h2 class="bd-title">Informações para Inserção no Banco de
-								dados</h2>
-							<br>
-							
 							<div class="form-group col-md-12">
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" value=""id="inputCadastro"> 
@@ -55,11 +52,11 @@
 							<div class="form-group col-md-3">
 								<label for="inputEmp">Empenho</label> 
 								<select class="js-example-basic-single form-control col-md-11" id="inputEmp" name="inputEmp">
-								<option value="">Selecione a Empresa</option>
-								<c:forEach var="empresa" items="${dao.lista}">
-									<option value="${empresa.idEmpresa}">${empresa.nome}</option>
-								</c:forEach>
-							</select>
+									<option value="">Selecione a Empresa</option>
+									<c:forEach var="empresa" items="${dao.lista}">
+										<option value="${empresa.idEmpresa}">${empresa.nome}</option>
+									</c:forEach>
+								</select>
 							</div>
 							<div class="form-group col-md-3">
 								<label for="numeroEmpenho">Numero Empenho </label> <input
@@ -89,9 +86,9 @@
 							</div>
 						</div>
 						
+						<fieldset class="border p-2">
 						<div class="form-row">
-							<h2 class="bd-title">Informações para Envia a empresa</h2>
-
+							
 							<div class="form-group col-md-12">
 								<label for="inputCodigo">Título do Email</label> <input
 									type="text" class="form-control" id="inputCodigo"
@@ -101,14 +98,15 @@
 							<div class="form-group col-md-12">
 								<label for="inputDesc">Mensagem</label>
 								<textarea class="form-control" id="inputDesc" rows="4"
-									name="noticia" placeholder="Mensagem a ser enviada" required></textarea>
+									name="mensagem" placeholder="Mensagem a ser enviada" required></textarea>
 							</div>
 							
 						</div>
 
 						<button type="submit" class="btn btn-success mb-2" id="botao"
-							name="salvaNoticia">Enviar Email/Gravar</button>
+							name="salvaNoticia" formaction="../enviaEmail">Enviar Email/Gravar</button>
 					</form>
+					</fieldset>
 				
 			</div>
 		

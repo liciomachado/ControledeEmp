@@ -125,6 +125,7 @@
 			</div>
 		</form>	
 	</fieldset>
+	
 	<fieldset class="border p-2">
 
 		<legend class="w-auto">Empresa </legend>
@@ -158,6 +159,7 @@
 			</div>
 		</form>
 	</fieldset>
+	
 	<fieldset class="border p-2">
 		<legend class="w-auto">Nota Fiscal </legend>
 		<div class="form-row">
