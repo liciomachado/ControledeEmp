@@ -90,11 +90,11 @@
 						<input class="form-check-input" type="checkbox" value="" id="HabilitaEmpenho"> 
 						<label class="form-check-label" for="inputCadastro"> Habilitar Edição  </label>
 					</div>
-				</div>
+			</div>
 				<div class="form-group col-md-3">
-						<label for="idEmpenho">Identificador </label> <input readonly
+						<label for="idEmpenho">Enviado por: </label> <input readonly
 							type="text" class="form-control" id="idEmpenho"
-							placeholder="" name="idEmpenho" required="" value="<%= emp.getIdEmpenho() %>">
+							placeholder="" name="idEmpenho" required="" value="<%= emp.getUsuario().getNome()%>">
 				</div>
 				<div class="form-group col-md-3">
 					<label for="numeroEmpenho">Numero Empenho </label> <input readonly
@@ -172,11 +172,11 @@
 						<label for="inputChaveAcesso">Chave de acesso</label> <input type="text" readonly
 							class="form-control" id="inputChaveAcesso" name="inputChaveAcesso" required value="${nf.chaveAcesso}">
 					</div>
-					<div class="form-group col-md-2">
+					<div class="form-group col-md-1">
 						<label for="inputNota">Nº Nota</label> <input type="text" readonly
 							class="form-control" id="inputNota" name="inputNota" required value="${nf.numNota }">
 					</div>
-					<div class="form-group col-md-3">
+					<div class="form-group col-md-2">
 						<label for="inputDataEmissao">Data de Emissão:</label> <input readonly
 							type="date" class="form-control" id="inputDataEmissao" name="inputDataEmissao"
 							required value="<fmt:formatDate value="${nf.dataEmissao.time}" pattern="yyyy-MM-dd"/>">
@@ -185,6 +185,10 @@
 						<label for="inputPreco">Valor total R$</label> <input type="number" readonly
 							class="form-control " id="inputPreco" name="inputPreco" required placeholder="00.00"
 							value="${nf.valorTotal}">
+					</div>
+					<div class="form-group col-md-2">
+						<label for="inputChaveAcesso">Por:</label> <input type="text" readonly
+							class="form-control" id="inputChaveAcesso" name="inputChaveAcesso" required value="${nf.usuario.nome}">
 					</div>
 					<div class="col-lg-12" style="text-align: right;">
 					<button type="submit" class="btn btn-primary mb-2">Alterar Nota Fiscal</button>

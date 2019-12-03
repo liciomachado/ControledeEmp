@@ -23,6 +23,7 @@ import br.com.controlador.jdbc.ConnectionFactory;
 import br.com.controlador.jdbc.modelo.Empenho;
 import br.com.controlador.jdbc.modelo.Empresa;
 import br.com.controlador.jdbc.modelo.NotaFiscal;
+import br.com.controlador.jdbc.modelo.Usuario;
 
 public class EmpenhoDao {
 
@@ -71,8 +72,9 @@ public class EmpenhoDao {
 	public Empenho buscaEmpenhoCompleto(String numeroEmpenho) {
 		Empenho empenho = new Empenho();
 		try{
-			PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM empenho as a "
-						+ "inner join empresa as c on a.idEmpresa = c.idempresa "
+			PreparedStatement stmt = this.connection.prepareStatement("SELECT a.idempenho,a.numeroEmpenho,a.destino,"
+					+ "a.valorTotal,a.empenhoDigitalizado,a.etapa,a.dataEmpenho,c.idempresa,c.nome,c.contato,c.email,b.nome as nomeUsuario FROM empenho as a "
+						+ "inner join empresa as c on a.idEmpresa = c.idempresa inner join usuario as b on b.idusuario = a.idusuario "
 						+ "where numeroEmpenho = ? ;");
 
 			stmt.setString(1, numeroEmpenho);
@@ -96,6 +98,10 @@ public class EmpenhoDao {
 				empresa.setNome(rs.getString("nome"));
 				empresa.setContato(rs.getString("contato"));
 				empresa.setEmail(rs.getString("email"));
+				
+				Usuario usuario = new Usuario();
+				usuario.setNome(rs.getString("nomeUsuario"));
+				empenho.setUsuario(usuario);
 				
 				/*NotaFiscal nf = new NotaFiscal();
 				if(rs.getInt("idnotaFiscal") != 0 || rs.getDate("dataEmissao") != null) {

@@ -13,6 +13,7 @@ import br.com.controlador.jdbc.ConnectionFactory;
 import br.com.controlador.jdbc.modelo.Empenho;
 import br.com.controlador.jdbc.modelo.Empresa;
 import br.com.controlador.jdbc.modelo.NotaFiscal;
+import br.com.controlador.jdbc.modelo.Usuario;
 
 public class NotaFiscalDao {
 	private Connection connection;
@@ -91,7 +92,10 @@ public class NotaFiscalDao {
 		try {
 			List<NotaFiscal> nfs = new ArrayList<NotaFiscal>();
 			PreparedStatement stmt = this.connection.
-					prepareStatement("select * from notafiscal where idempenho = ?");
+					prepareStatement("select a.idnotaFiscal,a.numNota,a.chaveAcesso,a.valorTotal,a.dataEmissao,"
+							+ "a.dataRecebido,b.nome from notafiscal as a inner join"
+							+ " usuario as b on a.idusuario = b.idusuario "
+							+ "where idempenho = ?");
 			
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
@@ -103,6 +107,10 @@ public class NotaFiscalDao {
 				nf.setNumNota(rs.getInt("numNota"));
 				nf.setChaveAcesso(rs.getString("chaveAcesso"));
 				nf.setValorTotal(rs.getDouble("valorTotal"));
+				
+				Usuario usuario = new Usuario();
+				usuario.setNome(rs.getString("nome"));
+				nf.setUsuario(usuario);
 				
 				Calendar data = Calendar.getInstance();
                 data.setTime(rs.getDate("dataEmissao"));
