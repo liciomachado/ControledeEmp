@@ -13,7 +13,7 @@
 	<div class="row">
 
 
-		<a href="adicionaNF.jsp"> 
+		<a href="adicionaEmpenho.jsp"> 
 			<span class="box"> 
 			<img alt="img" width="50" height="50" src="../img/document.png">
 				<p>Cadastrar Empenho</p>
@@ -24,51 +24,51 @@
 			<img alt="img" width="50" height="50" src="../img/document.png">
 				<p>Cadastrar Nota Fiscal</p>
 			</span>
-		</a> <a href="adicionaNF.jsp"> 
+		</a> <a href="protocolo.jsp"> 
 			<span class="box"> 
 			<img alt="img" width="50" height="50" src="../img/document.png">
 				<p>Protocolar</p>
 			</span>
-		</a> <a href="adicionaNF.jsp"> 
+		</a> <a href="empenhosPendentes.jsp"> 
 			<span class="box"> 
 			<img alt="img" width="50" height="50" src="../img/document.png">
 				<p>Empenhos Pendentes</p>
 			</span>
-		</a> <a href="adicionaNF.jsp"> 
+		</a> <a href="empenhosRecebidos.jsp"> 
 			<span class="box"> 
 			<img alt="img" width="50" height="50" src="../img/document.png">
 				<p>Empenhos Recebidos</p>
 			</span>
-		</a> <a href="adicionaNF.jsp"> 
+		</a> <a href="#"> 
 			<span class="box"> 
 			<img alt="img" width="50" height="50" src="../img/document.png">
 				<p>Gerenciar Empenhos</p>
 			</span>
-		</a> <a href="adicionaNF.jsp"> 
+		</a> <a href="#"> 
 			<span class="box"> 
 			<img alt="img" width="50" height="50" src="../img/document.png">
 				<p>Ver Protocolos</p>
 			</span>
 		</a> 
-		<a href="adicionaNF.jsp"> 
+		<a href="#"> 
 			<span class="box"> 
 			<img alt="img" width="50" height="50" src="../img/document.png">
 				<p>Gerenciar Empresas</p>
 			</span>
 		</a> 
-		<a href="adicionaNF.jsp"> 
+		<a href="#"> 
 			<span class="box"> 
 			<img alt="img" width="50" height="50" src="../img/document.png">
 				<p>Gerenciar Nota Fiscal</p>
 			</span>
 		</a> 
-		<a href="adicionaNF.jsp"> 
+		<a href="https://www.google.com/gmail/"  target="_blank"> 
 			<span class="box"> 
 			<img alt="img" width="50" height="50" src="../img/document.png">
-				<p>GMAIL</p>
+				<p>Gmail</p>
 			</span>
 		</a> 
-		<a href="adicionaNF.jsp"> 
+		<a href="http://www.nfe.fazenda.gov.br/portal/consultaRecaptcha.aspx?tipoConsulta=completa&tipoConteudo=XbSeqxE8pl8=" target="_blank"> 
 			<span class="box"> 
 			<img alt="img" width="50" height="50" src="../img/document.png">
 				<p>Site NFE</p>

@@ -32,12 +32,7 @@
 				Empenhos
 			</a>
 			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-				<li class="nav-item active"><a class="nav-link" href="empenhosPendentes.jsp">Pendentes
-						<span class="sr-only">(current)</span>
-				</a></li>
-				<li class="nav-item active"><a class="nav-link" href="empenhosRecebidos.jsp">Recebidos
-						<span class="sr-only">(current)</span>
-				</a></li>
+				
 
 			</ul>
 			<form action="detalheEmpenho.jsp" method="get" class="form-inline my-2 my-lg-0">
