@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.controlador.logica;
+package br.com.controlador.jdbc.teste;
 
 import java.util.Properties;
 import javax.mail.Message;
@@ -61,8 +61,7 @@ public class EnviarEmail {
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.socketFactory.class",
-                "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");
 
@@ -79,9 +78,9 @@ public class EnviarEmail {
             MimeMessage message = new MimeMessage(s);
             message.setFrom(new InternetAddress("licio.machado.mm@gmail.com"));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(this.emailDestinatario));
-            message.setContent(this.anexo);
             message.setSubject(this.assunto);
             message.setContent(this.msg, "text/html; charset=utf-8");
+            message.setContent(this.anexo);
 
             //send message  
             Transport.send(message);
@@ -94,5 +93,4 @@ public class EnviarEmail {
         }
         return retorno;
     }
-
 }

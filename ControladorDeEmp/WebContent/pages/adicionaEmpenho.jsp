@@ -50,8 +50,8 @@
 							</div>
 							
 							<div class="form-group col-md-3">
-								<label for="inputEmp">Empenho</label> 
-								<select class="js-example-basic-single form-control col-md-11" id="inputEmp" name="inputEmp">
+								<label for="inputEmpenho">Empenho</label> 
+								<select class="js-example-basic-single form-control col-md-11" id="inputEmpenho" name="inputEmpenho">
 									<option value="">Selecione a Empresa</option>
 									<c:forEach var="empresa" items="${dao.lista}">
 										<option value="${empresa.idEmpresa}">${empresa.nome}</option>

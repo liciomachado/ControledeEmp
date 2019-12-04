@@ -21,12 +21,16 @@ public class functionJSON extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
 		int id = Integer.parseInt(request.getParameter("id"));
+		try {
+			EmpenhoDao dao = new EmpenhoDao();
+			Empenho empenho = new Empenho();
+			empenho = dao.buscaParaNF(id);
+			double valor = empenho.getValorTotal();
+			String empresa = empenho.getEmpresa().getNome();
+			response.getWriter().println(empresa + "/" + valor);
+		}catch (Exception e) {
+			
+		}
 		
-		EmpenhoDao dao = new EmpenhoDao();
-		Empenho empenho = new Empenho();
-		empenho = dao.buscaParaNF(id);
-		double valor = empenho.getValorTotal();
-		String empresa = empenho.getEmpresa().getNome();
-		response.getWriter().println(empresa + "/" + valor);
     }
 }

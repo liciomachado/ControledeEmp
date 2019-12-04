@@ -42,7 +42,7 @@ public class adicionaEmpenhoServlet extends HttpServlet {
     	String numEmpenho = request.getParameter("numEmpenho");
     	String destino = request.getParameter("destinoEmpenho");
     	double valorTotal = Double.parseDouble(request.getParameter("valor"));
-    	int idEmpresa = Integer.parseInt(request.getParameter("inputEmp"));
+    	int idEmpresa = Integer.parseInt(request.getParameter("inputEmpenho"));
     	
     	Part filePart = request.getPart("imagem");
     	
