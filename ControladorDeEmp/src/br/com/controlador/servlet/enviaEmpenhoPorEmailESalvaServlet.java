@@ -10,6 +10,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMultipart;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -21,15 +27,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import org.apache.tomcat.util.http.fileupload.FileItemFactory;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-
 import br.com.controlador.jdbc.dao.EmpenhoDao;
 import br.com.controlador.jdbc.dao.EmpresaDao;
 import br.com.controlador.jdbc.modelo.Empenho;
 import br.com.controlador.jdbc.modelo.Empresa;
-import br.com.controlador.jdbc.modelo.Observacoes;
 import br.com.controlador.jdbc.modelo.Usuario;
 import br.com.controlador.logica.EnviarEmail;
 
@@ -47,9 +48,7 @@ public class enviaEmpenhoPorEmailESalvaServlet extends HttpServlet {
     	int idEmpresa = Integer.parseInt(request.getParameter("inputEmp"));
     	Part filePart = request.getPart("imagem");
     	InputStream file = null;
-    	if(filePart != null) {
-        	file = filePart.getInputStream();
-    	}
+    	if(filePart != null) {        	file = filePart.getInputStream();    	}
     	Empresa empresa = new Empresa();
     	empresa.setIdEmpresa(idEmpresa);
     	Empenho empenho = new Empenho();
@@ -107,11 +106,30 @@ public class enviaEmpenhoPorEmailESalvaServlet extends HttpServlet {
 	    texto.append("Atenciosamente, <br/><br/>");
 	    
 	    texto.append(s.getAttribute("usuario"));
-	    
 	    enviar.setMsg(texto.toString());
+	 
+	    
+	    try {
+	    	String htmlMessage = "< h t m l > Código HTML da mensagem </ h t m l >";
+		    Multipart multipart = new MimeMultipart();
+		    MimeBodyPart attachment0 = new MimeBodyPart();
+			attachment0.setContent("","text/html; charset=UTF-8");
+			multipart.addBodyPart(attachment0);
+			String pathname = "C:/Users/Mauricio/Desktop/800501.pdf";//pode conter o caminho
+			File file2 = new File(pathname);
+			MimeBodyPart attachment1 = new MimeBodyPart();
+			attachment1.setDataHandler(new DataHandler(new FileDataSource(file2)));
+			attachment1.setFileName(file2.getName());
+			multipart.addBodyPart(attachment1);
+			attachment1.setFileName("C:/Users/Mauricio/Desktop/800501.pdf");
+			enviar.setAnexo(multipart);
+			
+		} catch (MessagingException e) {
+			System.out.println("Erro ao inserir anexo");
+			e.printStackTrace();
+		}
 	    
 	    enviar.enviarGmail();
-	 
-		response.sendRedirect("pages/adcSucessoEmpenho.jsp");
+	    response.sendRedirect("pages/adcSucessoEmpenho.jsp");
     }
 }

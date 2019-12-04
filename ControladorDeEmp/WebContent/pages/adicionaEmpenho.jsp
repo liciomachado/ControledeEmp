@@ -86,27 +86,20 @@
 							</div>
 						</div>
 						
-						<fieldset class="border p-2">
 						<div class="form-row">
 							
 							<div class="form-group col-md-12">
-								<label for="inputCodigo">Título do Email</label> <input
-									type="text" class="form-control" id="inputCodigo"
-									placeholder="Título" name="titulo" required="" value="">
-							</div>
-
-							<div class="form-group col-md-12">
-								<label for="inputDesc">Mensagem</label>
+								<label for="inputDesc">Mensagem Complementar</label>
 								<textarea class="form-control" id="inputDesc" rows="4"
-									name="mensagem" placeholder="Mensagem a ser enviada" required></textarea>
+									name="mensagem" placeholder="Mensagem Complementar referente ao empenho" required></textarea>
 							</div>
 							
 						</div>
-
-						<button type="submit" class="btn btn-success mb-2" id="botao"
+						<div style="text-align: right;">
+							<button type="submit" class="btn btn-success mb-2" id="botao"
 							name="salvaNoticia" formaction="../enviaEmail">Enviar Email/Gravar</button>
+						</div>
 					</form>
-					</fieldset>
 				
 			</div>
 		
