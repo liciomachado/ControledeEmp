@@ -8,6 +8,7 @@ package br.com.controlador.logica;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -19,8 +20,18 @@ public class EnviarEmail {
     private String emailDestinatario;
     private String assunto;
     private String msg;
+    private Multipart anexo;
+    
+    
+    public Multipart getAnexo() {
+		return anexo;
+	}
 
-    public String getEmailDestinatario() {
+	public void setAnexo(Multipart anexo) {
+		this.anexo = anexo;
+	}
+
+	public String getEmailDestinatario() {
         return emailDestinatario;
     }
 
@@ -68,7 +79,7 @@ public class EnviarEmail {
             MimeMessage message = new MimeMessage(s);
             message.setFrom(new InternetAddress("licio.machado.mm@gmail.com"));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(this.emailDestinatario));
-
+            message.setContent(this.anexo);
             message.setSubject(this.assunto);
             message.setContent(this.msg, "text/html; charset=utf-8");
 
