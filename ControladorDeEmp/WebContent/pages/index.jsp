@@ -24,17 +24,20 @@
 			<img alt="img" width="50" height="50" src="../img/index/nfeNew.png">
 				<p>Cadastrar Nota Fiscal</p>
 			</span>
-		</a> <a href="protocolo.jsp"> 
+		</a> 
+		<a href="protocolo.jsp"> 
 			<span class="box"> 
 			<img alt="img" width="50" height="50" src="../img/index/checklist.png">
 				<p>Protocolar</p>
 			</span>
-		</a> <a href="empenhosPendentes.jsp"> 
+		</a> 
+		<a href="empenhosPendentes.jsp"> 
 			<span class="box"> 
 			<img alt="img" width="50" height="50" src="../img/index/hourglass.png">
 				<p>Empenhos Pendentes</p>
 			</span>
-		</a> <a href="empenhosRecebidos.jsp"> 
+		</a> 
+		<a href="empenhosRecebidos.jsp"> 
 			<span class="box"> 
 			<img alt="img" width="50" height="50" src="../img/index/success.png">
 				<p>Empenhos Recebidos</p>
@@ -70,15 +73,13 @@
 				<p>Gerenciar Empresas</p>
 			</span>
 		</a> 
-		
-		
 		<a href="http://www.nfe.fazenda.gov.br/portal/consultaRecaptcha.aspx?tipoConsulta=completa&tipoConteudo=XbSeqxE8pl8=" target="_blank"> 
 			<span class="box"> 
 			<img alt="img" width="50" height="50" src="../img/index/nfe.png">
 				<p>Site NFE</p>
 			</span>
 		</a> 
-		<a href="adicionaNF.jsp"> 
+		<a href="#"> 
 			<span class="box"> 
 			<img alt="img" width="50" height="50" src="../img/index/settings.png">
 				<p>Configurações do Site</p>

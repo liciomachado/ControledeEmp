@@ -79,8 +79,6 @@ public class enviaEmpenhoPorEmailESalvaServlet extends HttpServlet {
 		EmpenhoDao dao = new EmpenhoDao();
 		//dao.adiciona(empenho);
 		int idResultado = dao.empenhoComFile2(file, empenho);
-		HttpSession sessao = request.getSession(true);
-		sessao.setAttribute("LastResult", idResultado);
 
 		Empresa empresa2 = new Empresa();
 		EmpresaDao daoEmpresa =  new EmpresaDao();
@@ -91,7 +89,6 @@ public class enviaEmpenhoPorEmailESalvaServlet extends HttpServlet {
 		final String password = "19121998";
 		String fromEmail = "licio.machado.mm@gmail.com";
 		String toEmail = empresa2.getEmail();
-		
 		
 		List<File> uploadedFiles = saveUploadedFiles(request);
 		
@@ -140,20 +137,17 @@ public class enviaEmpenhoPorEmailESalvaServlet extends HttpServlet {
 			MimeBodyPart textBodyPart = new MimeBodyPart();
 			textBodyPart.setText(texto.toString(), "UTF-8", "html");
 			
-			//Attachment body part.
+			//ENVIA O ANEXO NO EMAIL
 			MimeBodyPart pdfAttachment = new MimeBodyPart();
 			String fileName = extractFileName(request.getPart("imagem"));
+			System.out.println(fileName);
 			File saveFile = new File(fileName);
 			System.out.println(saveFile.getAbsolutePath());
 			pdfAttachment.attachFile(saveFile.getAbsolutePath());
 			
-			
 			//Attach body parts
 			emailContent.addBodyPart(textBodyPart);
 			emailContent.addBodyPart(pdfAttachment);
-			
-			//Attach multipart to message
-			//msg.setContent(texto.toString(),"text/html; charset=utf-8");
 			msg.setContent(emailContent);
 			
 			Transport.send(msg);
@@ -162,7 +156,10 @@ public class enviaEmpenhoPorEmailESalvaServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	    
-	    response.sendRedirect("pages/adcSucessoEmpenho.jsp");
+	    deleteUploadFiles(uploadedFiles);
+	    //response.sendRedirect("pages/adcSucessoEmpenho.jsp");
+		response.sendRedirect("pages/detalheEmpenho.jsp?numEmpenho="+numEmpenho);
+
     }
     
     private List<File> saveUploadedFiles(HttpServletRequest request)
@@ -181,7 +178,6 @@ public class enviaEmpenhoPorEmailESalvaServlet extends HttpServlet {
 				}
 				
 				File saveFile = new File(fileName);
-				System.out.println("saveFile: " + saveFile.getAbsolutePath());
 				FileOutputStream outputStream = new FileOutputStream(saveFile);
 				
 				// saves uploaded file
@@ -207,10 +203,7 @@ public class enviaEmpenhoPorEmailESalvaServlet extends HttpServlet {
 		}
 		return null;
 	}
-	
-	/**
-	 * Deletes all uploaded files, should be called after the e-mail was sent.
-	 */
+
 	private void deleteUploadFiles(List<File> listFiles) {
 		if (listFiles != null && listFiles.size() > 0) {
 			for (File aFile : listFiles) {

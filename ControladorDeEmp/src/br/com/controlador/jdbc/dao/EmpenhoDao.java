@@ -75,7 +75,7 @@ public class EmpenhoDao {
 			PreparedStatement stmt = this.connection.prepareStatement("SELECT a.idempenho,a.numeroEmpenho,a.destino,"
 					+ "a.valorTotal,a.empenhoDigitalizado,a.etapa,a.dataEmpenho,c.idempresa,c.nome,c.contato,c.email,b.nome as nomeUsuario FROM empenho as a "
 						+ "inner join empresa as c on a.idEmpresa = c.idempresa inner join usuario as b on b.idusuario = a.idusuario "
-						+ "where numeroEmpenho = ? ;");
+						+ "where numeroEmpenho = ? order by a.idempenho desc ;");
 
 			stmt.setString(1, numeroEmpenho);
 			ResultSet rs = stmt.executeQuery();
@@ -230,7 +230,7 @@ public class EmpenhoDao {
 		try {
 			List<Empenho> empenhos = new ArrayList<Empenho>();
 			PreparedStatement stmt = this.connection.
-					prepareStatement("select * from empenho");
+					prepareStatement("select * from empenho order by idempenho desc");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {

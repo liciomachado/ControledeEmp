@@ -86,7 +86,8 @@ public class adicionaEmpenhoServlet extends HttpServlet {
 		HttpSession sessao = request.getSession(true);
 		sessao.setAttribute("LastResult", idResultado);
 		
-		response.sendRedirect("pages/adcSucessoEmpenho.jsp");
+		//response.sendRedirect("pages/adcSucessoEmpenho.jsp");
+		response.sendRedirect("pages/detalheEmpenho.jsp?numEmpenho="+numEmpenho);
 		//request.getRequestDispatcher("pages/adcSucessoEmpenho.jsp").forward(request,response);
     }
 }

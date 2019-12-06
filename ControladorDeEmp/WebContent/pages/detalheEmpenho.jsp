@@ -194,10 +194,15 @@
 					</div>
 					<div class="col-lg-12" style="text-align: right;">
 					<button type="submit" class="btn btn-primary mb-2">Alterar Nota Fiscal</button>
-				</div>
+					</div>
 				</c:forEach>
+				
 			</div>
-		
+			<div style="text-align: right;">
+						<a href="adicionaNF.jsp"><button id="adicionaNF" type="button" class="btn btn-default" aria-label="Left Align">
+							<img alt="add" width="25" height="25" src="../img/add.png">
+						</button></a>
+					</div>
 	</fieldset>
 	
 	<fieldset class="border p-2" id="observacoes">
