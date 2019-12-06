@@ -89,8 +89,8 @@
 						<div class="form-row">
 							
 							<div class="form-group col-md-12">
-								<label for="inputDesc">Mensagem Complementar</label>
-								<textarea class="form-control" id="inputDesc" rows="4"
+								<label for="mensagemAdicional">Mensagem Complementar</label>
+								<textarea class="form-control" id="mensagemAdicional" rows="4"
 									name="mensagem" placeholder="Mensagem Complementar referente ao empenho" required></textarea>
 							</div>
 							

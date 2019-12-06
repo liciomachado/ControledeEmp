@@ -54,6 +54,7 @@ public class enviaEmpenhoPorEmailESalvaServlet extends HttpServlet {
     	String destino = request.getParameter("destinoEmpenho");
     	double valorTotal = Double.parseDouble(request.getParameter("valor"));
     	int idEmpresa = Integer.parseInt(request.getParameter("inputEmpenho"));
+    	String mensagem = request.getParameter("mensagem");
     	Part filePart = request.getPart("imagem");
     	InputStream file = null;
     	if(filePart != null) {        	file = filePart.getInputStream();    	}
@@ -111,6 +112,9 @@ public class enviaEmpenhoPorEmailESalvaServlet extends HttpServlet {
 	    StringBuffer texto = new StringBuffer(); 
 	    texto.append("<h2 align='center'>Pedido : "+numEmpenho+" - "+ empresa2.getNome()+"</h2>");
 	    texto.append("Solicito-vos fornecer o(s) item(s) do empenho em anexo:<br/><br/><br/>");
+	    if(mensagem != null || mensagem != "") {
+	    	texto.append(mensagem+"<br/>");
+	    }
 	    texto.append("LOCAL DE ENTREGA: <br/>");
 	    texto.append("1º B Fv <br/>");
 	    texto.append("Rua: 2º Batalhão Rodoviário s/n  <br/>");
