@@ -11,8 +11,6 @@
 
 <div class="container">
 	<div class="row">
-
-
 		<a href="adicionaEmpenho.jsp"> 
 			<span class="box"> 
 			<img alt="img" width="50" height="50" src="../img/document.png">
@@ -67,7 +65,7 @@
 				<p>Ver Protocolos</p>
 			</span>
 		</a> 
-		<a href="#"> 
+		<a href="gerenciaEmpresas.jsp"> 
 			<span class="box"> 
 			<img alt="img" width="50" height="50" src="../img/index/enterprise.png">
 				<p>Gerenciar Empresas</p>
