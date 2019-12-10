@@ -70,6 +70,7 @@ public class EmpresaDao {
             throw new RuntimeException(e);
         }
     }
+    
     public void altera(Empresa empresa) {
         String sql = "update empresa set nome=?, email=?, contato=?" +
                 " where idempresa=?";

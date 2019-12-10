@@ -46,11 +46,13 @@
 					<th scope="col">Nome</th>
 					<th scope="col">Contato</th>
 					<th scope="col">Email</th>
+					<th scope="col"></th>
+					<th scope="col"></th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="emp" items="${dao.lista}">
-					<tr>
+					<tr class="trEmpresas" data-url="detalhesEmpresa.jsp?idEmpresa=${emp.idEmpresa}">
 						<td>${emp.idEmpresa}</td>
 						<td>${emp.nome}</td>
 						<td>${emp.contato}</td>
@@ -58,9 +60,11 @@
 						<form action="detalheEmpenho.jsp" method="get">
 						<input hidden type="text" value="${emp.idEmpresa}" name="numEmpenho">
 						<td><button type="submit" class="btn btn-outline-info"
-								data-toggle="modal" data-target="#ExemploModalCentralizado">
-								Editar</button></td></a></form> 
-					
+							data-toggle="modal" data-target="#ExemploModalCentralizado">
+							Editar</button></td>
+						<td><button formaction="/deletaEmpresa" type="submit" class="btn btn-danger"
+						data-toggle="modal" data-target="#ExemploModalCentralizado">
+						X</button></td></form>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -68,4 +72,5 @@
 	</div>
 </div>
 </br></br></br></br></br>
+
 <c:import url="rodape.jsp" />

@@ -148,5 +148,13 @@
 		}
 	});
 	$("#numTelefone").mask("(00) 00000-0000");
+	
+	$(document).ready(function(){
+	    $('.trEmpresas').click(function(){
+	        window.location = $(this).data('url');
+	        returnfalse;
+	    });
+	});
+	
 </script>
 </html>
