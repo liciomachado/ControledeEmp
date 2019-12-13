@@ -41,7 +41,8 @@
 			</form>
 
 			<ul class="nav nav-pills">
-				<li class="nav-item dropdown"><a
+				<li class="nav-item dropdown">
+				<a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
 						<img src="../img/user.png" width="30" height="30"
 						class="d-inline-block align-top" alt=""> <%=session.getAttribute("usuario")%>

@@ -80,7 +80,7 @@
 		<a href="#"> 
 			<span class="box"> 
 			<img alt="img" width="50" height="50" src="../img/index/settings.png">
-				<p>Configurações do Site</p>
+				<p>Configurações da Conta</p>
 			</span>
 		</a> 
 		

@@ -85,7 +85,10 @@ public class enviaEmpenhoPorEmailESalvaServlet extends HttpServlet {
 		EmpresaDao daoEmpresa =  new EmpresaDao();
 		empresa2 = daoEmpresa.buscaPorId(idEmpresa);
 		
-		//COMEÇANDO TRABALHAR O EMAIL
+		request.getRequestDispatcher("index.jsp").forward(request,response);
+		
+		//COMEÇANDO TRABALHAR O EMAIL-----------------------------------------------------------------------------------
+		
 		final String username = "licio.machado.mm@gmail.com";
 		final String password = "19121998";
 		String fromEmail = "licio.machado.mm@gmail.com";

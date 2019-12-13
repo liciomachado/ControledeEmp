@@ -160,8 +160,9 @@ public class NotaFiscalDao {
 				Calendar data = Calendar.getInstance();
                 data.setTime(rs.getDate("dataEmpenho"));
                 nf.setDataEmissao(data);
-                data.setTime(rs.getDate("dataRecebido"));
-				nf.setDataRecebido(data);
+                Calendar data2 = Calendar.getInstance();
+                data2.setTime(rs.getDate("dataRecebido"));
+				nf.setDataRecebido(data2);
 
 				// adicionando o objeto � lista
 				nfs.add(nf);

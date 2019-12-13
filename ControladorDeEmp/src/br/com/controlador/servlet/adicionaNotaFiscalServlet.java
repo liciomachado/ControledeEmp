@@ -49,8 +49,7 @@ public class adicionaNotaFiscalServlet extends HttpServlet {
 
         // fazendo a conversão da data
         try {
-            Date date2 = new SimpleDateFormat("yyyy-MM-dd")
-                    .parse(dataString);
+            Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(dataString);
             dataEmissao = Calendar.getInstance();
             dataEmissao.setTime(date2);
         } catch (ParseException e) {
@@ -79,6 +78,5 @@ public class adicionaNotaFiscalServlet extends HttpServlet {
 		
 		response.sendRedirect("pages/index.jsp");
 		//response.sendRedirect("pages/detalheEmpenho.jsp?numEmpenho="+emp.getNumeroEmpenho()+"#observacoes");
-
 	}
 }
