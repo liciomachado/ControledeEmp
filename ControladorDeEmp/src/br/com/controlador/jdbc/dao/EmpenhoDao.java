@@ -299,7 +299,12 @@ public class EmpenhoDao {
 		try {
 			List<Empenho> empenhos = new ArrayList<Empenho>();
 			PreparedStatement stmt = this.connection.
-					prepareStatement("SELECT * FROM controledeempenhos.empenho as a inner join empresa as b on a.idEmpresa = b.idempresa  where idempenho not in(select idempenho from notafiscal)");
+					prepareStatement("SELECT * FROM controledeempenhos.empenho as c inner join empresa as b on c.idEmpresa = b.idempresa " + 
+							"where not exists (" + 
+							"					select a.idEmpenho,sum(a.valorTotal),c.valorTotal from notafiscal as A" + 
+							"					inner join empenho as b on a.idempenho = b.idempenho" + 
+							"					GROUP BY a.idEmpenho HAVING sum(a.valorTotal) = c.valorTotal and a.idEmpenho = c.idempenho" + 
+							"				)");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
