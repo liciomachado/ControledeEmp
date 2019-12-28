@@ -32,7 +32,7 @@ public class adicionaNotaFiscalServlet extends HttpServlet {
 		double valorNF = Double.parseDouble(request.getParameter("inputPreco"));
 		int idEmpenho = Integer.parseInt(request.getParameter("inputEmp"));
 		int numNota = Integer.parseInt(request.getParameter("inputNota"));
-		
+		System.out.println(request.getServletPath());
 		//-----------------PEGANDO DATA DE AGORA
 		Date d = new Date();
 		System.out.println(d);

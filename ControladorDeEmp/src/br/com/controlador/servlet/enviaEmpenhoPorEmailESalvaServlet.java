@@ -85,7 +85,7 @@ public class enviaEmpenhoPorEmailESalvaServlet extends HttpServlet {
 		EmpresaDao daoEmpresa =  new EmpresaDao();
 		empresa2 = daoEmpresa.buscaPorId(idEmpresa);
 		
-		request.getRequestDispatcher("index.jsp").forward(request,response);
+		//request.getRequestDispatcher("index.jsp").forward(request,response);
 		
 		//COMEÇANDO TRABALHAR O EMAIL-----------------------------------------------------------------------------------
 		

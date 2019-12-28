@@ -22,7 +22,7 @@
 									</div>
 									<div class="form-group col-md-4">
 										<label for="numTelefone">Telefone </label> <input
-											type="text" class="form-control" id="numTelefone" pattern="\([0-9]{2}\)[\s][0-9]{4}-[0-9]{4,5}"
+											type="text" class="form-control" id="numTelefone" pattern="(^[\d-\)\(]+$)"
 											placeholder="" name="numTelefone" required="" value="">
 									</div>
 									<div class="form-group col-md-4">
@@ -30,7 +30,7 @@
 											type="text" class="form-control" id="nomeEmail"
 											placeholder="" name="nomeEmail" required="" value="">
 									</div>
-									
+									<input hidden type="text" value="adiciona" name="acao">
 									<div class="col-lg-12" style="text-align: right;">
 								      <button type="submit" class="btn btn-primary mb-2">Salvar</button>
 								    </div>
@@ -61,7 +61,7 @@
 							<div class="form-group col-md-3">
 								<label for="numeroEmpenho">Numero Empenho </label> <input
 									type="text" class="form-control" id="numeroEmpenho"
-									placeholder="xxxxNExxxxxx" name="numEmpenho" required=""
+									placeholder="xxxxNExxxxxx" name="numEmpenho" required="true"
 									value="">
 							</div>
 

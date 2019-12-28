@@ -20,19 +20,44 @@ public class adicionaEmpresaServlet extends HttpServlet {
 			HttpServletResponse response)
 					throws IOException, ServletException {
 
+		String acao = request.getParameter("acao");
+		int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
 		String nome = request.getParameter("nomeEmpresa");
 		String tel = request.getParameter("numTelefone");
 		String email = request.getParameter("nomeEmail");
 		
 		Empresa empresa = new Empresa();
-		empresa.setNome(nome);
-		empresa.setContato(tel);
-		empresa.setEmail(email);
-		
 		EmpresaDao dao = new EmpresaDao();
-		dao.adiciona(empresa);
-		
-		response.sendRedirect("pages/adicionaEmpenho.jsp");
+		switch (acao) {
+		case "adiciona":
+			
+			empresa.setNome(nome);
+			empresa.setContato(tel);
+			empresa.setEmail(email);
+			
+			dao.adiciona(empresa);
+			
+			response.sendRedirect("pages/adicionaEmpenho.jsp");
+			break;
+		case "excluir":
+			
+			empresa.setIdEmpresa(idEmpresa);
+			dao.remove(empresa);
+			
+			response.sendRedirect("pages/gerenciaEmpresas.jsp");
+			break;
+		case "atualiza":
+			
+			empresa.setIdEmpresa(idEmpresa);
+			empresa.setNome(nome);
+			empresa.setContato(tel);
+			empresa.setEmail(email);
+			
+			dao.altera(empresa);
+			
+			response.sendRedirect("pages/adicionaEmpenho.jsp");
+			break;
+		}
 		
 	}
 }

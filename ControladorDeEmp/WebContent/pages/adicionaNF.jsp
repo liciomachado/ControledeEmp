@@ -15,7 +15,7 @@
 	<div class="row cadastro">
 		<div class="col-md-12">
 			<form class="form-group needs-validation justify-content-center"
-				method="post" action="../adicionaNotaFiscal" novalidate>
+				method="post" action="../adicionaNotaFiscal" novalidate name="adicionaNF">
 				<div class="form-row">
 					<div class="form-group col-md-5">
 						<label for="inputChaveAcesso">Chave de acesso</label> <input type="text"
