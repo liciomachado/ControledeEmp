@@ -55,7 +55,7 @@ public class adicionaEmpresaServlet extends HttpServlet {
 			
 			dao.altera(empresa);
 			
-			response.sendRedirect("pages/adicionaEmpenho.jsp");
+			response.sendRedirect("pages/gerenciaEmpresas.jsp");
 			break;
 		}
 		

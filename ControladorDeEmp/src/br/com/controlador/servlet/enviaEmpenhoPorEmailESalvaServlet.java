@@ -88,7 +88,7 @@ public class enviaEmpenhoPorEmailESalvaServlet extends HttpServlet {
 		//request.getRequestDispatcher("index.jsp").forward(request,response);
 		
 		//COMEÇANDO TRABALHAR O EMAIL-----------------------------------------------------------------------------------
-		
+		long tempoInicio = System.currentTimeMillis();
 		final String username = "licio.machado.mm@gmail.com";
 		final String password = "19121998";
 		String fromEmail = "licio.machado.mm@gmail.com";
@@ -158,7 +158,9 @@ public class enviaEmpenhoPorEmailESalvaServlet extends HttpServlet {
 			msg.setContent(emailContent);
 			
 			Transport.send(msg);
+			
 			System.out.println("Sent message");
+			System.out.println("Tempo Total de envio: "+((System.currentTimeMillis()-tempoInicio)/1000)+" segundos....");
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}

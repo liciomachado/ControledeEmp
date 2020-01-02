@@ -155,6 +155,11 @@
 	        returnfalse;
 	    });
 	});
-	
+	$(document).ready(function(){
+	    $('.trRecebidos').click(function(){
+	        window.location = $(this).data('url');
+	        returnfalse;
+	    });
+	});
 </script>
 </html>
