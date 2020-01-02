@@ -77,7 +77,7 @@
 				<p>Site NFE</p>
 			</span>
 		</a> 
-		<a href="#"> 
+		<a href="configConta.jsp"> 
 			<span class="box"> 
 			<img alt="img" width="50" height="50" src="../img/index/settings.png">
 				<p>Configurações da Conta</p>

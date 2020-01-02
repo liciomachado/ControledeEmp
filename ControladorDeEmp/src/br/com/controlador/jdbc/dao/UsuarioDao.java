@@ -29,7 +29,7 @@ public class UsuarioDao {
 				" values (?,?,?,?)";
 
 		try {
-			// prepared statement para inserção
+			// prepared statement para inserï¿½ï¿½o
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
 			// seta os valores
@@ -61,7 +61,7 @@ public class UsuarioDao {
 				usuario.setEmail(rs.getString("email"));
 				//usuario.setSenha(rs.getString("senha"));
 
-				// adicionando o objeto à lista
+				// adicionando o objeto ï¿½ lista
 				usuarios.add(usuario);
 			}
 			rs.close();
@@ -72,19 +72,20 @@ public class UsuarioDao {
 		}
 	}
 	public void altera(Usuario usuario) {
-		String sql = "update usuario set nome=?, senha=?, email=?, tipoUser=?" +
+		String sql = "update usuario set nome=?, senha=?, email=?, graduacao=?,senhaGmail=?" +
 				" where idusuario=?";
 
 		try {
-			// prepared statement para inserção
+			// prepared statement para inserï¿½ï¿½o
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
 			// seta os valores
 			stmt.setString(1,usuario.getNome());
 			stmt.setString(2,usuario.getSenha());
 			stmt.setString(3,usuario.getEmail());
-			stmt.setString(4,usuario.getTipoUser());
-			stmt.setInt(5,usuario.getIdUsuario());
+			stmt.setString(4,usuario.getGraduacao());
+			stmt.setString(5,usuario.getSenhaGmail());
+			stmt.setInt(6,usuario.getIdUsuario());
 
 			// executa
 			stmt.execute();
@@ -126,7 +127,8 @@ public class UsuarioDao {
 				usuario.setNome(rs.getString("nome"));
 				usuario.setEmail(rs.getString("email"));
 				usuario.setSenha(rs.getString("senha"));
-
+				usuario.setGraduacao(rs.getString("graduacao"));
+				usuario.setSenhaGmail(rs.getString("senhaGmail"));
 			}
 			rs.close();
 			stmt.close();

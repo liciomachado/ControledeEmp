@@ -1,8 +1,14 @@
+<%@page import="br.com.controlador.jdbc.modelo.Usuario"%>
 <%@page import="org.apache.shiro.session.Session"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
 
+HttpSession sessao = request.getSession();
+Usuario usuario = (Usuario)sessao.getAttribute("UsuarioCompleto");
+
+%>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -45,7 +51,7 @@
 				<a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
 						<img src="../img/user.png" width="30" height="30"
-						class="d-inline-block align-top" alt=""> <%=session.getAttribute("usuario")%>
+						class="d-inline-block align-top" alt=""> <%=usuario.getGraduacao()+" "+usuario.getNome()%>
 				</a>
 				
 					<div class="dropdown-menu">

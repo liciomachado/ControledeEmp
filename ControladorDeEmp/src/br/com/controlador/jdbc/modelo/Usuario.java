@@ -7,7 +7,22 @@ public class Usuario {
 	private String Senha;
 	private String email;
 	private String tipoUser;
+	private String graduacao;
+	private String senhaGmail;
 	
+	
+	public String getGraduacao() {
+		return graduacao;
+	}
+	public void setGraduacao(String graduacao) {
+		this.graduacao = graduacao;
+	}
+	public String getSenhaGmail() {
+		return senhaGmail;
+	}
+	public void setSenhaGmail(String senhaGmail) {
+		this.senhaGmail = senhaGmail;
+	}
 	public int getIdUsuario() {
 		return idUsuario;
 	}

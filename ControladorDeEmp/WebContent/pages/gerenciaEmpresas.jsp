@@ -74,7 +74,7 @@
 					<th scope="col"></th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody style="cursor: pointer">
 				<c:forEach var="emp" items="${dao.lista}">
 					<tr class="trEmpresas" data-url="detalhesEmpresa.jsp?idEmpresa=${emp.idEmpresa}">
 						<td>${emp.idEmpresa}</td>

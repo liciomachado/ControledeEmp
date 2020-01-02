@@ -34,6 +34,7 @@ public class logicaLogin extends HttpServlet {
 		HttpSession sessao = request.getSession(true);
 		if (user2.getIdUsuario() != 0)  {
 			System.out.println("Usuario Conectado");
+			sessao.setAttribute("UsuarioCompleto", user2);
 			sessao.setAttribute("userId", user2.getIdUsuario());
 			sessao.setAttribute("usuario", user2.getNome());
 			sessao.setAttribute("senhaIncorreta", false);
