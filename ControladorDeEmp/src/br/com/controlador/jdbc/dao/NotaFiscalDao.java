@@ -128,7 +128,38 @@ public class NotaFiscalDao {
 			throw new RuntimeException(e);
 		}
 	}
-	
+	public NotaFiscal getListaProtocolo(int id) {
+		try {
+			
+			PreparedStatement stmt = this.connection.
+					prepareStatement("SELECT a.numeroEmpenho,b.nome,nf.numNota,a.destino FROM notafiscal as nf inner join empenho as a on nf.idEmpenho = a.idempenho\r\n" + 
+							"inner join empresa as b on b.idempresa = a.idEmpresa where nf.idnotaFiscal = ?");
+			
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+			NotaFiscal nf = new NotaFiscal();
+
+			while (rs.next()) {
+				// criando o objeto Contato
+				nf.setNumNota(rs.getInt("numNota"));
+				Empenho emp = new Empenho();
+				emp.setDestino(rs.getString("destino"));
+				emp.setNumeroEmpenho(rs.getString("numeroEmpenho"));
+				Empresa empresa = new Empresa();
+				empresa.setNome(rs.getString("nome"));
+
+				nf.setEmpenho(emp);
+				nf.setEmpresa(empresa);
+				
+				
+			}
+			rs.close();
+			stmt.close();
+			return nf;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	public List<NotaFiscal> getNotaRecebidos() {
 		try {
 			List<NotaFiscal> nfs = new ArrayList<NotaFiscal>();

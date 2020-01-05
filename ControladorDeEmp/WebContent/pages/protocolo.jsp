@@ -43,7 +43,7 @@
 	                            <td>${nota.numNota}</td>
 	                            <td>${nota.empenho.destino}</td>
 	                            <td><fmt:formatDate value="${nota.dataRecebido.time}" /></td>
-	                            <td><input type="checkbox" name="checkId[]" value="${nota.empenho.idEmpenho}" checked></td>
+	                            <td><input type="checkbox" name="checkId[]" value="${nota.idNotaFiscal}" checked></td>
                             </tr>
                         </c:forEach>
                         

@@ -84,6 +84,16 @@
 			}
 		}); 
 	});
+	$(document).ready(function(e) { 
+		$("#adicionaNF").click(function(e) { 
+			if($(this).is(':checked')) { 
+				$("#txtNF").slideToggle(170);
+			} else {
+				$("#txtNF").slideToggle(170);
+				console.log("CheckBox desmarcado não faz nada."); 
+			}
+		}); 
+	});
 	$("#animate").click(function() {
 
 	    $("#contentDetalheEmpenho").animate(
@@ -148,6 +158,8 @@
 		}
 	});
 	$("#numTelefone").mask("(00) 00000-0000");
+	$('#dinheiro').mask('###0.00', {reverse: true});
+	
 	
 	$(document).ready(function(){
 	    $('.trEmpresas').click(function(){

@@ -1,12 +1,13 @@
 <%@page import="br.com.controlador.jdbc.modelo.Usuario"%>
 <%@page import="org.apache.shiro.session.Session"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 
 HttpSession sessao = request.getSession();
-Usuario usuario = (Usuario)sessao.getAttribute("UsuarioCompleto");
+
+//Usuario usuario = (Usuario)sessao.getAttribute("UsuarioCompleto");
 
 %>
 <!DOCTYPE html>
@@ -51,11 +52,11 @@ Usuario usuario = (Usuario)sessao.getAttribute("UsuarioCompleto");
 				<a
 					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
 						<img src="../img/user.png" width="30" height="30"
-						class="d-inline-block align-top" alt=""> <%=usuario.getGraduacao()+" "+usuario.getNome()%>
+						class="d-inline-block align-top" alt=""> <%=sessao.getAttribute("usuario_grad")+" "+sessao.getAttribute("usuario")%>
 				</a>
 				
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="gerenciamentoSite.php">Configurações do site</a> 
+						<a class="dropdown-item" href="gerenciamentoSite.php">ConfiguraÃ§Ãµes do site</a> 
 						<a class="dropdown-item" href="adicionaEmpenho.jsp">Envio de Empenhos</a> 
 						<a class="dropdown-item" href="adicionaNF.jsp">Recebimento de NF</a> 
 						<a class="dropdown-item" href="protocolo.jsp">Envio para pagamento</a>

@@ -130,7 +130,7 @@ public class enviaEmpenhoPorEmailESalvaServlet extends HttpServlet {
 	    texto.append("Prazo para entrega: conforme edital. Solicito ainda informar a possível data de entrega. <br/>");
 	    texto.append("<h2 align='center' text-color='red' >Solicito-vos acusar o recebimento </h2><br/>");
 	    texto.append("Atenciosamente, <br/><br/>");
-	    texto.append(s.getAttribute("usuario"));
+	    texto.append(s.getAttribute("usuario_grad")+" "+s.getAttribute("usuario"));
 	    
 	    
 	    try {

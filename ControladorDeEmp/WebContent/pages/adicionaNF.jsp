@@ -31,8 +31,8 @@
 							required value="">
 					</div>
 					<div class="form-group col-md-2">
-						<label for="inputPreco">Valor total R$</label> <input type="number"
-							class="form-control " id="inputPreco" name="inputPreco" required placeholder="00.00"
+						<label for="dinheiro">Valor total R$</label> <input type="text"
+							class="form-control " id="dinheiro" name="inputPreco" required placeholder="00.00"
 							value="">
 					</div>
 					<div class="form-group col-md-3">

@@ -16,7 +16,9 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import br.com.controlador.jdbc.dao.EmpenhoDao;
+import br.com.controlador.jdbc.dao.NotaFiscalDao;
 import br.com.controlador.jdbc.modelo.Empenho;
+import br.com.controlador.jdbc.modelo.NotaFiscal;
 
 
 public class GeraPDF {
@@ -58,7 +60,7 @@ public class GeraPDF {
 		}*/
 		
 		FileDialog fc; 
-        fc = new FileDialog(new Frame(),"Open file", FileDialog.SAVE);
+        fc = new FileDialog(new Frame(),"Escolha onde salvar", FileDialog.SAVE);
         fc.setDirectory("*.pdf");
         fc.setVisible(true);
         String path=fc.getDirectory (  )  + fc.getFile (  ) ; 
@@ -73,24 +75,25 @@ public class GeraPDF {
 				//open
 				document.open();
 
-				List<Empenho> empenhos = new ArrayList<Empenho>();
+				List<NotaFiscal> nfs = new ArrayList<NotaFiscal>();
 				for (int valores : lista) {
-					Empenho emp = new Empenho();
-					EmpenhoDao dao = new EmpenhoDao();
-					emp = dao.buscaPorID(valores);
-					empenhos.add(emp);
+					NotaFiscal nf = new NotaFiscal();
+					NotaFiscalDao dao = new NotaFiscalDao();
+					nf = dao.getListaProtocolo(valores);
+					nfs.add(nf);
 				}
+				
 				Paragraph p = new Paragraph();
 				p.add("Protocolo do dia:");
 				p.setAlignment(Element.ALIGN_CENTER);
 				document.add(p);
 
-				for (Empenho emp : empenhos) {
+				for (NotaFiscal nf : nfs) {
 					document.add(new Paragraph("                                                                "));
-					document.add(new Paragraph("Empenho: "+emp.getNumeroEmpenho()));
-					document.add(new Paragraph("Empresa: "+emp.getEmpresa().getNome()));
-					document.add(new Paragraph("Numero da NF: "+emp.getNotaFiscal().getNumNota()));
-					document.add(new Paragraph("Destino: "+emp.getDestino()));
+					document.add(new Paragraph("Empenho: "+nf.getEmpenho().getNumeroEmpenho()));
+					document.add(new Paragraph("Empresa: "+nf.getEmpresa().getNome()));
+					document.add(new Paragraph("Numero da NF: "+nf.getNumNota()));
+					document.add(new Paragraph("Destino: "+nf.getEmpenho().getDestino()));
 					document.add(new Paragraph("________________________________________________________________RECEBIDO"));
 				}
 

@@ -66,8 +66,8 @@
 							</div>
 
 							<div class="form-group col-md-3">
-								<label for="valor">Valor R$</label> <input type="number"
-									class="form-control" id="valor" placeholder="" name="valor"
+								<label for="dinheiro">Valor R$</label> <input type="text"
+									class="form-control" id="dinheiro" placeholder="" name="valor"
 									required="" value="">
 							</div>
 							<div class="form-group col-md-3">

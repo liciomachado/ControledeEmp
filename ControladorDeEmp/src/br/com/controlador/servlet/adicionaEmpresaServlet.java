@@ -25,6 +25,7 @@ public class adicionaEmpresaServlet extends HttpServlet {
 		String nome = request.getParameter("nomeEmpresa");
 		String tel = request.getParameter("numTelefone");
 		String email = request.getParameter("nomeEmail");
+		String numEmpenho = request.getParameter("numEmpenho");
 		
 		Empresa empresa = new Empresa();
 		EmpresaDao dao = new EmpresaDao();
@@ -57,6 +58,18 @@ public class adicionaEmpresaServlet extends HttpServlet {
 			
 			response.sendRedirect("pages/gerenciaEmpresas.jsp");
 			break;
+		case "alteraNoEmpenho":
+			
+			empresa.setIdEmpresa(idEmpresa);
+			empresa.setNome(nome);
+			empresa.setContato(tel);
+			empresa.setEmail(email);
+			
+			dao.altera(empresa);
+			
+			response.sendRedirect("pages/detalheEmpenho.jsp?numEmpenho="+numEmpenho+"#empenho");
+			break;
+			
 		}
 		
 	}

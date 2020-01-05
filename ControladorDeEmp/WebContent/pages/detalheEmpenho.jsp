@@ -5,11 +5,11 @@
 <%@page import="br.com.controlador.jdbc.modelo.Observacoes"%>
 <%@page import="java.util.List"%>
 <%@page import="br.com.controlador.jdbc.dao.ObservacoesDao"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+	
 <% 	String numEmpenho = request.getParameter("numEmpenho"); 
 
 	Empenho emp = new Empenho();
@@ -36,8 +36,8 @@
 	<div class="display-4" style="text-align: center;"><%= numEmpenho %></div>
 	<div id="contentDetalheEmpenhoNaoEntregue">
 		<img src="../img/document.png" width="25" height="25"
-			style="float: left;" class="d-inline-block align-top" alt=""> <img
-			src="../img/envelope.png" width="30" height="30"
+			style="float: left;" class="d-inline-block align-top" alt="">
+	 	<img src="../img/envelope.png" width="30" height="30"
 			style="margin-left: 20%" class="d-inline-block align-top" alt="">
 		<img src="../img/shipped.png" width="30" height="30"
 			style="margin-left: 20%;" class="d-inline-block align-top" alt="">
@@ -51,7 +51,7 @@
 	<div class="display-4" style="text-align: center;"><%= numEmpenho %></div>
 	<div id="contentDetalheEmpenhoEntregue">
 		<img src="../img/document.png" width="25" height="25"
-			style="float: left;" class="d-inline-block align-top" alt=""> <img
+			style="float: left;" class="d-inline-block align-top" alt=""><img
 			src="../img/envelope.png" width="30" height="30"
 			style="margin-left: 20%" class="d-inline-block align-top" alt="">
 		<img src="../img/shipped.png" width="30" height="30"
@@ -61,13 +61,14 @@
 		<img src="../img/money.png" width="30" height="27"
 			style="float: right;" class="d-inline-block align-top" alt="">
 	</div>
+	
 	<% } %>
 	<% if(emp.getEtapa() == 5 ||emp.getEtapa() == 6) { %>
 	<div class="display-4" style="text-align: center;"><%= numEmpenho %></div>
 	<div id="contentDetalheEmpenhoConcluido">
 		<img src="../img/document.png" width="25" height="25"
-			style="float: left;" class="d-inline-block align-top" alt=""> <img
-			src="../img/envelope.png" width="30" height="30"
+			style="float: left;" class="d-inline-block align-top" alt=""> 
+		<img src="../img/envelope.png" width="30" height="30"
 			style="margin-left: 20%" class="d-inline-block align-top" alt="">
 		<img src="../img/shipped.png" width="30" height="30"
 			style="margin-left: 20%;" class="d-inline-block align-top" alt="">
@@ -77,19 +78,28 @@
 			style="float: right;" class="d-inline-block align-top" alt="">
 	</div>
 	<% } %>
+	<!--COMENTARIO DAS DATAS  
+	<div>
+		<p style="float: left;" class="d-inline-block align-top">20/12/2019</p>
+		<p style="margin-left: 15%" class="d-inline-block align-top">texto 2</p>
+		<p style="margin-left: 19%" class="d-inline-block align-top">texto 3</p>
+		<p style="margin-left: 16%" class="d-inline-block align-top">texto 4</p>
+		<p style="float: right;" class="d-inline-block align-top">texto 5</p>
+		
+	</div>
+	 -->
 </div>
 <div class="container">
-	<fieldset class="border p-2">
+	<fieldset class="border p-2" id="empenho">
 		<legend class="w-auto">Empenho </legend>
-		<form enctype="multipart/form-data"
-			class="form-group needs-validation justify-content-center"
-			method="post" action="#" novalidate>
+		<form method="post" action="../servletEmpenho">
+			<input hidden type="text" value="alteraEmpenho" name="acao">
 			<div class="form-row">
 			<div class="form-group col-md-12">
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="HabilitaEmpenho"> 
-						<label class="form-check-label" for="inputCadastro"> Habilitar Edição  </label>
-					</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="" id="HabilitaEmpenho"> 
+					<label class="form-check-label" for="inputCadastro"> Habilitar Edição  </label>
+				</div>
 			</div>
 				<div class="form-group col-md-3">
 						<label for="idEmpenho">Enviado por: </label> <input readonly
@@ -103,7 +113,7 @@
 				</div>
 
 				<div class="form-group col-md-3">
-					<label for="valor">Valor R$</label> <input type="number" readonly
+					<label for="valor">Valor R$</label> <input type="text" readonly
 						class="form-control" id="valor" placeholder="" name="valor"
 						required="" value="<%= emp.getValorTotal() %>">
 				</div>
@@ -119,6 +129,7 @@
 					<input type="file" disabled accept="pdf/*" id="validatedCustomFile"
 						name="imagem" required> <label for="validatedCustomFile"></label>
 				</div>
+				<input hidden type="text" value="<%= emp.getIdEmpenho() %>" name="idEmp">
 				<div class="col-lg-12" style="text-align: right;">
 					<button type="submit" class="btn btn-primary mb-2">Alterar Empenho</button>
 				</div>			
@@ -126,16 +137,19 @@
 		</form>	
 	</fieldset>
 	
-	<fieldset class="border p-2">
+	<fieldset class="border p-2" id="empresa">
 
 		<legend class="w-auto">Empresa </legend>
-		<form action="#" method="post">
+		<form action="../adicionaEmpresa" method="post">
+		<input hidden type="text" value="alteraNoEmpenho" name="acao">
+		<input hidden type="text" value="<%= emp.getEmpresa().getIdEmpresa() %>" name="idEmpresa">
+		<input hidden type="text" value="<%= emp.getNumeroEmpenho() %>" name="numEmpenho">
 			<div class="form-row">
 			<div class="form-group col-md-12">
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value=""id="habilitaEmpresa"> 
-									<label class="form-check-label" for="habilitaEmpresa"> Habilitar Edição  </label>
-								</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value=""id="habilitaEmpresa"> 
+				<label class="form-check-label" for="habilitaEmpresa"> Habilitar Edição  </label>
+			</div>
 							</div>
 				<div class="form-group col-md-4">
 					<label for="nomeEmpresa">Nome Empresa </label> <input type="text" readonly
@@ -160,16 +174,16 @@
 		</form>
 	</fieldset>
 	
-	<fieldset class="border p-2">
+	<fieldset class="border p-2" id="notafiscal">
 		<legend class="w-auto">Nota Fiscal </legend>
 		<div class="form-row">
+		<c:forEach var="nf" items="${nfList}">
 		<div class="form-group col-md-12">
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value=""id="habilitaNF" readonly> 
-									<label class="form-check-label" for="habilitaNF"> Habilitar Edição </label>
-								</div>
-							</div>
-					<c:forEach var="nf" items="${nfList}">
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" value=""id="habilitaNF" readonly> 
+						<label class="form-check-label" for="habilitaNF"> Habilitar Edição </label>
+					</div>
+				</div>
 					<div class="form-group col-md-5">
 						<label for="inputChaveAcesso">Chave de acesso</label> <input type="text" readonly
 							class="form-control" id="inputChaveAcesso" name="inputChaveAcesso" required value="${nf.chaveAcesso}">
@@ -198,10 +212,38 @@
 				</c:forEach>
 				
 			</div>
+			<div class="form-group" id="txtNF" style="display:none;">
+				<form action="../servletNotaFiscal" method="post">
+					<input hidden type="text" value="<%= emp.getIdEmpenho() %>" name="pegaIdEmpenho">
+					<input hidden type="text" value="adicionaNFDetalhes" name="acao">
+					<input hidden type="text" value="<%= emp.getNumeroEmpenho() %>" name="numEmpenho">
+					<div class="form-row">
+					<div class="form-group col-md-5">
+						<label for="inputChaveAcesso">Chave de acesso</label> <input type="text"
+							class="form-control" id="inputChaveAcesso" name="inputChaveAcesso" required value="">
+					</div>
+					<div class="form-group col-md-2">
+						<label for="inputNota">Nº Nota</label> <input type="text"
+							class="form-control" id="inputNota" name="inputNota" required value="">
+					</div>
+					<div class="form-group col-md-3">
+						<label for="inputDataEmissao">Data de Emissão:</label> <input
+							type="date" class="form-control" id="inputDataEmissao" name="inputDataEmissao"
+							required value="">
+					</div>
+					<div class="form-group col-md-2">
+						<label for="dinheiro">Valor total R$</label> <input type="text"
+							class="form-control " id="dinheiro" name="inputPreco" required placeholder="00.00"
+							value="">
+					</div>
+						<input class="btn btn-primary mb-2" type="submit" id="salvaOBs" value="Salvar">
+					</div>
+				</form>
+			</div>
 			<div style="text-align: right;">
-				<a href="adicionaNF.jsp"><button id="adicionaNF" type="button" class="btn btn-default" aria-label="Left Align">
+				<button id="adicionaNF" type="button" class="btn btn-default" aria-label="Left Align">
 					<img alt="add" width="25" height="25" src="../img/add.png">
-				</button></a>
+				</button>
 			</div>
 	</fieldset>
 	

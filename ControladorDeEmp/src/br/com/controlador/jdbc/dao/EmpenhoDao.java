@@ -262,7 +262,6 @@ public class EmpenhoDao {
 			throw new RuntimeException(e);
 		}
 	}
-
 	public List<Empenho> getLista() {
 		try {
 			List<Empenho> empenhos = new ArrayList<Empenho>();
@@ -337,18 +336,15 @@ public class EmpenhoDao {
 		}
 	}
 	public void altera(Empenho empenho) {
-		String sql = "update empenho set dataEmpenho=?, numeroEmpenho=?, idEmpresa=?," +
-				"destino=?, valorTotal=?,empenhoDigitalizado=? where idempenho=?";
+		String sql = "update empenho set numeroEmpenho=?," +
+				"destino=?, valorTotal=? where idempenho=?";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setDate(1, new Date(empenho.getDataEmpenho().getTimeInMillis()));
-			stmt.setString(2,empenho.getNumeroEmpenho());
-			stmt.setInt(3,empenho.getEmpresa().getIdEmpresa());
-			stmt.setString(4, empenho.getDestino());
-			stmt.setDouble(5, empenho.getValorTotal());
-			stmt.setBytes(6, empenho.getEmpenhoDigitalizado());
-			stmt.setLong(7, empenho.getIdEmpenho());
+			stmt.setString(1,empenho.getNumeroEmpenho());
+			stmt.setString(2, empenho.getDestino());
+			stmt.setDouble(3, empenho.getValorTotal());
+			stmt.setLong(4, empenho.getIdEmpenho());
 
 			stmt.execute();
 			stmt.close();
@@ -357,7 +353,7 @@ public class EmpenhoDao {
 		}
 	}
 	public void alteraStatus(int id) {
-		String sql = "update empenho set etapa=5 where idempenho=?";
+		String sql = "update empenho as a inner join notafiscal as b on a.idempenho = b.idempenho set a.etapa=5 where b.idnotafiscal = ?";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
