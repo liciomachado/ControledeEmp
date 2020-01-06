@@ -159,7 +159,7 @@
 	});
 	$("#numTelefone").mask("(00) 00000-0000");
 	$('#dinheiro').mask('###0.00', {reverse: true});
-	
+	$('#inputPreco').mask('###0.00', {reverse: true});
 	
 	$(document).ready(function(){
 	    $('.trEmpresas').click(function(){

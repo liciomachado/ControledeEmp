@@ -27,10 +27,10 @@ public class servletNotaFiscal extends HttpServlet {
 		String acao = request.getParameter("acao");
 		String chaveAcesso = request.getParameter("inputChaveAcesso");
 		String dataString = request.getParameter("inputDataEmissao");
-		String numEmpenho = request.getParameter("numEmpenho");
 		double valorNF = Double.parseDouble(request.getParameter("inputPreco"));
-		int idEmpenho = Integer.parseInt(request.getParameter("pegaIdEmpenho"));
 		int numNota = Integer.parseInt(request.getParameter("inputNota"));
+		String numEmpenho = request.getParameter("numEmpenho");
+
 		//-----------------PEGANDO DATA DE AGORA
 				Date d = new Date();
 				System.out.println(d);
@@ -56,12 +56,13 @@ public class servletNotaFiscal extends HttpServlet {
 		        }
 		        
 				Empenho emp = new Empenho();
-				emp.setIdEmpenho(idEmpenho);
-				
 				NotaFiscal nota = new NotaFiscal();
-		
+				NotaFiscalDao dao = new NotaFiscalDao();
+
 		switch (acao) {
 		case "adicionaNFDetalhes":
+			int idEmpenho = Integer.parseInt(request.getParameter("pegaIdEmpenho"));
+			emp.setIdEmpenho(idEmpenho);
 			
 			nota.setChaveAcesso(chaveAcesso);
 			nota.setEmpenho(emp);
@@ -75,12 +76,31 @@ public class servletNotaFiscal extends HttpServlet {
 			usuario.setIdUsuario(Integer.parseInt(s.getAttribute("userId").toString()));
 			nota.setUsuario(usuario);
 			
-			NotaFiscalDao dao = new NotaFiscalDao();
 			dao.adiciona(nota);
 			
 			response.sendRedirect("pages/detalheEmpenho.jsp?numEmpenho="+numEmpenho+"#notafiscal");
 			break;
+		case "alteraNF":
+			int idNF = Integer.parseInt(request.getParameter("idNF"));
 
+			nota.setIdNotaFiscal(idNF);
+			nota.setChaveAcesso(chaveAcesso);
+			nota.setValorTotal(valorNF);
+			nota.setDataEmissao(dataEmissao);
+			nota.setNumNota(numNota);
+			
+			dao.alteraNosDetalhes(nota);
+
+			response.sendRedirect("pages/detalheEmpenho.jsp?numEmpenho="+numEmpenho+"#notafiscal");
+			break;
+		case "excluir":
+			int idNF2 = Integer.parseInt(request.getParameter("idNF"));
+			nota.setIdNotaFiscal(idNF2);
+			
+			dao.remove(nota);
+			
+			response.sendRedirect("pages/detalheEmpenho.jsp?numEmpenho="+numEmpenho+"#notafiscal");
+			break;
 		}
 	}
 

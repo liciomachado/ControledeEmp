@@ -282,10 +282,31 @@ public class NotaFiscalDao {
 			throw new RuntimeException(e);
 		}
 	}
+	public void alteraNosDetalhes(NotaFiscal nf) {
+		String sql = "update notafiscal set numNota=?, chaveAcesso=?, valorTotal=?,"
+				+ "dataEmissao=? where idnotaFiscal=?";
+
+		try {
+			// prepared statement para inser��o
+			PreparedStatement stmt = connection.prepareStatement(sql);
+
+			// seta os valores
+			stmt.setInt(1,nf.getNumNota());
+			stmt.setString(2,nf.getChaveAcesso());
+			stmt.setDouble(3,nf.getValorTotal());
+			stmt.setDate(4, new Date(nf.getDataEmissao().getTimeInMillis()));
+			stmt.setInt(5,nf.getIdNotaFiscal());
+			
+			// executa
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	public void remove(NotaFiscal nf) {
 		try {
-			PreparedStatement stmt = connection.prepareStatement("delete " +
-					"from usuario where idusuario=?");
+			PreparedStatement stmt = connection.prepareStatement("delete from notafiscal where idnotaFiscal=?");
 			stmt.setLong(1, nf.getIdNotaFiscal());
 			stmt.execute();
 			stmt.close();

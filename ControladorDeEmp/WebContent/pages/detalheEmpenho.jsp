@@ -176,15 +176,21 @@
 	
 	<fieldset class="border p-2" id="notafiscal">
 		<legend class="w-auto">Nota Fiscal </legend>
+		<form action="../servletNotaFiscal" method="post" >
 		<div class="form-row">
 		<c:forEach var="nf" items="${nfList}">
+		
+		<input hidden type="text" value="alteraNF" name="acao">
+		<input hidden type="text" value="${nf.idNotaFiscal}" name="idNF">
+		<input hidden type="text" value="<%= emp.getNumeroEmpenho() %>" name="numEmpenho">
+
 		<div class="form-group col-md-12">
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value=""id="habilitaNF" readonly> 
-						<label class="form-check-label" for="habilitaNF"> Habilitar Edição </label>
-					</div>
-				</div>
-					<div class="form-group col-md-5">
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value=""id="habilitaNF" readonly> 
+				<label class="form-check-label" for="habilitaNF"> Habilitar Edição </label>
+			</div>
+		</div>
+					<div class="form-group col-md-4">
 						<label for="inputChaveAcesso">Chave de acesso</label> <input type="text" readonly
 							class="form-control" id="inputChaveAcesso" name="inputChaveAcesso" required value="${nf.chaveAcesso}">
 					</div>
@@ -198,7 +204,7 @@
 							required value="<fmt:formatDate value="${nf.dataEmissao.time}" pattern="yyyy-MM-dd"/>">
 					</div>
 					<div class="form-group col-md-2">
-						<label for="inputPreco">Valor total R$</label> <input type="number" readonly
+						<label for="inputPreco">Valor total R$</label> <input type="text" readonly
 							class="form-control " id="inputPreco" name="inputPreco" required placeholder="00.00"
 							value="${nf.valorTotal}">
 					</div>
@@ -206,12 +212,26 @@
 						<label for="inputChaveAcesso">Por:</label> <input type="text" readonly
 							class="form-control" id="inputChaveAcesso" name="inputChaveAcesso" required value="${nf.usuario.nome}">
 					</div>
-					<div class="col-lg-12" style="text-align: right;">
-					<button type="submit" class="btn btn-primary mb-2">Alterar Nota Fiscal</button>
+					<div class="form-group col-md-1">
+						<label for="">.</label>
+						<button type="submit" class="form-control btn btn-primary">Edit</button>
 					</div>
+					</form>
+					<form action="../servletNotaFiscal" method="post">
+						<input hidden type="text" value="excluir" name="acao">
+						<input hidden type="number" value="00" name="inputPreco">
+						<input hidden type="number" value="00" name="inputNota">
+						<input hidden type="text" value="${nf.idNotaFiscal}" name="idNF">
+						<input hidden type="text" value="<%= emp.getNumeroEmpenho() %>" name="numEmpenho">
+							<div class="form-group col-lg-12" style="text-align: right;">
+								<button type="submit" class="btn btn-danger mb-1">x</button>
+							</div>
+					</form>
+					
 				</c:forEach>
 				
 			</div>
+			
 			<div class="form-group" id="txtNF" style="display:none;">
 				<form action="../servletNotaFiscal" method="post">
 					<input hidden type="text" value="<%= emp.getIdEmpenho() %>" name="pegaIdEmpenho">
