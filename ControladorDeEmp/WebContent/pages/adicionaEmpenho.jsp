@@ -30,6 +30,7 @@
 											type="text" class="form-control" id="nomeEmail"
 											placeholder="" name="nomeEmail" required="" value="">
 									</div>
+									<input hidden type="text" value="1" name="idEmpresa">
 									<input hidden type="text" value="adiciona" name="acao">
 									<div class="col-lg-12" style="text-align: right;">
 								      <button type="submit" class="btn btn-primary mb-2">Salvar</button>

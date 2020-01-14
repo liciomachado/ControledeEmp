@@ -55,9 +55,9 @@ public class servletNotaFiscal extends HttpServlet {
 		            return; //para a execução do método
 		        }
 		        
-				Empenho emp = new Empenho();
-				NotaFiscal nota = new NotaFiscal();
-				NotaFiscalDao dao = new NotaFiscalDao();
+		Empenho emp = new Empenho();
+		NotaFiscal nota = new NotaFiscal();
+		NotaFiscalDao dao = new NotaFiscalDao();
 
 		switch (acao) {
 		case "adicionaNFDetalhes":

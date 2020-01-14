@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Properties;
 
@@ -68,14 +69,11 @@ public class enviaEmpenhoPorEmailESalvaServlet extends HttpServlet {
 		HttpSession s = request.getSession();
 		usuario.setIdUsuario(Integer.parseInt(s.getAttribute("userId").toString()));
 		empenho.setUsuario(usuario);
-		Calendar data = null;
 		Date d = new Date();
-		String dStr = java.text.DateFormat.getDateInstance(DateFormat.MEDIUM).format(d);
-		Date date = null;
-		try {date = new SimpleDateFormat("dd/MM/yyyy").parse(dStr);} catch (ParseException e) {e.printStackTrace();}
-        data = Calendar.getInstance();
-		data.setTime(date);
-		empenho.setDataEmpenho(data);
+		Calendar cal = new GregorianCalendar();
+		cal.setTime(d);
+
+		empenho.setDataEmpenho(cal);
 		empenho.setValorTotal(valorTotal);
 		EmpenhoDao dao = new EmpenhoDao();
 		//dao.adiciona(empenho);

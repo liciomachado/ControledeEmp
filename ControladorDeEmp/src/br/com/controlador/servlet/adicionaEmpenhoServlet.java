@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -65,26 +66,19 @@ public class adicionaEmpenhoServlet extends HttpServlet {
 		usuario.setIdUsuario(Integer.parseInt(s.getAttribute("userId").toString()));
 		empenho.setUsuario(usuario);
 		
-    	Calendar data = null;
 		Date d = new Date();
-		String dStr = java.text.DateFormat.getDateInstance(DateFormat.MEDIUM).format(d);
-		Date date = null;
-		try {
-			date = new SimpleDateFormat("dd/MM/yyyy").parse(dStr);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        data = Calendar.getInstance();
-		data.setTime(date);
-		empenho.setDataEmpenho(data);
+		Calendar cal = new GregorianCalendar();
+		cal.setTime(d);
+
+		empenho.setDataEmpenho(cal);
+		System.out.println(empenho.getDataEmpenho().getTime());
 		empenho.setValorTotal(valorTotal);
 		
 		EmpenhoDao dao = new EmpenhoDao();
 		//dao.adiciona(empenho);
 		int idResultado = dao.empenhoComFile2(file, empenho);
 		HttpSession sessao = request.getSession(true);
-		sessao.setAttribute("LastResult", idResultado);
+		//sessao.setAttribute("LastResult", idResultado);
 		
 		//response.sendRedirect("pages/adcSucessoEmpenho.jsp");
 		response.sendRedirect("pages/detalheEmpenho.jsp?numEmpenho="+numEmpenho);
