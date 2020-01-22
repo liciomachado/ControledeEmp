@@ -56,7 +56,7 @@
 						<input hidden type="text" value="atualiza" name="acao">
 						<button type="submit" class="btn btn-primary mb-2">Atualizar</button>
 					<% }else { %>
-						<input hidden type="text" value="adiciona" name="acao">
+						<input hidden type="text" value="GerenciaAdiciona" name="acao">
 						<button type="submit" class="btn btn-primary mb-2">Salvar</button>
 					<% } %>
 				    </div>
@@ -96,6 +96,5 @@
 		</table>
 	</div>
 </div>
-</br></br></br></br></br>
 
 <c:import url="rodape.jsp" />

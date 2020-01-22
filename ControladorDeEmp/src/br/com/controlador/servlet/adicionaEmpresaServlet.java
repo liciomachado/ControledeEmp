@@ -40,6 +40,16 @@ public class adicionaEmpresaServlet extends HttpServlet {
 			
 			response.sendRedirect("pages/adicionaEmpenho.jsp");
 			break;
+		case "GerenciaAdiciona":
+			
+			empresa.setNome(nome);
+			empresa.setContato(tel);
+			empresa.setEmail(email);
+			
+			dao.adiciona(empresa);
+			
+			response.sendRedirect("pages/gerenciaEmpresas.jsp");
+			break;
 		case "excluir":
 			
 			empresa.setIdEmpresa(idEmpresa);

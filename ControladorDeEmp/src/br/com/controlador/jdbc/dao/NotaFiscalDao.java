@@ -205,6 +205,54 @@ public class NotaFiscalDao {
 			throw new RuntimeException(e);
 		}
 	}
+	public List<NotaFiscal> getNotaMeusRecebidos(int id) {
+		try {
+			List<NotaFiscal> nfs = new ArrayList<NotaFiscal>();
+			PreparedStatement stmt = this.connection.
+					prepareStatement("select a.idempenho,a.idnotaFiscal,b.dataEmpenho,a.dataRecebido,empr.nome,a.numNota,a.valorTotal,\r\n" + 
+							"					b.numeroEmpenho,b.destino,a.chaveAcesso, u.nome\r\n" + 
+							"					from notafiscal as a inner join empenho as b on a.idEmpenho = b.idempenho \r\n" + 
+							"					inner join  empresa as empr on empr.idempresa = b.idEmpresa\r\n" + 
+							"					inner join usuario as u on b.idusuario = u.idusuario\r\n" + 
+							"                    where u.idusuario = ?");
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				// criando o objeto Contato
+				NotaFiscal nf = new NotaFiscal();
+				nf.setIdNotaFiscal(rs.getInt("idnotaFiscal"));
+				nf.setNumNota(rs.getInt("numNota"));
+				nf.setChaveAcesso(rs.getString("chaveAcesso"));
+				nf.setValorTotal(rs.getDouble("valorTotal"));
+				
+				Empenho empenho = new Empenho();
+				empenho.setNumeroEmpenho(rs.getString("numeroEmpenho"));
+				empenho.setDestino(rs.getString("destino"));
+				empenho.setIdEmpenho(rs.getInt("idempenho"));
+				nf.setEmpenho(empenho);
+				
+				Empresa empresa = new Empresa();
+				empresa.setNome(rs.getString("nome"));
+				nf.setEmpresa(empresa);
+				
+				Calendar data = Calendar.getInstance();
+                data.setTime(rs.getDate("dataEmpenho"));
+                nf.setDataEmissao(data);
+                Calendar data2 = Calendar.getInstance();
+                data2.setTime(rs.getDate("dataRecebido"));
+				nf.setDataRecebido(data2);
+
+				// adicionando o objeto � lista
+				nfs.add(nf);
+			}
+			rs.close();
+			stmt.close();
+			return nfs;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	public List<NotaFiscal> getNotasProtocolar() {
 		try {
 			List<NotaFiscal> nfs = new ArrayList<NotaFiscal>();

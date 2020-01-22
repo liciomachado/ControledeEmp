@@ -47,10 +47,10 @@
 				<p>Gmail</p>
 			</span>
 		</a> 
-		<a href="#"> 
+		<a href="meusEmpenhos.jsp"> 
 			<span class="box"> 
 			<img alt="img" width="50" height="50" src="../img/index/file.png">
-				<p>Gerenciar Empenhos</p>
+				<p>Meus Empenhos</p>
 			</span>
 		</a> 
 		<a href="#"> 
@@ -87,7 +87,5 @@
 
 	</div>
 </div>
-
-</br></br></br></br></br></br></br>
 
 <c:import url="rodape.jsp" />

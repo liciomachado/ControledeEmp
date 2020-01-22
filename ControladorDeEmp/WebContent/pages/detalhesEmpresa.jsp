@@ -19,7 +19,7 @@
 
 <div class="container">
 	<div class="row">
-		<div class="display-4">Empenhos pendentes</div>
+		<div class="display-4">Empenhos</div>
 		<br>
 		<table class="table table-hover">
 			<thead class="thead-light">

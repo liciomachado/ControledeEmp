@@ -25,8 +25,8 @@ public class UsuarioDao {
 
 	public void adiciona(Usuario usuario) {
 		String sql = "insert into usuario " +
-				"(nome,senha,email,tipoUser)" +
-				" values (?,?,?,?)";
+				"(nome,senha,email,tipoUser,graduacao,senhaGmail)" +
+				" values (?,?,?,?,?,?)";
 
 		try {
 			// prepared statement para inser��o
@@ -37,6 +37,8 @@ public class UsuarioDao {
 			stmt.setString(2,usuario.getSenha());
 			stmt.setString(3,usuario.getEmail());
 			stmt.setString(4,usuario.getTipoUser());
+			stmt.setString(5,usuario.getGraduacao());
+			stmt.setString(6,usuario.getSenhaGmail());
 
 			// executa
 			stmt.execute();

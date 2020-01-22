@@ -9,19 +9,21 @@ public class testeUsuarioDao {
 	public static void main(String[] args) {
 
 		Usuario user = new Usuario();
-		user.setNome("Mauricio");
+		user.setIdUsuario(1);
+		user.setNome("Castro");
 		user.setSenha("123321");
 		user.setTipoUser("tipo1");
 		user.setEmail("licio.machado@hotmail.com");
-		user.setIdUsuario(1);
+		user.setSenhaGmail("19121998");
+		user.setGraduacao("Cabo");
 
 		SimpleHash hash = new SimpleHash("md5",user.getSenha());
 		user.setSenha(hash.toHex());
 
 		UsuarioDao dao = new UsuarioDao();
-		//dao.adiciona(user);
+		dao.adiciona(user);
 		dao.getLista();
-		
+		/*
 		Usuario user2 = dao.autenticar(user);
 		
 		if (user2.getIdUsuario() != 0)  {
@@ -30,6 +32,7 @@ public class testeUsuarioDao {
 			System.out.println("Senha incorreta");
 			
 		}
+		*/
 
 	}
 }

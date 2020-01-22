@@ -4,7 +4,9 @@
 
 
 <c:import url="cabecalho.jsp" />
-
+</br></br></br></br>
 <h1 style="text-align:center">Algum erro Ocorreu ! </h1>
+</br>
+<h3 style="text-align:center">Contate o administrador para esclarecimentos ! </h3>
 
 <c:import url="rodape.jsp" />
