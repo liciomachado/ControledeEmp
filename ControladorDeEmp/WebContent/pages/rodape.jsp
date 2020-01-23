@@ -7,14 +7,14 @@
 </footer>
 </body>
 
-<script src="../css/jquery-3.4.1.min.js"></script>
-<script src="../css/jquery.mask.min.js""></script>
+<script src="${pageContext.request.contextPath}/css/jquery-3.4.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/css/jquery.mask.min.js""></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 	crossorigin="anonymous"></script>
-<script src="../css/bootstrap4/js/bootstrap.min.js""></script>
-<script src="../css/select2/dist/js/select2.min.js"></script>
+<script src="${pageContext.request.contextPath}/css/bootstrap4/js/bootstrap.min.js""></script>
+<script src="${pageContext.request.contextPath}/css/select2/dist/js/select2.min.js"></script>
 
 <script language="JavaScript" type="text/javascript">
 

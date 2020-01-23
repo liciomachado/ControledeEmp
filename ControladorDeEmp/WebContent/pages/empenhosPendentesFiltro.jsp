@@ -10,8 +10,6 @@
 <c:import url="cabecalho.jsp" />
 
 <jsp:useBean id="dao" class="br.com.controlador.jdbc.dao.EmpenhoDao" />
-<jsp:useBean id="dao2" class="br.com.controlador.jdbc.dao.ObservacoesDao" />
-
 
 <div class="container">
 	<div class="row">
@@ -31,19 +29,19 @@
 				<tr>
 					<th scope="col">
 					</th>
-					<th scope="col"><form action="../filtroPendentes" method="get" class="form-inline my-2 my-lg-0">
+					<th scope="col"><form action="${pageContext.request.contextPath}/filtroPendentes" method="get" class="form-inline my-2 my-lg-0">
 										<input class="form-control mr-sm-2" type="search" name="empresa" placeholder="pesquisa por empresa" required aria-label="Search">
 										<input hidden type="text" name="filtro" value="filtroEmpresa">
 										<input hidden class="form-control mr-sm-2" type="submit" placeholder="Pesquisar empenho" aria-label="Search">
 									</form>
 					</th>					
-					<th scope="col"><form action="../filtroPendentes" method="get" class="form-inline my-2 my-lg-0">
-										<input class="form-control mr-sm-2" type="search" name="valor" placeholder="pesquisar por valor" required aria-label="Search">
+					<th scope="col"><form action="${pageContext.request.contextPath}/filtroPendentes" method="get" class="form-inline my-2 my-lg-0">
+										<input class="form-control mr-sm-2" type="search"  name="valor" placeholder="pesquisar por valor" required aria-label="Search">
 										<input hidden type="text" name="filtro" value="filtroValor">
 										<input hidden class="form-control mr-sm-2" type="submit" placeholder="Pesquisar empenho" aria-label="Search">
 									</form>
 					</th>	
-					<th scope="col"><form action="../filtroPendentes" method="get" class="form-inline my-2 my-lg-0">
+					<th scope="col"><form action="${pageContext.request.contextPath}/filtroPendentes" method="get" class="form-inline my-2 my-lg-0">
 										<input class="form-control mr-sm-2" type="search" name="destino" placeholder="pesquisar por Destino" required aria-label="Search">
 										<input hidden type="text" name="filtro" value="filtroDestino">
 										<input hidden class="form-control mr-sm-2" type="submit" placeholder="Pesquisar empenho" aria-label="Search">
@@ -55,17 +53,17 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="emp" items="${dao.listaEmpenhosPendentes}">
+				<c:forEach var="emp" items="${empenhos}">
 					<tr>
 						<td><a
-							href="../downloadPDF?numID=${emp.idEmpenho}">${emp.numeroEmpenho}</td>
+							href="${pageContext.request.contextPath}/downloadPDF?numID=${emp.idEmpenho}">${emp.numeroEmpenho}</td>
 						<td>${emp.empresa.nome}</td>
 						<td>${emp.valorTotal}</td>
 						<td>${emp.destino}</td>
 						<td>Pendente Entrega</td>
 						<td><fmt:formatDate value="${emp.dataEmpenho.time}" /></td>
 						<c:set var="test" value="${emp.idEmpenho}"/>
-						<form action="detalheEmpenho.jsp" method="get">
+						<form action="${pageContext.request.contextPath}/pages/detalheEmpenho.jsp" method="get">
 						<input hidden type="text" value="${emp.numeroEmpenho}" name="numEmpenho">
 						<td><button type="submit" class="btn btn-primary"
 								data-toggle="modal" data-target="#ExemploModalCentralizado">
