@@ -17,7 +17,7 @@
 		<br>
 		<table class="table table-hover">
 			<thead class="thead-light">
-				<tr>
+				<tr>   
 					<th scope="col">Nº Empenho</th>
 					<th scope="col">Empresa</th>
 					<th scope="col">Valor</th>
