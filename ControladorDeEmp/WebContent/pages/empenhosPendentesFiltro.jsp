@@ -13,7 +13,7 @@
 
 <div class="container">
 	<div class="row">
-		<div class="display-4">Empenhos pendentes</div>
+		<div class="display-4"><a href="${pageContext.request.contextPath}/pages/empenhosPendentes.jsp">Empenhos Pendentes</a></div>
 		<br>
 		<table class="table table-hover">
 			<thead class="thead-light">

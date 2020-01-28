@@ -40,7 +40,7 @@ HttpSession sessao = request.getSession();
 			</a>
 			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 				<li class="nav-item active">
-			        <a class="nav-link" href="${pageContext.request.contextPath}/meusEmpenhos.jsp">Meu Menu <span class="sr-only">(current)</span></a>
+			        <a class="nav-link" href="${pageContext.request.contextPath}/pages/meusEmpenhos.jsp">Meu Menu <span class="sr-only">(current)</span></a>
 		      </li>
 
 			</ul>

@@ -19,7 +19,7 @@
 				<div class="form-row">
 					<div class="form-group col-md-5">
 						<label for="inputChaveAcesso">Chave de acesso</label> <input type="text"
-							class="form-control" id="inputChaveAcesso" name="inputChaveAcesso" required value="">
+							class="form-control" id="inputChaveAcesso" name="inputChaveAcesso" required minlength="44" maxlength="44" value="">
 					</div>
 					<div class="form-group col-md-2">
 						<label for="inputNota">Nº Nota</label> <input type="text"

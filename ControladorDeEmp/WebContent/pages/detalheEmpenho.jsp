@@ -28,7 +28,14 @@
 	pageContext.setAttribute("obs", obsList);
 %>
 <jsp:useBean id="dao2" class="br.com.controlador.jdbc.dao.ObservacoesDao" />
-
+<c:set var="dataCadastro" value="<%=emp.getDataEmpenho().getTime() %>" />
+<c:set var="dataEmail" value="<%=emp.getDataEmpenho().getTime() %>" />
+<% if(!nfList.isEmpty()){%>
+	<c:set var="dataTransporte" value="<%=nfList.get(0).getDataEmissao().getTime()%>" />
+	<c:set var="dataRecebido" value="<%=nfList.get(0).getDataRecebido().getTime() %>" />
+	<%if(emp.getEtapa() == 5){ %>
+	<c:set var="dataProtocolo" value="<%=nfList.get(0).getDataProtocolado().getTime() %>" />
+<% }}%>
 <c:import url="cabecalho.jsp" />
 
 <div style="margin-left: 20%; margin-right: 20%;">
@@ -78,16 +85,22 @@
 			style="float: right;" class="d-inline-block align-top" alt="">
 	</div>
 	<% } %>
-	<!--COMENTARIO DAS DATAS  
 	<div>
-		<p style="float: left;" class="d-inline-block align-top">20/12/2019</p>
-		<p style="margin-left: 15%" class="d-inline-block align-top">texto 2</p>
-		<p style="margin-left: 19%" class="d-inline-block align-top">texto 3</p>
-		<p style="margin-left: 16%" class="d-inline-block align-top">texto 4</p>
-		<p style="float: right;" class="d-inline-block align-top">texto 5</p>
+		<p style="float: left;margin-bottom: 0;" class="d-inline-block align-top">Cadastrado:</p>
+		<p style="margin-left: 10%;margin-bottom: 0;" class="d-inline-block align-top">Enviado:</p>
+		<p style="margin-left: 16%;margin-bottom: 0;" class="d-inline-block align-top">Transporte:</p>
+		<p style="margin-left: 13%;margin-bottom: 0;" class="d-inline-block align-top">Recebido:</p>
+		<p style="float: right;margin-bottom: 0;" class="d-inline-block align-top">Pagamento:</p>
+	</div>
+	<div>
+		<p style="float: left;" class="d-inline-block align-top"><fmt:formatDate value="${dataCadastro}" pattern="dd/MM/yyyy"/></p>
+		<p style="margin-left: 10%" class="d-inline-block align-top"><fmt:formatDate value="${dataEmail}" pattern="dd/MM/yyyy"/></p>
+		<p style="margin-left: 13%" class="d-inline-block align-top"><fmt:formatDate value="${dataTransporte}" pattern="dd/MM/yyyy"/></p>
+		<p style="margin-left: 13%" class="d-inline-block align-top"><fmt:formatDate value="${dataRecebido}" pattern="dd/MM/yyyy"/></p>
+		<p style="float: right;" class="d-inline-block align-top"><fmt:formatDate value="${dataProtocolo}" pattern="dd/MM/yyyy"/></p>
 		
 	</div>
-	 -->
+	 
 </div>
 <div class="container">
 	<fieldset class="border p-2" id="empenho">

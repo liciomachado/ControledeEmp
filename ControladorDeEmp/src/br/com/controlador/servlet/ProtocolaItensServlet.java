@@ -6,7 +6,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -36,7 +40,18 @@ public class ProtocolaItensServlet extends HttpServlet {
 					throws IOException, ServletException {
 
 		List<Integer> lista = new ArrayList<Integer>();
-
+		//-----------------PEGANDO DATA DE AGORA
+		Date d = new Date();
+		System.out.println(d);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			d = df.parse(d.toString());
+		} catch (ParseException e1) {
+			System.out.println("Erro na conversao de data");
+		}
+		Calendar data = Calendar.getInstance();
+		data.setTime(d); 
+		
 		for(String name: request.getParameterMap().keySet()) {
 			for(String value: request.getParameterValues(name)) {
 				//System.out.println(name+ ": "+ value);
@@ -46,7 +61,9 @@ public class ProtocolaItensServlet extends HttpServlet {
 		}
 		for (int valores : lista) {
 			EmpenhoDao dao = new EmpenhoDao();
+			NotaFiscalDao NfDao = new NotaFiscalDao();
 			dao.alteraStatus(valores);
+			NfDao.adicionaDataProtocolado(valores, data);
 			System.out.println(valores);
 		}
 
@@ -57,16 +74,6 @@ public class ProtocolaItensServlet extends HttpServlet {
 		} catch (DocumentException e2) {
 			e2.printStackTrace();
 		}
-
-		/*
-		FileDialog fc; 
-		fc = new FileDialog(new Frame(),"Escolha onde salvar", FileDialog.SAVE);
-		fc.setDirectory("*.pdf");
-		fc.setVisible(true);
-		String path=fc.getDirectory (  )  + fc.getFile (  ) ; 
-		System.out.println(path);
-		 */
-
 
 		try {
 			//open
@@ -101,7 +108,7 @@ public class ProtocolaItensServlet extends HttpServlet {
 
 			response.setContentType("application/pdf"); // tipo do conteúdo na resposta
 			response.setContentLength(DocumentEmArray.length); // opcional. ajuda na barra de progresso
-			response.setHeader("Content-Disposition", "attachment; filename="+"protocolo"+".pdf");
+			response.setHeader("Content-Disposition", "attachment; filename="+"protocolo "+data.getTimeInMillis() +".pdf");
 			ServletOutputStream outputStream = response.getOutputStream();
 			outputStream.write(DocumentEmArray, 0, DocumentEmArray.length);
 			outputStream.flush();
@@ -114,9 +121,8 @@ public class ProtocolaItensServlet extends HttpServlet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		stream.flush();
+		stream.close();
 		response.sendRedirect("pages/index.jsp");
 	}
-
-
 }

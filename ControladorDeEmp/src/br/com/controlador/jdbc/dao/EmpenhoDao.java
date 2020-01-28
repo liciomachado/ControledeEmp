@@ -299,7 +299,7 @@ public class EmpenhoDao {
 			List<Empenho> empenhos = new ArrayList<Empenho>();
 			PreparedStatement stmt = this.connection.
 					prepareStatement("select * from empenho as c inner join empresa as b on c.idempresa = b.idempresa " + 
-							"where not exists(select a.idempenho,sum(a.valorTotal),c.valorTotal from notafiscal as a inner join empenho as b on " + 
+							"where not exists(select a.idempenho,sum(round(a.valorTotal,2)),c.valorTotal from notafiscal as a inner join empenho as b on " + 
 							"a.idEmpenho = b.idempenho group by a.idEmpenho HAVING sum(a.valorTotal) = c.valorTotal and a.idEmpenho = c.idempenho);");
 			ResultSet rs = stmt.executeQuery();
 
@@ -457,7 +457,7 @@ public class EmpenhoDao {
 			List<Empenho> empenhos = new ArrayList<Empenho>();
 			PreparedStatement stmt = this.connection.
 					prepareStatement("SELECT * FROM empenho as c inner join empresa as b on c.idEmpresa = b.idempresa inner join usuario as u on u.idusuario = c.idusuario\r\n" + 
-							"where not exists (select a.idEmpenho,sum(a.valorTotal),c.valorTotal from notafiscal as A \r\n" + 
+							"where not exists (select a.idEmpenho,sum(a.valorTotal),c.valorTotal from notafiscal as a \r\n" + 
 							"inner join empenho as b on a.idempenho = b.idempenho GROUP BY a.idEmpenho \r\n" + 
 							"HAVING sum(a.valorTotal) = c.valorTotal and a.idEmpenho = c.idempenho)\r\n" + 
 							"and c.idusuario = ?");

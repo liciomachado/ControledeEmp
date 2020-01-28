@@ -17,7 +17,7 @@
 								<div class="form-row" style="text-transform: uppercase;">
 									<div class="form-group col-md-4">
 										<label for="nomeEmpresa">Nome Empresa </label> <input
-											type="text" class="form-control" id="nomeEmpresa"
+											type="text" class="form-control inputEmpresa" id="nomeEmpresa"
 											placeholder="" name="nomeEmpresa" required="" value="">
 									</div>
 									<div class="form-group col-md-4">
@@ -76,7 +76,11 @@
 									type="text" class="form-control" id="destinoEmpenho"
 									placeholder="" name="destinoEmpenho" required="" value="">
 							</div>
-							<div class="custom-file col-md-9">
+							<div class="form-group col-md-3">
+								 <input type="text" class="form-control" id="emailEmpresa"
+									 name="emailEmpresa">
+							</div>
+							<div class="custom-file col-md-6">
 								<input type="file" accept="pdf/*" id="validatedCustomFile"
 									name="imagem" required> <label
 									for="validatedCustomFile">Selecione o empenho</label>

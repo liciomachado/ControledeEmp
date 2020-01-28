@@ -29,8 +29,7 @@
 					<th scope="col">Obs:</th>
 				</tr>
 				<tr>
-					<th scope="col">
-					</th>
+					<th scope="col"></th>
 					<th scope="col"><form action="../filtroPendentes" method="get" class="form-inline my-2 my-lg-0">
 										<input class="form-control mr-sm-2" type="search" name="empresa" placeholder="pesquisa por empresa" required aria-label="Search">
 										<input hidden type="text" name="filtro" value="filtroEmpresa">

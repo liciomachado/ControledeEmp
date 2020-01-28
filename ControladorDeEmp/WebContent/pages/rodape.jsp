@@ -29,6 +29,20 @@
 		});
 
 	})(jQuery);
+	
+	jQuery(document).ready(function() {
+		
+		// 1 Capitalize string - convert textbox user entered text to uppercase
+		jQuery('#nomeEmpresa').keyup(function() {
+			$(this).val($(this).val().toUpperCase());
+		});
+		jQuery('#numeroEmpenho').keyup(function() {
+			$(this).val($(this).val().toUpperCase());
+		});
+		jQuery('#destinoEmpenho').keyup(function() {
+			$(this).val($(this).val().toUpperCase());
+		});
+	});
 
 	function carregaUser(adm, user) {
 		var elemento = document.getElementById(adm);
@@ -61,6 +75,19 @@
 
 				$("#setEmpresa").val(valores[0]);
 				$("#setValor").val(valores[1]);
+			});
+		});
+	});
+	$(document).ready(function() {
+		$("select[name='inputEmpenho']").change(function() {
+
+			txtid = $("#inputEmpenho").val();
+
+			$.post("../empresaJSON", {
+				id : txtid
+			}, function(data, status) {
+				var valores = data;
+				$("#emailEmpresa").val(valores);
 			});
 		});
 	});

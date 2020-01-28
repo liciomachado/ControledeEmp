@@ -24,10 +24,10 @@
 					<p>Empenhos Recebidos</p>
 				</span>
 			</a> 
-		<a href="meuProtocolo.jsp"> 
+		<a href="meusProtocolos.jsp"> 
 			<span class="box"> 
 			<img alt="img" width="50" height="50" src="../img/index/checklist.png">
-				<p>Protocolar</p>
+				<p>Meu Protocolo</p>
 			</span>
 		</a> 
 		

@@ -53,6 +53,7 @@ public class enviaEmpenhoPorEmailESalvaServlet extends HttpServlet {
     	
     	String numEmpenho = request.getParameter("numEmpenho");
     	String destino = request.getParameter("destinoEmpenho");
+    	String emailDestino = request.getParameter("emailEmpresa");
     	double valorTotal = Double.parseDouble(request.getParameter("valor"));
     	int idEmpresa = Integer.parseInt(request.getParameter("inputEmpenho"));
     	String mensagem = request.getParameter("mensagem");
@@ -90,7 +91,7 @@ public class enviaEmpenhoPorEmailESalvaServlet extends HttpServlet {
 		final String username = "licio.machado.mm@gmail.com";
 		final String password = "19121998";
 		String fromEmail = "licio.machado.mm@gmail.com";
-		String toEmail = empresa2.getEmail();
+		String toEmail = emailDestino;
 		
 		List<File> uploadedFiles = saveUploadedFiles(request);
 		

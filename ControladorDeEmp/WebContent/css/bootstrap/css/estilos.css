@@ -12,7 +12,9 @@ header {
     height: 100%;
     position: relative;
 }
-
+.inputEmpresa{
+	text-transform: uppercase;
+}
 .titulo-depoimentos {
     background-color: #0275d8;
     padding-top: 25px;

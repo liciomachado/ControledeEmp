@@ -54,7 +54,7 @@ public class NotaFiscalDao {
 			throw new RuntimeException(e);
 		}
 	}
-
+	
 	public List<NotaFiscal> getLista() {
 		try {
 			List<NotaFiscal> nfs = new ArrayList<NotaFiscal>();
@@ -93,7 +93,7 @@ public class NotaFiscalDao {
 			List<NotaFiscal> nfs = new ArrayList<NotaFiscal>();
 			PreparedStatement stmt = this.connection.
 					prepareStatement("select a.idnotaFiscal,a.numNota,a.chaveAcesso,a.valorTotal,a.dataEmissao,"
-							+ "a.dataRecebido,b.nome from notafiscal as a inner join"
+							+ "a.dataRecebido,b.nome,a.dataProtocolado from notafiscal as a inner join"
 							+ " usuario as b on a.idusuario = b.idusuario "
 							+ "where idempenho = ?");
 			
@@ -115,10 +115,17 @@ public class NotaFiscalDao {
 				Calendar data = Calendar.getInstance();
                 data.setTime(rs.getDate("dataEmissao"));
                 nf.setDataEmissao(data);
-                data.setTime(rs.getDate("dataRecebido"));
-				nf.setDataRecebido(data);
-
-				// adicionando o objeto � lista
+                
+				Calendar data3 = Calendar.getInstance();
+                data3.setTime(rs.getDate("dataRecebido"));
+				nf.setDataRecebido(data3);
+				try {
+					Calendar data2 = Calendar.getInstance();
+					data2.setTime(rs.getDate("dataProtocolado"));
+					nf.setDataProtocolado(data2);
+				} catch (Exception e) {
+				}
+				
 				nfs.add(nf);
 			}
 			rs.close();
@@ -168,6 +175,101 @@ public class NotaFiscalDao {
 							"b.numeroEmpenho,b.destino,a.chaveAcesso\r\n" + 
 							"from notafiscal as a inner join empenho as b on a.idEmpenho = b.idempenho \r\n" + 
 							"inner join  empresa as empr on empr.idempresa = b.idEmpresa");
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				// criando o objeto Contato
+				NotaFiscal nf = new NotaFiscal();
+				nf.setIdNotaFiscal(rs.getInt("idnotaFiscal"));
+				nf.setNumNota(rs.getInt("numNota"));
+				nf.setChaveAcesso(rs.getString("chaveAcesso"));
+				nf.setValorTotal(rs.getDouble("valorTotal"));
+				
+				Empenho empenho = new Empenho();
+				empenho.setNumeroEmpenho(rs.getString("numeroEmpenho"));
+				empenho.setDestino(rs.getString("destino"));
+				empenho.setIdEmpenho(rs.getInt("idempenho"));
+				nf.setEmpenho(empenho);
+				
+				Empresa empresa = new Empresa();
+				empresa.setNome(rs.getString("nome"));
+				nf.setEmpresa(empresa);
+				
+				Calendar data = Calendar.getInstance();
+                data.setTime(rs.getDate("dataEmpenho"));
+                nf.setDataEmissao(data);
+                Calendar data2 = Calendar.getInstance();
+                data2.setTime(rs.getDate("dataRecebido"));
+				nf.setDataRecebido(data2);
+
+				// adicionando o objeto � lista
+				nfs.add(nf);
+			}
+			rs.close();
+			stmt.close();
+			return nfs;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public List<NotaFiscal> getNotaRecebidosFiltroEmpresa(String filtro) {
+		try {
+			List<NotaFiscal> nfs = new ArrayList<NotaFiscal>();
+			PreparedStatement stmt = this.connection.
+					prepareStatement("select a.idempenho,a.idnotaFiscal,b.dataEmpenho,a.dataRecebido,empr.nome,a.numNota,a.valorTotal,\r\n" + 
+							"							b.numeroEmpenho,b.destino,a.chaveAcesso\r\n" + 
+							"							from notafiscal as a inner join empenho as b on a.idEmpenho = b.idempenho \r\n" + 
+							"							inner join  empresa as empr on empr.idempresa = b.idEmpresa\r\n" + 
+							"                            where empr.nome like ? ");
+			stmt.setString(1, '%' + filtro + '%');
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				// criando o objeto Contato
+				NotaFiscal nf = new NotaFiscal();
+				nf.setIdNotaFiscal(rs.getInt("idnotaFiscal"));
+				nf.setNumNota(rs.getInt("numNota"));
+				nf.setChaveAcesso(rs.getString("chaveAcesso"));
+				nf.setValorTotal(rs.getDouble("valorTotal"));
+				
+				Empenho empenho = new Empenho();
+				empenho.setNumeroEmpenho(rs.getString("numeroEmpenho"));
+				empenho.setDestino(rs.getString("destino"));
+				empenho.setIdEmpenho(rs.getInt("idempenho"));
+				nf.setEmpenho(empenho);
+				
+				Empresa empresa = new Empresa();
+				empresa.setNome(rs.getString("nome"));
+				nf.setEmpresa(empresa);
+				
+				Calendar data = Calendar.getInstance();
+                data.setTime(rs.getDate("dataEmpenho"));
+                nf.setDataEmissao(data);
+                Calendar data2 = Calendar.getInstance();
+                data2.setTime(rs.getDate("dataRecebido"));
+				nf.setDataRecebido(data2);
+
+				// adicionando o objeto � lista
+				nfs.add(nf);
+			}
+			rs.close();
+			stmt.close();
+			return nfs;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public List<NotaFiscal> getNotaRecebidosFiltroDestino(String filtro) {
+		try {
+			List<NotaFiscal> nfs = new ArrayList<NotaFiscal>();
+			PreparedStatement stmt = this.connection.
+					prepareStatement("select a.idempenho,a.idnotaFiscal,b.dataEmpenho,a.dataRecebido,empr.nome,a.numNota,a.valorTotal,\r\n" + 
+							"							b.numeroEmpenho,b.destino,a.chaveAcesso\r\n" + 
+							"							from notafiscal as a inner join empenho as b on a.idEmpenho = b.idempenho \r\n" + 
+							"							inner join  empresa as empr on empr.idempresa = b.idEmpresa\r\n" + 
+							"                            where b.destino like ? ");
+			
+			stmt.setString(1, '%' + filtro + '%');
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -297,6 +399,54 @@ public class NotaFiscalDao {
 			throw new RuntimeException(e);
 		}
 	}
+	public List<NotaFiscal> getMinhasNotasProtocolar(int id) {
+		try {
+			List<NotaFiscal> nfs = new ArrayList<NotaFiscal>();
+			PreparedStatement stmt = this.connection.
+					prepareStatement("select a.idnotaFiscal,b.dataEmpenho,a.dataRecebido,empr.nome,a.numNota,a.valorTotal,\r\n" + 
+							"		b.numeroEmpenho,b.destino,a.chaveAcesso,b.idempenho,u.nome\r\n" + 
+							"		from notafiscal as a \r\n" + 
+							"		inner join empenho as b on a.idEmpenho = b.idempenho\r\n" + 
+							"		inner join  empresa as empr on empr.idempresa = b.idEmpresa \r\n" + 
+							"        inner join usuario as u on b.idusuario = u.idusuario\r\n" + 
+							"		where b.etapa = 4 and u.idusuario = ?;");
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				// criando o objeto Contato
+				NotaFiscal nf = new NotaFiscal();
+				nf.setIdNotaFiscal(rs.getInt("idnotaFiscal"));
+				nf.setNumNota(rs.getInt("numNota"));
+				nf.setChaveAcesso(rs.getString("chaveAcesso"));
+				nf.setValorTotal(rs.getDouble("valorTotal"));
+				
+				Empenho empenho = new Empenho();
+				empenho.setIdEmpenho(rs.getInt("idempenho"));
+				empenho.setNumeroEmpenho(rs.getString("numeroEmpenho"));
+				empenho.setDestino(rs.getString("destino"));
+				nf.setEmpenho(empenho);
+				
+				Empresa empresa = new Empresa();
+				empresa.setNome(rs.getString("nome"));
+				nf.setEmpresa(empresa);
+				
+				Calendar data = Calendar.getInstance();
+                data.setTime(rs.getDate("dataEmpenho"));
+                nf.setDataEmissao(data);
+                data.setTime(rs.getDate("dataRecebido"));
+				nf.setDataRecebido(data);
+
+				// adicionando o objeto � lista
+				nfs.add(nf);
+			}
+			rs.close();
+			stmt.close();
+			return nfs;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	public void buscaRecebidos(NotaFiscal nf) {
 		String sql = "select a.idnotaFiscal,a.dataEmissao,a.dataRecebido,empr.nome,a.numNota,a.valorTotal," + 
 				"b.numeroEmpenho,b.destino,a.chaveAcesso " + 
@@ -344,6 +494,23 @@ public class NotaFiscalDao {
 			stmt.setDouble(3,nf.getValorTotal());
 			stmt.setDate(4, new Date(nf.getDataEmissao().getTimeInMillis()));
 			stmt.setInt(5,nf.getIdNotaFiscal());
+			
+			// executa
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public void adicionaDataProtocolado(int id, Calendar data) {
+		
+		try {
+			// prepared statement para inser��o
+			PreparedStatement stmt = connection.prepareStatement("update notafiscal set dataProtocolado=? where idnotaFiscal=?");
+
+			// seta os valores
+			stmt.setDate(1, new Date(data.getTimeInMillis()));
+			stmt.setInt(2, id);
 			
 			// executa
 			stmt.execute();

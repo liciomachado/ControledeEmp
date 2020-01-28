@@ -32,29 +32,11 @@ public class servletNotaFiscal extends HttpServlet {
 		String numEmpenho = request.getParameter("numEmpenho");
 
 		//-----------------PEGANDO DATA DE AGORA
-				Date d = new Date();
-				System.out.println(d);
-				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-				try {
-					d = df.parse(d.toString());
-				} catch (ParseException e1) {
-					System.out.println("Erro na conversao de data");
-				}
-				Calendar data = Calendar.getInstance();
-				data.setTime(d); 
-				//-----------------PEGANDO DATA DE EMISSAO
-				Calendar dataEmissao = null;
-
-		        // fazendo a conversão da data
-		        try {
-		            Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(dataString);
-		            dataEmissao = Calendar.getInstance();
-		            dataEmissao.setTime(date2);
-		        } catch (ParseException e) {
-		            System.out.println("Erro de conversão da data");
-		            return; //para a execução do método
-		        }
-		        
+		Date d = new Date();
+		Calendar data = Calendar.getInstance();
+		Calendar dataEmissao = null;
+			
+	
 		Empenho emp = new Empenho();
 		NotaFiscal nota = new NotaFiscal();
 		NotaFiscalDao dao = new NotaFiscalDao();
@@ -62,6 +44,20 @@ public class servletNotaFiscal extends HttpServlet {
 		switch (acao) {
 		case "adicionaNFDetalhes":
 			int idEmpenho = Integer.parseInt(request.getParameter("pegaIdEmpenho"));
+			
+			//SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			data.setTime(d); 
+			//-----------------PEGANDO DATA DE EMISSAO
+			
+	        try {
+	            Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(dataString);
+	            dataEmissao = Calendar.getInstance();
+	            dataEmissao.setTime(date2);
+	        } catch (ParseException e) {
+	            System.out.println("Erro de conversão da data");
+	            return; //para a execução do método
+	        }
+	        
 			emp.setIdEmpenho(idEmpenho);
 			
 			nota.setChaveAcesso(chaveAcesso);
@@ -83,6 +79,18 @@ public class servletNotaFiscal extends HttpServlet {
 		case "alteraNF":
 			int idNF = Integer.parseInt(request.getParameter("idNF"));
 
+			data.setTime(d); 
+			//-----------------PEGANDO DATA DE EMISSAO
+			
+	        try {
+	            Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(dataString);
+	            dataEmissao = Calendar.getInstance();
+	            dataEmissao.setTime(date2);
+	        } catch (ParseException e) {
+	            System.out.println("Erro de conversão da data");
+	            return; //para a execução do método
+	        }
+			
 			nota.setIdNotaFiscal(idNF);
 			nota.setChaveAcesso(chaveAcesso);
 			nota.setValorTotal(valorNF);
