@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.com.controlador.jdbc.dao.EmpenhoDao;
 import br.com.controlador.jdbc.dao.NotaFiscalDao;
 import br.com.controlador.jdbc.modelo.Empenho;
 import br.com.controlador.jdbc.modelo.NotaFiscal;
@@ -106,6 +107,13 @@ public class servletNotaFiscal extends HttpServlet {
 			nota.setIdNotaFiscal(idNF2);
 			
 			dao.remove(nota);
+			
+			response.sendRedirect("pages/detalheEmpenho.jsp?numEmpenho="+numEmpenho+"#notafiscal");
+			break;
+		case "alteraStatus":
+			int idNF3 = Integer.parseInt(request.getParameter("idNF"));
+			EmpenhoDao dao2 = new EmpenhoDao();
+			dao2.alteraStatusVoltaProtocolo(idNF3);
 			
 			response.sendRedirect("pages/detalheEmpenho.jsp?numEmpenho="+numEmpenho+"#notafiscal");
 			break;

@@ -523,6 +523,19 @@ public class EmpenhoDao {
 			throw new RuntimeException(e);
 		}
 	}
+	public void alteraStatusVoltaProtocolo(int id) {
+		String sql = "update empenho as a inner join notafiscal as b on a.idempenho = b.idempenho set a.etapa=4 where b.idnotafiscal = ?";
+
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setLong(1, id);
+
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	public void remove(Empenho empenho) {
 		try {
 			PreparedStatement stmt = connection.prepareStatement("delete " +

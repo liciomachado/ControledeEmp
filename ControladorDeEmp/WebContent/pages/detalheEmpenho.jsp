@@ -236,9 +236,16 @@
 						<input hidden type="number" value="00" name="inputNota">
 						<input hidden type="text" value="${nf.idNotaFiscal}" name="idNF">
 						<input hidden type="text" value="<%= emp.getNumeroEmpenho() %>" name="numEmpenho">
-							<div class="form-group col-lg-12" style="text-align: right;">
-								<button type="submit" class="btn btn-danger mb-1">x</button>
-							</div>
+								<button type="submit" class="btn btn-danger">x</button>						
+					</form>
+					
+					<form action="../servletNotaFiscal" method="post">
+						<input hidden type="text" value="alteraStatus" name="acao">
+						<input hidden type="number" value="00" name="inputPreco">
+						<input hidden type="number" value="00" name="inputNota">
+						<input hidden type="text" value="${nf.idNotaFiscal}" name="idNF">
+						<input hidden type="text" value="<%= emp.getNumeroEmpenho() %>" name="numEmpenho">
+								<button type="submit" class="btn btn-info"> Protocolar novamente</button>
 					</form>
 					
 				</c:forEach>
