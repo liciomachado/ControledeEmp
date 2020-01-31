@@ -55,5 +55,4 @@
 			</tr>
 		</c:forEach>
 </table>
-</br></br></br></br>
 <c:import url="rodape.jsp" />

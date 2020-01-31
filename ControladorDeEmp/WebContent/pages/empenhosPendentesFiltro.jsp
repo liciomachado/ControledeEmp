@@ -11,8 +11,6 @@
 
 <jsp:useBean id="dao" class="br.com.controlador.jdbc.dao.EmpenhoDao" />
 
-<div class="container">
-	<div class="row">
 		<div class="display-4"><a href="${pageContext.request.contextPath}/pages/empenhosPendentes.jsp">Empenhos Pendentes</a></div>
 		<br>
 		<table class="table table-hover">
@@ -24,7 +22,6 @@
 					<th scope="col">Destino</th>
 					<th scope="col">Situação</th>
 					<th scope="col">Enviado</th>
-					<th scope="col">Obs:</th>
 				</tr>
 				<tr>
 					<th scope="col">
@@ -49,12 +46,11 @@
 					</th>					
 					<th scope="col"></th>
 					<th scope="col"></th>
-					<th scope="col"></th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody style="cursor: pointer">
 				<c:forEach var="emp" items="${empenhos}">
-					<tr>
+					<tr class="trRecebidos" data-url="${pageContext.request.contextPath}/pages/detalheEmpenho.jsp?numEmpenho=${emp.numeroEmpenho}">
 						<td><a
 							href="${pageContext.request.contextPath}/downloadPDF?numID=${emp.idEmpenho}">${emp.numeroEmpenho}</td>
 						<td>${emp.empresa.nome}</td>
@@ -62,18 +58,11 @@
 						<td>${emp.destino}</td>
 						<td>Pendente Entrega</td>
 						<td><fmt:formatDate value="${emp.dataEmpenho.time}" /></td>
-						<c:set var="test" value="${emp.idEmpenho}"/>
-						<form action="${pageContext.request.contextPath}/pages/detalheEmpenho.jsp" method="get">
-						<input hidden type="text" value="${emp.numeroEmpenho}" name="numEmpenho">
-						<td><button type="submit" class="btn btn-primary"
-								data-toggle="modal" data-target="#ExemploModalCentralizado">
-								Ver</button></td></a></form> 
+						
 					
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-	</div>
-</div>
-</br></br></br></br></br>
+
 <c:import url="rodape.jsp" />

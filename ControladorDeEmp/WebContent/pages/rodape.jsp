@@ -36,6 +36,9 @@
 		jQuery('#nomeEmpresa').keyup(function() {
 			$(this).val($(this).val().toUpperCase());
 		});
+		jQuery('#numEmpenho').keyup(function() {
+			$(this).val($(this).val().toUpperCase());
+		});
 		jQuery('#numeroEmpenho').keyup(function() {
 			$(this).val($(this).val().toUpperCase());
 		});
