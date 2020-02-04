@@ -7,8 +7,8 @@
 <%@page import="br.com.controlador.jdbc.dao.ObservacoesDao"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 	
 <% 	String numEmpenho = request.getParameter("numEmpenho"); 
 
@@ -16,7 +16,7 @@
 	EmpenhoDao dao = new EmpenhoDao();
 	emp = dao.buscaEmpenhoCompleto(numEmpenho);
 	pageContext.setAttribute("empenho", emp);
-	
+
 	NotaFiscal nf = new NotaFiscal();
 	NotaFiscalDao nfDao = new NotaFiscalDao();
 	List<NotaFiscal> nfList = nfDao.getListaPorId(emp.getIdEmpenho());
@@ -26,6 +26,8 @@
 	ObservacoesDao obsDao = new ObservacoesDao();
 	List<Observacoes> obsList = obsDao.getListaPeloId(emp.getIdEmpenho());
 	pageContext.setAttribute("obs", obsList);
+	
+	boolean testeValorEmpenho = dao.SaldoEmpenho(emp.getIdEmpenho());
 %>
 <jsp:useBean id="dao2" class="br.com.controlador.jdbc.dao.ObservacoesDao" />
 <c:set var="dataCadastro" value="<%=emp.getDataEmpenho().getTime() %>" />
@@ -97,12 +99,17 @@
 		<p style="margin-left: 10%" class="d-inline-block align-top"><fmt:formatDate value="${dataEmail}" pattern="dd/MM/yyyy"/></p>
 		<p style="margin-left: 13%" class="d-inline-block align-top"><fmt:formatDate value="${dataTransporte}" pattern="dd/MM/yyyy"/></p>
 		<p style="margin-left: 13%" class="d-inline-block align-top"><fmt:formatDate value="${dataRecebido}" pattern="dd/MM/yyyy"/></p>
-		<p style="float: right;" class="d-inline-block align-top"><fmt:formatDate value="${dataProtocolo}" pattern="dd/MM/yyyy"/></p>
-		
+		<p style="float: right;" class="d-inline-block align-top"><fmt:formatDate value="${dataProtocolo}" pattern="dd/MM/yyyy"/></p>	
 	</div>
 	 
 </div>
 <div class="container">
+
+	<%if(testeValorEmpenho == false){%>
+	<div class="alert alert-danger" role="alert">
+	  VALOR DO EMPENHO E NOTA FISCAL NÃƒO CONFEREM OU EXISTE SALDO !
+	</div>
+	<%}%>
 	<fieldset class="border p-2" id="empenho">
 		<legend class="w-auto">Empenho </legend>
 		<form method="post" action="../servletEmpenho">
@@ -111,7 +118,7 @@
 			<div class="form-group col-md-12">
 				<div class="form-check">
 					<input class="form-check-input" type="checkbox" value="" id="HabilitaEmpenho"> 
-					<label class="form-check-label" for="inputCadastro"> Habilitar Edição  </label>
+					<label class="form-check-label" for="HabilitaEmpenho"> Habilitar EdiÃ§Ã£o  </label>
 				</div>
 			</div>
 				<div class="form-group col-md-3">
@@ -161,7 +168,7 @@
 			<div class="form-group col-md-12">
 			<div class="form-check">
 				<input class="form-check-input" type="checkbox" value=""id="habilitaEmpresa"> 
-				<label class="form-check-label" for="habilitaEmpresa"> Habilitar Edição  </label>
+				<label class="form-check-label" for="habilitaEmpresa"> Habilitar EdiÃ§Ã£o  </label>
 			</div>
 							</div>
 				<div class="form-group col-md-4">
@@ -200,7 +207,7 @@
 		<div class="form-group col-md-12">
 			<div class="form-check">
 				<input class="form-check-input" type="checkbox" value=""id="habilitaNF" readonly> 
-				<label class="form-check-label" for="habilitaNF"> Habilitar Edição </label>
+				<label class="form-check-label" for="habilitaNF"> Habilitar EdiÃ§Ã£o </label>
 			</div>
 		</div>
 					<div class="form-group col-md-4">
@@ -208,11 +215,11 @@
 							class="form-control" id="inputChaveAcesso" name="inputChaveAcesso" required value="${nf.chaveAcesso}">
 					</div>
 					<div class="form-group col-md-1">
-						<label for="inputNota">Nº Nota</label> <input type="text" readonly
+						<label for="inputNota">NÂº Nota</label> <input type="text" readonly
 							class="form-control" id="inputNota" name="inputNota" required value="${nf.numNota }">
 					</div>
 					<div class="form-group col-md-2">
-						<label for="inputDataEmissao">Data de Emissão:</label> <input readonly
+						<label for="inputDataEmissao">Data de EmissÃ£o:</label> <input readonly
 							type="date" class="form-control" id="inputDataEmissao" name="inputDataEmissao"
 							required value="<fmt:formatDate value="${nf.dataEmissao.time}" pattern="yyyy-MM-dd"/>">
 					</div>
@@ -263,11 +270,11 @@
 							class="form-control" id="inputChaveAcesso" name="inputChaveAcesso" required value="">
 					</div>
 					<div class="form-group col-md-2">
-						<label for="inputNota">Nº Nota</label> <input type="text"
+						<label for="inputNota">NÂº Nota</label> <input type="text"
 							class="form-control" id="inputNota" name="inputNota" required value="">
 					</div>
 					<div class="form-group col-md-3">
-						<label for="inputDataEmissao">Data de Emissão:</label> <input
+						<label for="inputDataEmissao">Data de EmissÃ£o:</label> <input
 							type="date" class="form-control" id="inputDataEmissao" name="inputDataEmissao"
 							required value="">
 					</div>
@@ -288,7 +295,7 @@
 	</fieldset>
 	
 	<fieldset class="border p-2" id="observacoes">
-		<legend class="w-auto">Observações </legend>
+		<legend class="w-auto">ObservaÃ§Ãµes </legend>
 		<c:forEach var="obs" items="${obs}">
 		${obs.usuario.nome} -> <fmt:formatDate value="${obs.dataObs.time}" /> - ${obs.observacao} </br>
 		</c:forEach>

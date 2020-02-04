@@ -15,9 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.controlador.jdbc.dao.NotaFiscalDao;
+import br.com.controlador.jdbc.dao.ObservacoesDao;
 import br.com.controlador.jdbc.modelo.Empenho;
 import br.com.controlador.jdbc.modelo.Empresa;
 import br.com.controlador.jdbc.modelo.NotaFiscal;
+import br.com.controlador.jdbc.modelo.Observacoes;
 import br.com.controlador.jdbc.modelo.Usuario;
 
 @WebServlet("/adicionaNotaFiscal")
@@ -29,10 +31,10 @@ public class adicionaNotaFiscalServlet extends HttpServlet {
 		
 		String chaveAcesso = request.getParameter("inputChaveAcesso");
 		String dataString = request.getParameter("inputDataEmissao");
+		String TxtObs = request.getParameter("inputObs");
 		double valorNF = Double.parseDouble(request.getParameter("inputPreco"));
 		int idEmpenho = Integer.parseInt(request.getParameter("inputEmp"));
 		int numNota = Integer.parseInt(request.getParameter("inputNota"));
-		System.out.println(request.getServletPath());
 		//-----------------PEGANDO DATA DE AGORA
 		Date d = new Date();
 		System.out.println(d);
@@ -75,7 +77,17 @@ public class adicionaNotaFiscalServlet extends HttpServlet {
 		
 		NotaFiscalDao dao = new NotaFiscalDao();
 		dao.adiciona(nota);
+		System.out.println(TxtObs);
 		
+		if(TxtObs != "") {
+			Observacoes obs = new Observacoes();
+			obs.setIdEmpenho(idEmpenho);
+			obs.setDataObs(data);
+			obs.setObservacao(TxtObs);
+			obs.setIdUsuario(usuario.getIdUsuario());
+			ObservacoesDao obsDao = new ObservacoesDao();
+			obsDao.adiciona(obs);
+		}
 		response.sendRedirect("pages/index.jsp");
 		//response.sendRedirect("pages/detalheEmpenho.jsp?numEmpenho="+emp.getNumeroEmpenho()+"#observacoes");
 	}

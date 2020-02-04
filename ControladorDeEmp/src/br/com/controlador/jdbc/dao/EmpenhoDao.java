@@ -523,6 +523,36 @@ public class EmpenhoDao {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public boolean SaldoEmpenho(int id) {
+		try {
+			List<Empenho> empenhos = new ArrayList<Empenho>();
+			PreparedStatement stmt = this.connection.
+					prepareStatement("select a.idEmpenho,sum(a.valorTotal) as SomaValor,b.valorTotal from notafiscal as a \r\n" + 
+							"inner join empenho as b on a.idempenho = b.idempenho where a.idEmpenho = ? \r\n" + 
+							"GROUP BY a.idEmpenho HAVING sum(a.valorTotal)");
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+
+			float valorNfs = 0;
+			float valorEmpenho = 0;
+			while (rs.next()) {
+				
+				 valorNfs = rs.getFloat("SomaValor");
+				 valorEmpenho = rs.getFloat("valorTotal");
+			}
+			rs.close();
+			stmt.close();
+			
+			if (valorNfs != valorEmpenho) {
+				return false;
+			}else {
+				return true;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	public void alteraStatusVoltaProtocolo(int id) {
 		String sql = "update empenho as a inner join notafiscal as b on a.idempenho = b.idempenho set a.etapa=4 where b.idnotafiscal = ?";
 

@@ -15,24 +15,24 @@
 	<div class="row cadastro">
 		<div class="col-md-12">
 			<form class="form-group needs-validation justify-content-center"
-				method="post" action="../adicionaNotaFiscal" novalidate name="adicionaNF">
+				method="post" action="../adicionaNotaFiscal" id="formNf" novalidate name="adicionaNF" >
 				<div class="form-row">
 					<div class="form-group col-md-5">
 						<label for="inputChaveAcesso">Chave de acesso</label> <input type="text"
-							class="form-control" id="inputChaveAcesso" name="inputChaveAcesso" required minlength="44" maxlength="44" value="">
+							class="form-control" id="inputChaveAcesso" name="inputChaveAcesso" required="required" minlength="44" maxlength="44" value="">
 					</div>
 					<div class="form-group col-md-2">
 						<label for="inputNota">Nº Nota</label> <input type="text"
-							class="form-control" id="inputNota" name="inputNota" required value="">
+							class="form-control" id="inputNota" name="inputNota" required="required" value="">
 					</div>
 					<div class="form-group col-md-3">
 						<label for="inputDataEmissao">Data de Emissão:</label> <input
 							type="date" class="form-control" id="inputDataEmissao" name="inputDataEmissao"
-							required value="">
+							required="required" value="">
 					</div>
 					<div class="form-group col-md-2">
 						<label for="dinheiro">Valor total R$</label> <input type="text"
-							class="form-control " id="dinheiro" name="inputPreco" required placeholder="00.00"
+							class="form-control " id="dinheiro" name="inputPreco" required="required" placeholder="00.00"
 							value="">
 					</div>
 					<div class="form-group col-md-3">
@@ -58,7 +58,7 @@
 					<div class="form-group col-md-12">
 						<label for="inputObs">Obs :</label>
 						<textarea class="form-control" id="inputObs" rows="2"
-							name="inputObs" placeholder="Descreva aqui observações relacionadas a entrega do material" value="" required></textarea>
+							name="inputObs"  placeholder="Descreva aqui observações relacionadas a entrega do material" value="" required></textarea>
 					</div>
 
 				</div>

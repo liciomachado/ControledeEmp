@@ -61,6 +61,14 @@
 		elementox1.style.display = 'none';
 	}
 
+	$(document).ready(function () {
+	   $('#formNf').keypress(function (e) {
+	        var code = null;
+	        code = (e.keyCode ? e.keyCode : e.which);                
+	        return (code == 13) ? false : true;
+	   });
+	});
+	
 	$(document).ready(function() {
 		$('.js-example-basic-single').select2();
 	});
