@@ -174,7 +174,7 @@ public class NotaFiscalDao {
 					prepareStatement("select a.idempenho,a.idnotaFiscal,b.dataEmpenho,a.dataRecebido,empr.nome,a.numNota,a.valorTotal,\r\n" + 
 							"b.numeroEmpenho,b.destino,a.chaveAcesso\r\n" + 
 							"from notafiscal as a inner join empenho as b on a.idEmpenho = b.idempenho \r\n" + 
-							"inner join  empresa as empr on empr.idempresa = b.idEmpresa");
+							"inner join  empresa as empr on empr.idempresa = b.idEmpresa order by a.idnotaFiscal desc");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {

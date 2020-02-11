@@ -44,7 +44,12 @@
 										<input hidden class="form-control mr-sm-2" type="submit" placeholder="Pesquisar empenho" aria-label="Search">
 									</form>
 					</th>					
-					<th scope="col"></th>
+					
+					<th scope="col"><form action="../filtroPendentes" method="get" class="form-inline my-2 my-lg-0">
+										<input class="form-control mr-sm-2" type="checkbox" name="prazo" required aria-label="Search">+30 dias
+										<input hidden type="text" name="filtro" value="filtroPrazo">
+										<input hidden class="form-control mr-sm-2" type="submit" placeholder="Pesquisar empenho" aria-label="Search">
+									</form></th>
 					<th scope="col"></th>
 				</tr>
 			</thead>

@@ -452,6 +452,46 @@ public class EmpenhoDao {
 			throw new RuntimeException(e);
 		}
 	}
+	public List<Empenho> getListaEmpenhosPendentesFiltroPrazoVencido() {
+		try {
+			List<Empenho> empenhos = new ArrayList<Empenho>();
+			PreparedStatement stmt = this.connection.
+					prepareStatement("select * from empenho as c inner join empresa as b on c.idempresa = b.idempresa \r\n" + 
+							"where not exists(select a.idempenho,sum(a.valorTotal),c.valorTotal from notafiscal as a inner join empenho as b on \r\n" + 
+							"a.idEmpenho = b.idempenho group by a.idEmpenho HAVING sum(a.valorTotal) = c.valorTotal and a.idEmpenho = c.idempenho)\r\n" + 
+							"and c.dataEmpenho <= DATE_SUB(now(), INTERVAL 30 DAY)");
+			
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				// criando o objeto Contato
+				Empenho empenho = new Empenho();
+				empenho.setIdEmpenho(rs.getInt("idempenho"));
+				empenho.setNumeroEmpenho(rs.getString("numeroEmpenho"));
+				//empenho.setEmpresa(rs.getString(""));
+				empenho.setDestino(rs.getString("destino"));
+				empenho.setValorTotal(rs.getDouble("valorTotal"));
+				empenho.setEmpenhoDigitalizado(rs.getBytes("empenhoDigitalizado"));
+				
+				Empresa empresa = new Empresa();
+				empresa.setNome(rs.getString("nome"));
+				empenho.setEmpresa(empresa);
+
+				// montando a data atrav�s do Calendar
+				Calendar data = Calendar.getInstance();
+				data.setTime(rs.getDate("dataEmpenho"));
+				empenho.setDataEmpenho(data);
+
+				// adicionando o objeto � lista
+				empenhos.add(empenho);
+			}
+			rs.close();
+			stmt.close();
+			return empenhos;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	public List<Empenho> getListaMeusEmpenhosPendentes(int id) {
 		try {
 			List<Empenho> empenhos = new ArrayList<Empenho>();

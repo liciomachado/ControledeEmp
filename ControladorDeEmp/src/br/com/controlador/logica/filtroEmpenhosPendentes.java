@@ -35,6 +35,9 @@ public class filtroEmpenhosPendentes extends HttpServlet {
 			String filtroDestino = req.getParameter("destino");
 			empenhos = new EmpenhoDao().getListaEmpenhosPendentesFiltroDestino(filtroDestino);
 			break;
+		case "filtroPrazo":
+			empenhos = new EmpenhoDao().getListaEmpenhosPendentesFiltroPrazoVencido();
+			break;
 		}
 		req.setAttribute("empenhos", empenhos);
 		req.getRequestDispatcher("/pages/empenhosPendentesFiltro.jsp").forward(req,res);
