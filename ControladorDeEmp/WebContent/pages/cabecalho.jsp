@@ -44,8 +44,16 @@ HttpSession sessao = request.getSession();
 		      </li>
 
 			</ul>
+			<jsp:useBean id="dao56" class="br.com.controlador.jdbc.dao.EmpenhoDao" />
+			
 			<form action="${pageContext.request.contextPath}/pages/detalheEmpenho.jsp" method="get" class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm-2" type="search" name="numEmpenho" id="numEmpenho" placeholder="Pesquisar empenho" aria-label="Search">
+				<%--<input class="form-control mr-sm-2" type="search" name="numEmpenho" id="numEmpenho" placeholder="Pesquisar empenho" aria-label="Search"> --%>
+				<select class="js-example-basic-single form-control col-md-12" onchange="this.form.submit()" id="inputEmp2" name="numEmpenho">
+							<option value="">Pesquisar Empenho</option>
+							<c:forEach var="emp" items="${dao56.listaEmpenhosPendentes}">
+								<option value="${emp.numeroEmpenho}">${emp.numeroEmpenho}</option>
+							</c:forEach>
+				</select>
 				<input hidden class="form-control mr-sm-2" type="submit" placeholder="Pesquisar empenho" aria-label="Search">
 			</form>
 
