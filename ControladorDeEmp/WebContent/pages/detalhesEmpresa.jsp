@@ -1,3 +1,5 @@
+<%@page import="java.text.NumberFormat"%>
+<%@page import="java.util.Locale"%>
 <%@page import="br.com.controlador.jdbc.dao.EmpenhoDao"%>
 <%@page import="br.com.controlador.jdbc.modelo.Empenho"%>
 <%@page import="java.util.List"%>
@@ -11,6 +13,12 @@
 	Empenho emp = new Empenho();
 	EmpenhoDao dao = new EmpenhoDao();
 	List<Empenho> empList = dao.buscaPorIDSemNFparaEmpresa(numEmpenho);
+	
+	Double totalEmpenhado = dao.somaEmpenhadoEmpresa(numEmpenho);
+	Locale ptBr = new Locale("pt", "BR");
+	String valorString = NumberFormat.getCurrencyInstance(ptBr).format(totalEmpenhado);
+
+	int mediaTempoEntregaPorEmpresa = dao.mediaEntregaPorEmpresa(numEmpenho);
 	pageContext.setAttribute("empresa", empList);
 	
 %>
@@ -19,8 +27,16 @@
 
 <div class="container">
 	<div class="row">
-		<div class="display-4">Empenhos</div>
-		<br>
+		<div class="display-4 col-md-12">Empenhos</div>
+		</br>
+		
+		<span class="box2"> 
+			<h3>Total Empenhado: <%=valorString%> </h3>
+		</span>
+		<span class="box2"> 
+			<h3>Tempo medio de entrega: <%=mediaTempoEntregaPorEmpresa%> Dias</h3>
+		</span>
+		
 		<table class="table table-hover">
 			<thead class="thead-light">
 				<tr>

@@ -262,6 +262,40 @@ public class EmpenhoDao {
 			throw new RuntimeException(e);
 		}
 	}
+	public double somaEmpenhadoEmpresa(int id) {
+		double soma = 0;
+		try{
+			PreparedStatement stmt = this.connection.prepareStatement("SELECT sum(valorTotal) as total FROM empenho as a inner join empresa as b on a.idEmpresa = b.idempresa where b.idempresa = ?");
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+
+			if(rs.next()) {
+				soma = rs.getDouble("total");
+				rs.close();
+				stmt.close();
+			}
+			return soma;
+		}catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public int mediaEntregaPorEmpresa(int id) {
+		int soma = 0;
+		try{
+			PreparedStatement stmt = this.connection.prepareStatement("select avg(datediff(n.dataRecebido,dataEmpenho)) as data from empenho as a inner join notafiscal as n on n.idEmpenho = a.idempenho where a.idEmpresa = ?");
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+
+			if(rs.next()) {
+				soma = rs.getInt("data");
+				rs.close();
+				stmt.close();
+			}
+			return soma;
+		}catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 	public List<Empenho> getLista() {
 		try {
 			List<Empenho> empenhos = new ArrayList<Empenho>();
