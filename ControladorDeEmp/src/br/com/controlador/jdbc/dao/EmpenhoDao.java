@@ -239,6 +239,26 @@ public class EmpenhoDao {
 			throw new RuntimeException(e);
 		}
 	}
+	public List<Empenho> getListaNumerosDeEmpenho() {
+		try {
+			List<Empenho> empenhos = new ArrayList<Empenho>();
+			PreparedStatement stmt = this.connection.
+					prepareStatement("select numeroEmpenho from empenho");
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				// criando o objeto Contato
+				Empenho empenho = new Empenho();
+				empenho.setNumeroEmpenho(rs.getString("numeroEmpenho"));
+				empenhos.add(empenho);
+			}
+			rs.close();
+			stmt.close();
+			return empenhos;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	public Empenho buscaParaNF(int id) {
 		Empenho empenho = new Empenho();
 		try{

@@ -27,14 +27,14 @@
 
 <div class="container">
 	<div class="row">
-		<div class="display-4 col-md-12">Empenhos</div>
+		<div class="display-4 col-md-12"> Empenhos</div>
 		</br>
 		
 		<span class="box2"> 
 			<h3>Total Empenhado: <%=valorString%> </h3>
 		</span>
 		<span class="box2"> 
-			<h3>Tempo medio de entrega: <%=mediaTempoEntregaPorEmpresa%> Dias</h3>
+			<h3>Tempo médio de entrega: <%=mediaTempoEntregaPorEmpresa%> Dias</h3>
 		</span>
 		
 		<table class="table table-hover">

@@ -50,7 +50,7 @@ HttpSession sessao = request.getSession();
 				<%--<input class="form-control mr-sm-2" type="search" name="numEmpenho" id="numEmpenho" placeholder="Pesquisar empenho" aria-label="Search"> --%>
 				<select class="js-example-basic-single form-control col-md-12" onchange="this.form.submit()" id="inputEmp2" name="numEmpenho">
 							<option value="">Pesquisar Empenho</option>
-							<c:forEach var="emp" items="${dao56.listaEmpenhosPendentes}">
+							<c:forEach var="emp" items="${dao56.listaNumerosDeEmpenho}">
 								<option value="${emp.numeroEmpenho}">${emp.numeroEmpenho}</option>
 							</c:forEach>
 				</select>
