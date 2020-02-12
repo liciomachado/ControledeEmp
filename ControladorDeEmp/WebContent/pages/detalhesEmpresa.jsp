@@ -1,3 +1,5 @@
+<%@page import="br.com.controlador.jdbc.dao.EmpresaDao"%>
+<%@page import="br.com.controlador.jdbc.modelo.Empresa"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page import="java.util.Locale"%>
 <%@page import="br.com.controlador.jdbc.dao.EmpenhoDao"%>
@@ -19,6 +21,11 @@
 	String valorString = NumberFormat.getCurrencyInstance(ptBr).format(totalEmpenhado);
 
 	int mediaTempoEntregaPorEmpresa = dao.mediaEntregaPorEmpresa(numEmpenho);
+	
+	Empresa empresa = new Empresa();
+	EmpresaDao daoEmpresa = new EmpresaDao();
+	empresa = daoEmpresa.buscaPorId(numEmpenho);
+	String nomeEmpresa = empresa.getNome();
 	pageContext.setAttribute("empresa", empList);
 	
 %>
@@ -27,7 +34,7 @@
 
 <div class="container">
 	<div class="row">
-		<div class="display-4 col-md-12"> Empenhos</div>
+		<div class="display-4 col-md-12"><%=nomeEmpresa%></div>
 		</br>
 		
 		<span class="box2"> 
