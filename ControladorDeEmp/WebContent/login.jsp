@@ -39,6 +39,7 @@
 			<%} %>
 
 			<input type="submit" name="logaUsuario" value="Entrar">
+			<a href="#" style="color: white; text-align: center;">Cadastre-se agora</a>
 		</form>
 	</div>
 </body>

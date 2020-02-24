@@ -46,6 +46,10 @@ public class servletUsuario extends HttpServlet {
 			HttpSession sessao = request.getSession();
 			sessao.setAttribute("UsuarioCompleto", user);
 			break;
+		case "novo":
+			dao.adiciona(user);
+			response.sendRedirect("login.jsp");
+			break;
 		}
 
 	}
