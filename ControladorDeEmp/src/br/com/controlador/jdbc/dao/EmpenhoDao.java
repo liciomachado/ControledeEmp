@@ -605,7 +605,7 @@ public class EmpenhoDao {
 		}
 	}
 	public void alteraStatus(int id) {
-		String sql = "update empenho as a inner join notafiscal as b on a.idempenho = b.idempenho set a.etapa=5 where b.idnotafiscal = ?";
+		String sql = "update empenho as a inner join notafiscal as b on a.idempenho = b.idempenho set b.etapaProtocolado=5,a.etapa = 5 where b.idnotafiscal = ?";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -616,6 +616,7 @@ public class EmpenhoDao {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+
 	}
 	
 	public boolean SaldoEmpenho(int id) {
@@ -648,7 +649,7 @@ public class EmpenhoDao {
 		}
 	}
 	public void alteraStatusVoltaProtocolo(int id) {
-		String sql = "update empenho as a inner join notafiscal as b on a.idempenho = b.idempenho set a.etapa=4 where b.idnotafiscal = ?";
+		String sql = "update empenho as a inner join notafiscal as b on a.idempenho = b.idempenho set a.etapa=4,b.etapaProtocolado=4 where b.idnotafiscal = ?";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);

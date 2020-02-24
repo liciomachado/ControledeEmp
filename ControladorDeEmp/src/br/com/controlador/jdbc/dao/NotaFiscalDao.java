@@ -28,8 +28,8 @@ public class NotaFiscalDao {
 
 	public void adiciona(NotaFiscal nf) {
 		String sql = "insert into notafiscal " +
-				"(numNota,chaveAcesso,valorTotal,idEmpenho,dataEmissao,dataRecebido,idusuario)" +
-				" values (?,?,?,?,?,?,?);";
+				"(numNota,chaveAcesso,valorTotal,idEmpenho,dataEmissao,dataRecebido,idusuario,etapaProtocolado)" +
+				" values (?,?,?,?,?,?,?,4);";
 		
 		String sql2 = "update empenho set etapa = 4 where idempenho = ?;";
 		try {
@@ -362,7 +362,7 @@ public class NotaFiscalDao {
 					prepareStatement("select a.idnotaFiscal,b.dataEmpenho,a.dataRecebido,empr.nome,a.numNota,a.valorTotal,\r\n" + 
 							"b.numeroEmpenho,b.destino,a.chaveAcesso,b.idempenho\r\n" + 
 							"from notafiscal as a inner join empenho as b on a.idEmpenho = b.idempenho \r\n" + 
-							"inner join  empresa as empr on empr.idempresa = b.idEmpresa where b.etapa = 4;");
+							"inner join  empresa as empr on empr.idempresa = b.idEmpresa where a.etapaProtocolado = 4;");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {

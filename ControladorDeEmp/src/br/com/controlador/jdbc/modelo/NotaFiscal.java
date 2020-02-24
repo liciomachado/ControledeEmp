@@ -17,7 +17,14 @@ public class NotaFiscal {
 	private Calendar dataRecebido;
 	private Calendar dataProtocolado;
 	private Usuario usuario;
+	private int etapaProtocolado;
 	
+	public int getEtapaProtocolado() {
+		return etapaProtocolado;
+	}
+	public void setEtapaProtocolado(int etapaProtocolado) {
+		this.etapaProtocolado = etapaProtocolado;
+	}
 	public Calendar getDataProtocolado() {
 		return dataProtocolado;
 	}

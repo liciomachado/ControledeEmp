@@ -39,8 +39,8 @@
 							</form>
 						</div>
 					<form enctype="multipart/form-data"
-						class="form-group needs-validation justify-content-center"
-						method="post" action="../adicionaEmpenho" novalidate>
+						class="form-group justify-content-center"
+						method="post" action="../adicionaEmpenho">
 						
 						<div class="form-row">
 							<div class="form-group col-md-12">
@@ -96,7 +96,7 @@
 							<div class="form-group col-md-12">
 								<label for="mensagemAdicional">Mensagem Complementar</label>
 								<textarea class="form-control" id="mensagemAdicional" rows="4"
-									name="mensagem" placeholder="Mensagem Complementar referente ao empenho" required></textarea>
+									name="mensagem" placeholder="Mensagem Complementar referente ao empenho"></textarea>
 							</div>
 							
 						</div>
@@ -105,9 +105,7 @@
 							name="salvaNoticia" formaction="../enviaEmail">Enviar Email/Gravar</button>
 						</div>
 					</form>
-				
 			</div>
-		
 	</div>
 </div>
 

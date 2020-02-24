@@ -211,7 +211,7 @@
 			</div>
 		</div>
 					<div class="form-group col-md-4">
-						<label for="inputChaveAcesso">Chave de acesso</label> <input type="text" readonly
+						<label for="inputChaveAcesso"><a href="http://www.nfe.fazenda.gov.br/portal/consultaRecaptcha.aspx?tipoConteudo=XbSeqxE8pl8%3D&tipoConsulta=completa&nfe=${nf.chaveAcesso}"  target="_blank">Chave de acesso</a></label> <input type="text" readonly
 							class="form-control" id="inputChaveAcesso" name="inputChaveAcesso" required value="${nf.chaveAcesso}">
 					</div>
 					<div class="form-group col-md-1">
