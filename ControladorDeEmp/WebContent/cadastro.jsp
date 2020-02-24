@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap4/css/estilos.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/select2/dist/css/select2.min.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/img/iconOM.png" />
 <title>Cadastre-se</title>
 </head>
 <body>

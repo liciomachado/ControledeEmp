@@ -663,8 +663,23 @@ public class EmpenhoDao {
 	}
 	public void remove(Empenho empenho) {
 		try {
-			PreparedStatement stmt = connection.prepareStatement("delete " +
-					"from empenho where idempenho=?");
+			PreparedStatement stmt = connection.prepareStatement("delete from notafiscal where idEmpenho=?");
+			stmt.setLong(1, empenho.getIdEmpenho());
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		try {
+			PreparedStatement stmt = connection.prepareStatement("delete from observacoes where idempenho=?");
+			stmt.setLong(1, empenho.getIdEmpenho());
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		try {
+			PreparedStatement stmt = connection.prepareStatement("delete from empenho where idempenho=?");
 			stmt.setLong(1, empenho.getIdEmpenho());
 			stmt.execute();
 			stmt.close();

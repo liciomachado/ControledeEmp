@@ -72,7 +72,12 @@
 	$(document).ready(function() {
 		$('.js-example-basic-single').select2();
 	});
-
+	
+	//MODAL EXCLUSAO DE EMPENHO
+	$('#myModal').on('shown.bs.modal', function () {
+		  $('#myInput').trigger('focus')
+	});
+		
 	$(document).ready(function() {
 		$("select[name='inputEmp']").change(function() {
 

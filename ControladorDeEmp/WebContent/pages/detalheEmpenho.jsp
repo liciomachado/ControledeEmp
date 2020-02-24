@@ -112,15 +112,51 @@
 	<%}%>
 	<fieldset class="border p-2" id="empenho">
 		<legend class="w-auto">Empenho </legend>
-		<form method="post" action="../servletEmpenho">
-			<input hidden type="text" value="alteraEmpenho" name="acao">
 			<div class="form-row">
-			<div class="form-group col-md-12">
+			<div class="form-group col-md-3">
 				<div class="form-check">
 					<input class="form-check-input" type="checkbox" value="" id="HabilitaEmpenho"> 
 					<label class="form-check-label" for="HabilitaEmpenho"> Habilitar Edição  </label>
 				</div>
 			</div>
+			
+			<div class="form-group col-md-9" style="text-align: right;">
+				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+				  X
+				</button>
+			</div>
+				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					  <div class="modal-dialog modal-dialog-centered" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title" id="exampleModalLongTitle">Confirmação de exclusão de empenho</h5>
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					          <span aria-hidden="true">&times;</span>
+					        </button>
+					      </div>
+					      <form action="../servletEmpenho" method="post">
+						      <div class="modal-body">
+						      		<div class="form-group">
+										<input hidden type="text" value="excluir" name="acao">
+										<input hidden type="text" value="<%= emp.getNumeroEmpenho()%>" name="numEmpenho">
+										<input hidden type="text" value="<%= emp.getIdEmpenho() %>" name="idEmp">
+										<input type="password" class="form-control" id="senha" name="senha" placeholder="Confirme sua senha" required value=""> 
+									</div>				      
+				             </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+						        <button type="submit" class="btn btn-primary">Confirmar</button>
+						      </div>
+					      </form>
+					    </div>
+					  </div>
+					</div>
+			</div>
+			
+				
+				<form method="post" action="../servletEmpenho">
+				<input hidden type="text" value="alteraEmpenho" name="acao">
+				<div class="form-row">
 				<div class="form-group col-md-3">
 						<label for="idEmpenho">Enviado por: </label> <input readonly
 							type="text" class="form-control" id="idEmpenho"
@@ -154,7 +190,8 @@
 					<button type="submit" class="btn btn-primary mb-2">Alterar Empenho</button>
 				</div>			
 			</div>
-		</form>	
+			</form>	
+		
 	</fieldset>
 	
 	<fieldset class="border p-2" id="empresa">
