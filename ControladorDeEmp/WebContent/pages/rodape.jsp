@@ -52,7 +52,13 @@
 	$(document).ready(function () {
 		  $('#dtBasicExample').DataTable();
 		  $('.dataTables_length').addClass('bs-select');
+		  
 	});
+	
+	$(document).ready(function () {
+		$(".dropdown-trigger").dropdown();
+	});
+	
 	
 	function carregaUser(adm, user) {
 		var elemento = document.getElementById(adm);
@@ -219,7 +225,7 @@
 	$(document).ready(function(){
 	    $('.trRecebidos').click(function(){
 	        window.location = $(this).data('url');
-	        returnfalse;
+	        return false;
 	    });
 	});
 </script>

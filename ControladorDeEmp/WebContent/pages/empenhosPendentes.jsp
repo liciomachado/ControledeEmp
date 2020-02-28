@@ -30,8 +30,7 @@
 		</thead>
 		<tbody style="cursor: pointer">
 			<c:forEach var="emp" items="${dao.listaEmpenhosPendentes}">
-				<tr class="trRecebidos"
-					data-url="detalheEmpenho.jsp?numEmpenho=${emp.numeroEmpenho}">
+				<tr	onclick=location.href='detalheEmpenho.jsp?numEmpenho=${emp.numeroEmpenho}'>
 					<td><a href="../downloadPDF?numID=${emp.idEmpenho}">${emp.numeroEmpenho}</td>
 					<td>${emp.empresa.nome}</td>
 					<td>${emp.valorTotal}</td>

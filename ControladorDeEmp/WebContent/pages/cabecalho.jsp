@@ -17,6 +17,7 @@ HttpSession sessao = request.getSession();
 <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="viewport" content="width=device-width, initial-scale=1">-->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap4/css/bootstrap.min.css">
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/materialize/css/materialize.min.css"> --%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap4/css/estilos.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/select2/dist/css/select2.min.css">
