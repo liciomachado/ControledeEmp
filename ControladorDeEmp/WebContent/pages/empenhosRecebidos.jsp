@@ -30,8 +30,8 @@
 						target="_blank">${nota.empenho.numeroEmpenho}</td>
 					<td>${nota.empresa.nome}</td>
 					<td>${nota.numNota}</td>
-					<td><fmt:formatDate value="${nota.dataEmissao.time}" /></td>
-					<td><fmt:formatDate value="${nota.dataRecebido.time}" /></td>
+					<td><fmt:formatDate value="${nota.dataEmissao.time}" pattern="yyyy-MM-dd"/></td>
+					<td><fmt:formatDate value="${nota.dataRecebido.time}" pattern="yyyy-MM-dd"/></td>
 					<td>${nota.valorTotal}</td>
 					<td>${nota.empenho.destino}</td>
 					<td><a

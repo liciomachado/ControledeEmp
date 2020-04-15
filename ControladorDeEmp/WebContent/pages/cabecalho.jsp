@@ -21,7 +21,9 @@ HttpSession sessao = request.getSession();
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap4/css/estilos.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/select2/dist/css/select2.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/MDB/css/addons/datatables.min.css" rel="stylesheet">
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/MDB/css/addons/datatables.min.css" rel="stylesheet"> --%>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>
+
 <title>Controlador de Empenhos</title>
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/iconOM.png" />
 </head>

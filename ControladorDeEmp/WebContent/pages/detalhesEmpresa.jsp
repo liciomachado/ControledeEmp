@@ -1,3 +1,5 @@
+<%@page import="br.com.controlador.jdbc.dao.ObservacoesEmpresaDao"%>
+<%@page import="br.com.controlador.jdbc.modelo.ObservacoesEmpresa"%>
 <%@page import="br.com.controlador.jdbc.dao.EmpresaDao"%>
 <%@page import="br.com.controlador.jdbc.modelo.Empresa"%>
 <%@page import="java.text.NumberFormat"%>
@@ -28,6 +30,10 @@
 	String nomeEmpresa = empresa.getNome();
 	pageContext.setAttribute("empresa", empList);
 	
+	ObservacoesEmpresa obs = new ObservacoesEmpresa();
+	ObservacoesEmpresaDao obsDao = new ObservacoesEmpresaDao();
+	List<ObservacoesEmpresa> obsList = obsDao.getListaPeloId(numEmpenho);
+	pageContext.setAttribute("obs", obsList);
 %>
 
 <c:import url="cabecalho.jsp" />
@@ -43,7 +49,26 @@
 		<span class="box2"> 
 			<h3>Tempo médio de entrega: <%=mediaTempoEntregaPorEmpresa%> Dias</h3>
 		</span>
-		
+	</div>
+		<fieldset class="border p-2" id="observacoes">
+			<legend class="w-auto">Observações sobre a empresa </legend>
+			<c:forEach var="obs" items="${obs}">
+			${obs.usuario.nome} -> <fmt:formatDate value="${obs.dataObs.time}" /> - ${obs.observacao} </br>
+			</c:forEach>
+			<div class="form-group" id="txtObs" style="display:none;">
+			<form action="../salvaObservacaoempresa" method="post">
+				<input hidden type="text" value="<%=numEmpenho%>" name="pegaIdEmpresa">
+				<textarea name="pegaObs" class="form-control" id="exampleFormControlTextarea1" rows="2" for="salvaOBs"></textarea>
+				<input class="btn btn-primary mb-2" type="submit" id="salvaOBs" value="Salvar">
+			</form>
+			</div>
+			<div style="text-align: right;">
+			<button id="adicionaObs" type="button" class="btn btn-default" aria-label="Left Align">
+				<img alt="add" width="25" height="25" src="../img/add.png">
+			</button>
+			</div>
+		</fieldset>
+		</br>
 		<table class="table table-hover">
 			<thead class="thead-light">
 				<tr>
@@ -77,7 +102,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
-	</div>
+		
 </div>
 </br></br></br></br></br>
 <c:import url="rodape.jsp" />

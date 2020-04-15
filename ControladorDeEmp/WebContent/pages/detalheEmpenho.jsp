@@ -196,7 +196,7 @@
 	
 	<fieldset class="border p-2" id="empresa">
 
-		<legend class="w-auto">Empresa </legend>
+		<legend class="w-auto"><a href="detalhesEmpresa.jsp?idEmpresa=<%= emp.getEmpresa().getIdEmpresa() %>">Empresa</a></legend>
 		<form action="../adicionaEmpresa" method="post">
 		<input hidden type="text" value="alteraNoEmpenho" name="acao">
 		<input hidden type="text" value="<%= emp.getEmpresa().getIdEmpresa() %>" name="idEmpresa">

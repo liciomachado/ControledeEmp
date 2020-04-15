@@ -3,11 +3,6 @@ package br.com.controlador.jdbc.modelo;
 import java.util.Arrays;
 import java.util.Calendar;
 
-import com.sun.prism.Image;
-
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
-
 public class Empenho {
 
 	private int idEmpenho;
@@ -18,9 +13,23 @@ public class Empenho {
 	private Usuario usuario;
 	private String destino;
 	private double valorTotal;
-	private byte[] EmpenhoDigitalizado; // MUDAR CONFORME APRENDER
+	private byte[] EmpenhoDigitalizado; 
 	private int etapa;
+	private double saldoUtilizado;
+	private double saldo;
 	
+	public double getSaldoUtilizado() {
+		return saldoUtilizado;
+	}
+	public void setSaldoUtilizado(double saldoUtilizado) {
+		this.saldoUtilizado = saldoUtilizado;
+	}
+	public double getSaldo() {
+		return saldo;
+	}
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
+	}
 	public Usuario getUsuario() {
 		return usuario;
 	}

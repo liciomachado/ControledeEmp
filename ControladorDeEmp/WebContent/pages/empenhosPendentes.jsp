@@ -24,19 +24,19 @@
 				<th class="th-sm">Empresa</th>
 				<th class="th-sm">Valor</th>
 				<th class="th-sm">Destino</th>
-				<th class="th-sm">Situação</th>
+				<th class="th-sm">Saldo</th>
 				<th class="th-sm">Enviado</th>
 			</tr>
 		</thead>
 		<tbody style="cursor: pointer">
-			<c:forEach var="emp" items="${dao.listaEmpenhosPendentes}">
+			<c:forEach var="emp" items="${dao.listaEmpenhosPendenteseSaldo}">
 				<tr	onclick=location.href='detalheEmpenho.jsp?numEmpenho=${emp.numeroEmpenho}'>
 					<td><a href="../downloadPDF?numID=${emp.idEmpenho}">${emp.numeroEmpenho}</td>
 					<td>${emp.empresa.nome}</td>
 					<td>${emp.valorTotal}</td>
 					<td>${emp.destino}</td>
-					<td>Pendente</td>
-					<td><fmt:formatDate value="${emp.dataEmpenho.time}" /></td>
+					<td>${emp.saldo}</td>
+					<td><fmt:formatDate value="${emp.dataEmpenho.time}" pattern="yyyy-MM-dd"/></td>
 				</tr>
 			</c:forEach>
 		</tbody>

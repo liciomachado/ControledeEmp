@@ -50,9 +50,10 @@
 	});
 	//CONFIG MDB TABLE
 	$(document).ready(function () {
-		  $('#dtBasicExample').DataTable();
+		  $('#dtBasicExample').DataTable({
+			  lengthMenu :[10,25,50,100,500]
+		  });
 		  $('.dataTables_length').addClass('bs-select');
-		  
 	});
 	
 	$(document).ready(function () {

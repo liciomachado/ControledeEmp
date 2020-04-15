@@ -10,14 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import com.mysql.jdbc.Statement;
-import com.sun.media.sound.EmergencySoundbank;
 
 import br.com.controlador.jdbc.ConnectionFactory;
 import br.com.controlador.jdbc.modelo.Empenho;
@@ -371,12 +367,55 @@ public class EmpenhoDao {
 				empresa.setNome(rs.getString("nome"));
 				empenho.setEmpresa(empresa);
 
-				// montando a data atrav�s do Calendar
 				Calendar data = Calendar.getInstance();
 				data.setTime(rs.getDate("dataEmpenho"));
 				empenho.setDataEmpenho(data);
 
-				// adicionando o objeto � lista
+				empenhos.add(empenho);
+			}
+			rs.close();
+			stmt.close();
+			return empenhos;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public List<Empenho> getListaEmpenhosPendenteseSaldo() {
+		try {
+			List<Empenho> empenhos = new ArrayList<Empenho>();
+			PreparedStatement stmt = this.connection.
+					prepareStatement("select c.idempenho,c.numeroEmpenho,c.destino,b.nome,c.dataEmpenho,c.empenhoDigitalizado,\r\n" + 
+							"c.valorTotal,sum(nota.valorTotal) as utilizado, \r\n" + 
+							"round((c.valorTotal - sum(nota.valorTotal)),2) as saldo \r\n" + 
+							"from empenho as c inner join empresa as b on c.idempresa = b.idempresa\r\n" + 
+							"left JOIN notafiscal as nota on nota.idEmpenho = c.idempenho\r\n" + 
+							"		where not exists(select a.idempenho,sum(round(a.valorTotal,2)),c.valorTotal from notafiscal as a inner join empenho as b on \r\n" + 
+							"		a.idEmpenho = b.idempenho group by a.idEmpenho HAVING sum(a.valorTotal) = c.valorTotal and a.idEmpenho = c.idempenho)\r\n" + 
+							"group by c.idempenho;");
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				// criando o objeto Contato
+				Empenho empenho = new Empenho();
+				empenho.setIdEmpenho(rs.getInt("idempenho"));
+				empenho.setNumeroEmpenho(rs.getString("numeroEmpenho"));
+				empenho.setDestino(rs.getString("destino"));
+				empenho.setValorTotal(rs.getDouble("valorTotal"));
+				empenho.setEmpenhoDigitalizado(rs.getBytes("empenhoDigitalizado"));
+				empenho.setSaldoUtilizado(rs.getDouble("utilizado"));
+				empenho.setSaldo(rs.getDouble("saldo"));
+				if (empenho.getSaldo() == 0) {
+					empenho.setSaldo(empenho.getValorTotal());
+				}
+				
+				Empresa empresa = new Empresa();
+				empresa.setNome(rs.getString("nome"));
+				empenho.setEmpresa(empresa);
+
+				Calendar data = Calendar.getInstance();
+				data.setTime(rs.getDate("dataEmpenho"));
+				empenho.setDataEmpenho(data);
+
 				empenhos.add(empenho);
 			}
 			rs.close();
